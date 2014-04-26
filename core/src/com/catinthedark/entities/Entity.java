@@ -8,19 +8,19 @@ import java.awt.*;
  * Created by Ilya on 26.04.2014.
  */
 public class Entity {
-    protected int y;
-    protected int x;
+    protected float y;
+    protected float x;
     protected int width;
     protected int height;
     public final Rectangle bounds = new Rectangle();
 
-    public Entity(int x, int y, int width, int height) {
+    public Entity(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
 
-        bounds.setBounds(x, y, width, height);
+        bounds.setRect(x, y, width, height);
     }
 
     public void render(float delta, SpriteBatch batch) {
