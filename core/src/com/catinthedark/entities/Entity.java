@@ -1,5 +1,7 @@
 package com.catinthedark.entities;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.awt.*;
 
 /**
@@ -19,5 +21,9 @@ public class Entity {
         this.y = y;
 
         bounds.setBounds(x, y, width, height);
+    }
+
+    public void render(float delta, SpriteBatch batch) {
+        
     }
 }

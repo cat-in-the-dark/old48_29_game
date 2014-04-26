@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.catinthedark.BSODGame;
-import com.catinthedark.hud.GameHud;
 
 /**
  * Created by Ilya on 26.04.2014.
