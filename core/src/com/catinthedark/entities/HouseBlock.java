@@ -31,7 +31,7 @@ public class HouseBlock extends Entity {
         this.destroyed = destroyed;
     }
 
-    public HouseBlock(boolean withEnemy, int x, int y) {
+    public HouseBlock(boolean withEnemy, float x, float y) {
         super(x, y, blockWidth, blockHeight);
         setWithEnemy(withEnemy);
     }

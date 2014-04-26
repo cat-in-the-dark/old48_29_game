@@ -15,11 +15,9 @@ public class House extends Entity{
 
     private int heightInBlocks;
     private int widthInBlocks;
-    private int x;
-    private int y;
     private ArrayList<HouseBlock> houseBlocks = new ArrayList<HouseBlock>();
 
-    public House(int x, int y, int widthInBlocks, int heightInBlocks) {
+    public House(float x, float y, int widthInBlocks, int heightInBlocks) {
         super(x, y, widthInBlocks * HouseBlock.blockWidth, heightInBlocks * HouseBlock.blockHeight);
         this.x = x;
         this.y = y;
@@ -32,8 +30,8 @@ public class House extends Entity{
         ArrayList<Integer> vacantRoomNumbers = new ArrayList<Integer>();
         for (int i = 0; i < widthInBlocks; i++) {
             for (int j = 0; j < heightInBlocks; j ++) {
-                int blockX = i * HouseBlock.blockWidth + this.x;
-                int blockY = j * HouseBlock.blockHeight + this.y;
+                float blockX = i * HouseBlock.blockWidth + this.x;
+                float blockY = j * HouseBlock.blockHeight + this.y;
                 houseBlocks.add(new HouseBlock(false, blockX, blockY));
                 vacantRoomNumbers.add(i + j);
             }
