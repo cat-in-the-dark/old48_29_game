@@ -60,10 +60,9 @@ public class GameHud {
 	}
 
 	public void render() {
-
 		Gdx.gl.glLineWidth(BAR_BORDER_WIDTH);
 		shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.MAGENTA);
+		shapeRenderer.setColor(Color.BLACK);
 		shapeRenderer.rect(X_POS + 130 + 3, Y_POS + BAR_BORDER_WIDTH,
 				(float) democracyLevel / 100 * WIDTH - 6, HEIGHT - 4);
 		shapeRenderer.end();
