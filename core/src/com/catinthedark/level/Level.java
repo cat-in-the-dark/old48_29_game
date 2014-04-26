@@ -3,6 +3,7 @@ package com.catinthedark.level;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
+import com.catinthedark.GameScore;
 import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
@@ -30,9 +31,10 @@ public class Level {
         levelEntities.put(House.class, new ArrayList<Entity>());
         levelEntities.put(Rocket.class, new ArrayList<Entity>());
         levelEntities.put(Bullet.class, new ArrayList<Entity>());
+        GameScore.getInstance().setDemocracyLevel(6);
         
       //тут просто создадим пулю маджахета для тестинга
-    	levelEntities.get(Bullet.class).add(new Bullet(16,10, 1, 1));
+        levelEntities.get(Bullet.class).add(new Bullet(16, 10, 1, 1));
     }
 
     private boolean isInViewPort(Entity entity) {

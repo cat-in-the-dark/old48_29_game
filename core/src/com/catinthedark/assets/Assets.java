@@ -21,7 +21,7 @@ public class Assets {
     public static Texture  democracyTex;
     public static Texture houseBlockTexture;
     public static Texture bulletTexture;
-    
+    public static Texture enemyBlockTexture;
     public static BitmapFont font;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
@@ -60,10 +60,14 @@ public class Assets {
     	backgroundRenderer = new OrthogonalTiledMapRenderer(backgroundMap, 1/32f);
 
         Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
-        houseBlockPixMap.setColor(0, 1, 0, 1);
+        houseBlockPixMap.setColor(0, 1, 1, 1);
         houseBlockPixMap.fill();
         houseBlockTexture = new Texture(houseBlockPixMap);
 
+        Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        enemyBlockPixMap.setColor(0, 0, 1, 1);
+        enemyBlockPixMap.fill();
+        enemyBlockTexture = new Texture(enemyBlockPixMap);
     }
 
     public static void loadGameData() {

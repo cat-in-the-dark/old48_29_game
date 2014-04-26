@@ -11,8 +11,8 @@ import com.catinthedark.assets.Assets;
 public class HouseBlock extends Entity {
     private boolean withEnemy = false;
     private boolean destroyed = false;
-    private int x;
-    private int y;
+    private float x;
+    private float y;
     public static final int blockWidth = 2;
     public static final int blockHeight = 2;
 
@@ -35,11 +35,17 @@ public class HouseBlock extends Entity {
     public HouseBlock(boolean withEnemy, float x, float y) {
         super(x, y, blockWidth, blockHeight);
         setWithEnemy(withEnemy);
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        batch.draw(Assets.houseBlockTexture, this.x, this.y);
+        if (isWithEnemy()) {
+            batch.draw(Assets.enemyBlockTexture, this.x, this.y);
+        } else {
+            batch.draw(Assets.houseBlockTexture, this.x, this.y);
+        }
     }
 }

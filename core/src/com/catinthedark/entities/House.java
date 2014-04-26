@@ -6,6 +6,9 @@ import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * User: Leyfer Kirill kolbasisha@gmail.com
@@ -31,19 +34,27 @@ public class House extends Entity{
         int blocksCount = widthInBlocks * heightInBlocks;
         int enemiesInHouseMax = GameScore.getInstance().getDemocracyLevel() * blocksCount / Constants.DEMOCRACY_LEVEL_MAX;
         int enemiesInHouse = MathUtils.random(0, enemiesInHouseMax);
-        ArrayList<Integer> vacantRoomNumbers = new ArrayList<Integer>();
-        for (int i = 0; i < widthInBlocks; i++) {
+
+        List<Integer> vacantRoomNumbers = new ArrayList<Integer>();
+        for (int i = 0; i < blocksCount; i++) {
+            vacantRoomNumbers.add(i);
+        }
+        List<Boolean> roomWithEnemy = (Arrays.asList(new Boolean[blocksCount]));
+        Collections.fill(roomWithEnemy, Boolean.FALSE);
+
+        for (int i = 0; i < enemiesInHouse; i ++) {
+            int roomNumber = MathUtils.random(0, vacantRoomNumbers.size() - 1);
+            roomWithEnemy.set(vacantRoomNumbers.get(roomNumber), true);
+            vacantRoomNumbers.remove(roomNumber);
+        }
+
+        for (int i = 0; i < widthInBlocks; i ++) {
             for (int j = 0; j < heightInBlocks; j ++) {
                 float blockX = i * HouseBlock.blockWidth + this.x;
                 float blockY = j * HouseBlock.blockHeight + this.y;
-                houseBlocks.add(new HouseBlock(false, blockX, blockY));
+                houseBlocks.add(new HouseBlock(roomWithEnemy.get(i + j * widthInBlocks), blockX, blockY));
                 vacantRoomNumbers.add(i + j);
             }
-        }
-        for (int i = 0; i < enemiesInHouse; i ++) {
-            int roomNumber = MathUtils.random(0, vacantRoomNumbers.size());
-            houseBlocks.get(roomNumber).setWithEnemy(true);
-            vacantRoomNumbers.remove(roomNumber);
         }
     }
 
