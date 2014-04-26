@@ -39,7 +39,7 @@ public class Level {
 
     private boolean isInViewPort(Entity entity) {
         Camera camera = gameScreen.getCamera();
-        return (camera.position.x - entity.getX()) < camera.viewportWidth / 2f;
+        return (camera.position.x - (entity.getX() + entity.getWidth())) < camera.viewportWidth / 2f;
     }
 
     private boolean isBulletInViewPort(Entity entity) {
