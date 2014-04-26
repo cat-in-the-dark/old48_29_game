@@ -1,5 +1,6 @@
 package com.catinthedark.level;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.entities.President;
 import com.catinthedark.screens.GameScreen;
 
@@ -12,5 +13,10 @@ public class Level {
 
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
+        president = new President(0, 0);
+    }
+
+    public void render(float delta, SpriteBatch batch) {
+        president.render(delta, batch);
     }
 }

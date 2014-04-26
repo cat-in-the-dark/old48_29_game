@@ -8,8 +8,8 @@ import java.awt.*;
  * Created by Ilya on 26.04.2014.
  */
 public class Entity {
-    private final int y;
-    private final int x;
+    protected int y;
+    protected int x;
     protected int width;
     protected int height;
     public final Rectangle bounds = new Rectangle();
@@ -24,6 +24,6 @@ public class Entity {
     }
 
     public void render(float delta, SpriteBatch batch) {
-        
+
     }
 }

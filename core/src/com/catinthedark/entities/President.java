@@ -1,6 +1,7 @@
 package com.catinthedark.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.catinthedark.assets.Assets;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -16,6 +17,6 @@ public class President extends Entity {
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        //batch.draw();
+        batch.draw(Assets.presidentTexture, this.x, this.y);
     }
 }
