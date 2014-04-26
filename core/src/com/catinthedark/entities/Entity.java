@@ -13,6 +13,14 @@ public class Entity {
     protected int width;
     protected int height;
     public final Rectangle bounds = new Rectangle();
+    protected Direction direction;
+
+    public enum Direction {
+        RIGHT, LEFT
+    }
+    public enum State {
+        IDLE, RUN, JUMP
+    }
 
     public Entity(float x, float y, int width, int height) {
         this.width = width;
@@ -33,6 +41,10 @@ public class Entity {
 
     public int getWidth() {
         return width;
+    }
+
+    public void setDirection(Direction dir) {
+        this.direction = dir;
     }
 
     public void render(float delta, SpriteBatch batch) {

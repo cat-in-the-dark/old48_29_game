@@ -13,17 +13,12 @@ public class President extends Entity {
     private final Vector2 minAcceleration = new Vector2(0f, 0f);
     private final Vector2 maxAcceleration = new Vector2(0.5f, 0.5f);
     private Vector2 acceleration = new Vector2(minAcceleration.x, minAcceleration.y);
-    private Direction direction;
     private State state;
 
-    public enum Direction {
-        RIGHT, LEFT
-    }
-    public enum State {
-        IDLE, RUN, JUMP
-    }
+    private double shutDelay = 1;
+    private double lastShutTime = 0;
 
-    public President(int x, int y) {
+    public President(float x, float y) {
         super(x, y, presidentWidth, presidentHeight);
         this.direction = Direction.RIGHT;
         this.state = State.IDLE;
@@ -32,13 +27,19 @@ public class President extends Entity {
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
+        lastShutTime += delta;
         this.x += acceleration.x;
         batch.draw(Assets.presidentTexture, this.x, this.y);
     }
 
-    public void setDirection(Direction dir) {
-        this.direction = dir;
+    public Rocket shut() {
+        if (lastShutTime > shutDelay) {
+            lastShutTime = 0;
+            return new Rocket(this.x + this.width / 2f, this.y + this.height / 2f, this);
+        }
+        return null;
     }
+
     public void move(boolean is_moving) {
         if (!is_moving) {
             acceleration.x = minAcceleration.x;

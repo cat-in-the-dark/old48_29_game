@@ -17,15 +17,20 @@ public class Assets {
     public static Texture  democracyTex;
     public static Texture houseBlockTexture;
     public static BitmapFont font;
+    public static Texture rocketTexture;
 
-	
 
     public static void setupAssets() {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
+        Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
 
         presidentPixmap.setColor(1, 0, 0, 1f);
         presidentPixmap.fill();
         presidentTexture = new Texture(presidentPixmap);
+
+        rocketPixmap.setColor(0, 1, 0, 1f);
+        rocketPixmap.fill();
+        rocketTexture = new Texture(rocketPixmap);
         
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));

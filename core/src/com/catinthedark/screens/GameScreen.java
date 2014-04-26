@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.BSODGame;
-import com.catinthedark.entities.President;
+import com.catinthedark.entities.Entity;
 import com.catinthedark.hud.GameHud;
 import com.catinthedark.level.Level;
 
@@ -52,11 +52,16 @@ public class GameScreen extends Basic2DScreen {
 	}
 
     public void processKeys() {
+        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            level.shut(level.president);
+            level.president.move(false);
+            return;
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            level.president.setDirection(President.Direction.RIGHT);
+            level.president.setDirection(Entity.Direction.RIGHT);
             level.president.move(true);
         } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            level.president.setDirection(President.Direction.LEFT);
+            level.president.setDirection(Entity.Direction.LEFT);
             level.president.move(true);
         } else {
             level.president.move(false);

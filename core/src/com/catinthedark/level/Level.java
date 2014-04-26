@@ -2,10 +2,10 @@ package com.catinthedark.level;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 import com.catinthedark.entities.President;
+import com.catinthedark.entities.Rocket;
 import com.catinthedark.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class Level {
         this.gameScreen = gameScreen;
         president = new President(0, 0);
         levelEntities.put(House.class, new ArrayList<Entity>());
+        levelEntities.put(Rocket.class, new ArrayList<Entity>());
     }
 
     private boolean isInViewPort(Entity entity) {
@@ -44,6 +45,13 @@ public class Level {
                     entity.render(delta, batch);
                 }
             }
+        }
+    }
+
+    public void shut(President president) {
+        Rocket rocket = president.shut();
+        if (rocket != null) {
+            levelEntities.get(Rocket.class).add(rocket);
         }
     }
 }
