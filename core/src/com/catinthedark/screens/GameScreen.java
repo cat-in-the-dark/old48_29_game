@@ -1,5 +1,6 @@
 package com.catinthedark.screens;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.BSODGame;
 import com.catinthedark.hud.GameHud;
@@ -28,6 +29,10 @@ public class GameScreen extends Basic2DScreen {
 		camera.position.set(viewPortWidth / 2f, viewPortHeight / 2f, 0);
 		camera.update();
 	}
+
+    public Camera getCamera() {
+        return camera;
+    }
 
 	@Override
 	public void render(float delta) {

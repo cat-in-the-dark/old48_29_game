@@ -23,6 +23,18 @@ public class Entity {
         bounds.setBounds(x, y, width, height);
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     public void render(float delta, SpriteBatch batch) {
 
     }

@@ -8,4 +8,5 @@ package com.catinthedark;
 public class Constants {
     public static final int HEALTH_MAX = 100;
     public static final int DEMOCRACY_LEVEL_MAX = 10;
+    public static final int GROUND_LEVEL = 160;  // px
 }
