@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.catinthedark.entities.HouseBlock;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -18,18 +19,24 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public class Assets {
     public static Texture presidentTexture;
     public static Texture  democracyTex;
+    public static Texture houseBlockTexture;
     public static BitmapFont font;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
+    public static Texture rocketTexture;
 
-	
 
     public static void setupAssets() {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
+        Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
 
         presidentPixmap.setColor(1, 0, 0, 1f);
         presidentPixmap.fill();
         presidentTexture = new Texture(presidentPixmap);
+
+        rocketPixmap.setColor(0, 1, 0, 1f);
+        rocketPixmap.fill();
+        rocketTexture = new Texture(rocketPixmap);
         
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));
@@ -44,6 +51,12 @@ public class Assets {
     	
     	backgroundMap = new TmxMapLoader().load("area02.tmx");
     	backgroundRenderer = new OrthogonalTiledMapRenderer(backgroundMap, 1/32f);
+
+        Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        houseBlockPixMap.setColor(0, 1, 0, 1);
+        houseBlockPixMap.fill();
+        houseBlockTexture = new Texture(houseBlockPixMap);
+
     }
 
     public static void loadGameData() {

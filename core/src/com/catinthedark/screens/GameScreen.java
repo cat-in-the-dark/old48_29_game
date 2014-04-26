@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.BSODGame;
 import com.catinthedark.assets.Assets;
-import com.catinthedark.entities.President;
+import com.catinthedark.entities.Entity;
 import com.catinthedark.hud.GameHud;
 import com.catinthedark.level.Level;
 
@@ -57,13 +57,18 @@ public class GameScreen extends Basic2DScreen {
 
 	}
 
-	public void processKeys() {
-		if (Gdx.input.isKeyPressed(Input.Keys.D)
-				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			level.president.setDirection(President.Direction.RIGHT);
-			level.president.move(true);
-
-			float backCamPos = backCamera.position.x;
+	
+    public void processKeys() {
+        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            level.shut(level.president);
+            level.president.move(false);
+            return;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            level.president.setDirection(Entity.Direction.RIGHT);
+            level.president.move(true);
+            
+            float backCamPos = backCamera.position.x;
 			backCamPos += 0.2;
 			if (backCamPos >= viewPortWidth / 2.0f + 2*viewPortWidth)
 				backCamPos = viewPortWidth / 2.0f;
@@ -71,18 +76,12 @@ public class GameScreen extends Basic2DScreen {
 			backCamera.position.set(backCamPos, backCamera.position.y,
 					backCamera.position.z);
 			backCamera.update();
-		} else if (Gdx.input.isKeyPressed(Input.Keys.A)
-				|| Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			level.president.setDirection(President.Direction.LEFT);
-			level.president.move(true);
-		} else {
-			level.president.move(false);
-		}
-	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
-		batchMap.dispose();
-	}
+			
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            level.president.setDirection(Entity.Direction.LEFT);
+            level.president.move(true);
+        } else {
+            level.president.move(false);
+        }
+}
 }
