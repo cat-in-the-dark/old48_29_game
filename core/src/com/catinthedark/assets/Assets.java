@@ -22,6 +22,14 @@ public class Assets {
     public static Texture houseBlockTexture;
     public static Texture bulletTexture;
     
+    public static Texture logoTex;
+    public static Texture gameStartTex;
+    public static Texture tutorial1Tex;
+    public static Texture tutorial2Tex;
+    public static Texture tutorial3Tex;
+    public static Texture tutorial4Tex;
+    public static Texture gameOverTex;
+    
     public static BitmapFont font;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
@@ -47,6 +55,21 @@ public class Assets {
         
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));
+        
+        logoTex = new Texture(
+    			Gdx.files.internal("texture/logo.png"));
+        gameStartTex =  new Texture(
+    			Gdx.files.internal("texture/game_start_page.png"));
+        tutorial1Tex =  new Texture(
+    			Gdx.files.internal("texture/tutorial1.png"));
+        tutorial2Tex =  new Texture(
+    			Gdx.files.internal("texture/tutorial2.png"));
+        tutorial3Tex =  new Texture(
+    			Gdx.files.internal("texture/tutorial3.png"));
+        tutorial4Tex =  new Texture(
+    			Gdx.files.internal("texture/tutorial4.png"));
+        gameOverTex =  new Texture(
+    			Gdx.files.internal("texture/game_over.png"));
         
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
     			Gdx.files.internal("font/impact.ttf"));

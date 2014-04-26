@@ -5,32 +5,38 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.catinthedark.BSODGame;
+import com.catinthedark.Constants;
 
 /**
  * Created by Ilya on 26.04.2014.
  */
 public abstract class Basic2DScreen extends InputAdapter implements Screen {
-	protected final int viewPortWidth;
-	protected final int viewPortHeight;
-	protected BSODGame game;
+	protected ScreenChain chain;
 	protected final OrthographicCamera camera;
-	protected final OrthographicCamera backCamera;
 
-	public Basic2DScreen(BSODGame game, int viewPortWidth, int viewPortHeight) {
-		this.game = game;
-		this.viewPortWidth = viewPortWidth;
-		this.viewPortHeight = viewPortHeight;
-		this.camera = new OrthographicCamera(viewPortWidth, viewPortHeight);
-		this.backCamera = new OrthographicCamera(viewPortWidth, viewPortHeight);
-		this.backCamera.position.set(new float[]{viewPortWidth/2,viewPortHeight/2,0});
+	public Basic2DScreen(ScreenChain chain) {
+		this.chain = chain;
+		this.camera = new OrthographicCamera(Constants.VIEW_PORT_WIDTH, Constants.VIEW_PORT_HEIGHT);
+	}
+	
+	protected int getCurrentFrame () {
+		return chain.getCurrentFrame();
+	}
+	
+	protected void next(){
+		chain.next();
+	}
+	protected void prev(){
+		chain.prev();
+	}
+	protected void gotoFrame(int index){
+		chain.gotoFrame(index);
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
-		backCamera.update();
 	}
 
 	@Override

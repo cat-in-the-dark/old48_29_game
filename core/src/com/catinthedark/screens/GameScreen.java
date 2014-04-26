@@ -3,10 +3,10 @@ package com.catinthedark.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.catinthedark.BSODGame;
-import com.catinthedark.InterceptionManager;
 import com.catinthedark.Constants;
+import com.catinthedark.InterceptionManager;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.hud.GameHud;
@@ -21,9 +21,15 @@ public class GameScreen extends Basic2DScreen {
 	final Level level;
 	final InterceptionManager interManager;
 	final SpriteBatch batchMap;
+	final OrthographicCamera backCamera;
 
-	public GameScreen(BSODGame game, int viewPortWidth, int viewPortHeight) {
-		super(game, viewPortWidth, viewPortHeight);
+	public GameScreen(ScreenChain chain) {
+		super(chain);
+
+		backCamera = new OrthographicCamera(Constants.VIEW_PORT_WIDTH,
+				Constants.VIEW_PORT_HEIGHT);
+		backCamera.position.set(new float[] { Constants.VIEW_PORT_WIDTH / 2,
+				Constants.VIEW_PORT_HEIGHT / 2, 0 });
 
 		batchMap = new SpriteBatch();
 		level = new Level(this);
@@ -34,8 +40,10 @@ public class GameScreen extends Basic2DScreen {
 		hud.setDemocracyLevel(70);
 		hud.setHealth(40);
 
-		camera.position.set(viewPortWidth / 2f, viewPortHeight / 2f, 0);
+		camera.position.set(Constants.VIEW_PORT_WIDTH / 2f,
+				Constants.VIEW_PORT_HEIGHT / 2f, 0);
 		camera.update();
+		backCamera.update();
 
 		Gdx.input.setInputProcessor(this);
 	}
@@ -49,7 +57,7 @@ public class GameScreen extends Basic2DScreen {
 		super.render(delta);
 		processKeys();
 		interManager.manage();
-		
+
 		// draw background image
 		Assets.backgroundRenderer.setView(backCamera);
 		Assets.backgroundRenderer.render(new int[] { 0 });
@@ -63,37 +71,47 @@ public class GameScreen extends Basic2DScreen {
 
 	}
 
-	
-    public void processKeys() {
-        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-            level.shut(level.president);
-            level.president.move(false, camera);
-            return;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            level.president.setDirection(Entity.Direction.RIGHT);
-            level.president.move(true, camera);
+	public void processKeys() {
+		if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
+				|| Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+			level.shut(level.president);
+			level.president.move(false, camera);
+			return;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.D)
+				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			level.president.setDirection(Entity.Direction.RIGHT);
+			level.president.move(true, camera);
 
-            if (needMoveBackCamera()) {
-                float backCamPos = backCamera.position.x;
-                backCamPos += Constants.backCameraSpeed.x;
-                if (backCamPos >= viewPortWidth / 2.0f + 2 * viewPortWidth)
-                    backCamPos = viewPortWidth / 2.0f;
+			if (needMoveBackCamera()) {
+				final int vpw = Constants.VIEW_PORT_WIDTH;
 
-                backCamera.position.set(backCamPos, backCamera.position.y,
-                        backCamera.position.z);
-            }
-            backCamera.update();
+				float backCamPos = backCamera.position.x;
+				backCamPos += Constants.backCameraSpeed.x;
+				if (backCamPos >= vpw / 2.0f + 2 * vpw)
+					backCamPos = vpw / 2.0f;
 
-        } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            level.president.setDirection(Entity.Direction.LEFT);
-            level.president.move(true, camera);
-        } else {
-            level.president.move(false, camera);
-        }
-    }
+				backCamera.position.set(backCamPos, backCamera.position.y,
+						backCamera.position.z);
+			}
+			backCamera.update();
 
-    private boolean needMoveBackCamera() {
-        return camera.position.x - level.president.getWidth() - Constants.maxPresidentDestinationFromBorder <= level.president.getX();
-    }
+		} else if (Gdx.input.isKeyPressed(Input.Keys.A)
+				|| Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			level.president.setDirection(Entity.Direction.LEFT);
+			level.president.move(true, camera);
+		} else {
+			level.president.move(false, camera);
+		}
+		
+		//FIXME: only for debug
+		if(Gdx.input.isKeyPressed(Input.Keys.G))
+			next();
+	}
+
+	private boolean needMoveBackCamera() {
+		return camera.position.x - level.president.getWidth()
+				- Constants.maxPresidentDestinationFromBorder <= level.president
+					.getX();
+	}
 }
