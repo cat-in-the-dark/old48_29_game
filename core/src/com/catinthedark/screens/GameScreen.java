@@ -14,7 +14,9 @@ public class GameScreen extends Basic2DScreen {
 		super(game, viewPortWidth, viewPortHeight);
 
 		this.hud = new GameHud();
-		hud.conf().setX(10).setY(570);
+		hud.conf().setX(10).setY(585);
+		hud.setDemocracyLevel(100);
+		hud.setHealth(40);
 
 		camera.position.set(viewPortWidth / 2f, viewPortHeight / 2f, 0);
 		camera.update();
@@ -24,6 +26,6 @@ public class GameScreen extends Basic2DScreen {
 	public void render(float delta) {
 		super.render(delta);
 
-		hud.draw();
+		hud.render();
 	}
 }
