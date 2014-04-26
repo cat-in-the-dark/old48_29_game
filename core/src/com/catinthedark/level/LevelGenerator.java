@@ -3,6 +3,7 @@ package com.catinthedark.level;
 import com.badlogic.gdx.math.MathUtils;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
+import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 

@@ -1,8 +1,8 @@
 package com.catinthedark.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
-import java.awt.*;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -12,7 +12,7 @@ public class Entity {
     protected float x;
     protected int width;
     protected int height;
-    public final Rectangle bounds = new Rectangle();
+    public final Rectangle bounds;
     protected Direction direction;
     protected boolean deleted;
 
@@ -28,8 +28,8 @@ public class Entity {
         this.height = height;
         this.x = x;
         this.y = y;
-
-        bounds.setRect(x, y, width, height);
+        
+        this.bounds =  new Rectangle(x, y, width, height);
     }
 
     public float getY() {

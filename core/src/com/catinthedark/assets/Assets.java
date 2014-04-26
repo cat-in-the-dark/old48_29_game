@@ -20,6 +20,8 @@ public class Assets {
     public static Texture presidentTexture;
     public static Texture  democracyTex;
     public static Texture houseBlockTexture;
+    public static Texture bulletTexture;
+    
     public static BitmapFont font;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
@@ -29,6 +31,7 @@ public class Assets {
     public static void setupAssets() {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
         Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
+        Pixmap bulletPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 
         presidentPixmap.setColor(1, 0, 0, 1f);
         presidentPixmap.fill();
@@ -37,6 +40,10 @@ public class Assets {
         rocketPixmap.setColor(0, 1, 0, 1f);
         rocketPixmap.fill();
         rocketTexture = new Texture(rocketPixmap);
+        
+        bulletPixmap.setColor(0,0,1,1.f);
+        bulletPixmap.fill();
+        bulletTexture = new Texture(bulletPixmap);
         
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));

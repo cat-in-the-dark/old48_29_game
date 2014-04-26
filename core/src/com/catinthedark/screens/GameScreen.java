@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.BSODGame;
+import com.catinthedark.InterceptionManager;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.hud.GameHud;
@@ -17,6 +18,7 @@ public class GameScreen extends Basic2DScreen {
 
 	final GameHud hud;
 	final Level level;
+	final InterceptionManager interManager;
 	final SpriteBatch batchMap;
 
 	public GameScreen(BSODGame game, int viewPortWidth, int viewPortHeight) {
@@ -24,6 +26,7 @@ public class GameScreen extends Basic2DScreen {
 
 		batchMap = new SpriteBatch();
 		level = new Level(this);
+		interManager = new InterceptionManager(level);
 
 		this.hud = new GameHud();
 		hud.conf().setX(10).setY(585);
@@ -44,6 +47,8 @@ public class GameScreen extends Basic2DScreen {
 	public void render(float delta) {
 		super.render(delta);
 		processKeys();
+		interManager.manage();
+		
 		// draw background image
 		Assets.backgroundRenderer.setView(backCamera);
 		Assets.backgroundRenderer.render(new int[] { 0 });

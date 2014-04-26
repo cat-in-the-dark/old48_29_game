@@ -8,14 +8,14 @@ import com.catinthedark.assets.Assets;
  * Created by Ilya on 26.04.2014.
  */
 public class Rocket extends Entity {
-    private static final int presidentWidth = 1;
-    private static final int presidentHeight = 1;
+    private static final int rocketWidth = 2;
+    private static final int rocketHeight = 2;
     private final Vector2 maxAcceleration = new Vector2(0.5f, 0.5f);
     private final Vector2 acceleration = new Vector2(0f, 0f);
     private final Entity creator;
 
     public Rocket(float x, float y, Entity entity){
-        super(x, y, presidentWidth, presidentHeight);
+        super(x, y, rocketWidth, rocketHeight);
         this.creator = entity;
         switch (this.creator.direction) {
             case RIGHT:
@@ -32,6 +32,8 @@ public class Rocket extends Entity {
         super.render(delta, batch);
         x += acceleration.x;
         y += acceleration.y;
+        bounds.x = x;
+        bounds.y = y;
         batch.draw(Assets.rocketTexture, x, y);
     }
 }

@@ -3,6 +3,7 @@ package com.catinthedark.level;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
+import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 import com.catinthedark.entities.President;
@@ -28,6 +29,10 @@ public class Level {
         president = new President(0, Constants.GROUND_LEVEL);
         levelEntities.put(House.class, new ArrayList<Entity>());
         levelEntities.put(Rocket.class, new ArrayList<Entity>());
+        levelEntities.put(Bullet.class, new ArrayList<Entity>());
+        
+      //тут просто создадим пулю маджахета для тестинга
+    	levelEntities.get(Bullet.class).add(new Bullet(16,10, 1, 1));
     }
 
     private boolean isInViewPort(Entity entity) {
