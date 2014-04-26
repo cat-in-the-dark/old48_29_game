@@ -18,4 +18,10 @@ public class Constants {
     public static final Vector2 backCameraSpeed = new Vector2(0.2f, 0f);
     public static final float maxPresidentDestinationFromBorder = 4f;
     public static final Vector2 mainCameraSpeed = new Vector2(0.5f, 0f);
+
+    public static final int FRAME_COLS = 4;
+    public static final int FRAME_ROWS = 7;
+
+    public static final float ANIMATION_SPEED = 0.1f;
+
 }

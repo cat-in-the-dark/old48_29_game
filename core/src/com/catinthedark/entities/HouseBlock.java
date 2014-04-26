@@ -1,6 +1,7 @@
 package com.catinthedark.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.catinthedark.assets.Assets;
 
 /**
@@ -15,6 +16,10 @@ public class HouseBlock extends Entity {
     private float y;
     public static final int blockWidth = 2;
     public static final int blockHeight = 2;
+    private boolean top;
+    private boolean left;
+
+    private float stateTime;
 
     public boolean isWithEnemy() {
         return withEnemy;
@@ -32,20 +37,45 @@ public class HouseBlock extends Entity {
         this.destroyed = destroyed;
     }
 
-    public HouseBlock(boolean withEnemy, float x, float y) {
+    public HouseBlock(boolean withEnemy, boolean top, boolean left, float x, float y) {
         super(x, y, blockWidth, blockHeight);
         setWithEnemy(withEnemy);
         this.x = x;
         this.y = y;
+        this.top = top;
+        this.left = left;
+        stateTime = 0f;
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        if (isWithEnemy()) {
-            batch.draw(Assets.enemyBlockTexture, this.x, this.y);
+        stateTime += delta;
+        TextureRegion region;
+        if (destroyed) {
+            if (left) {
+                region = Assets.leftBrocken;
+            } else {
+                region = Assets.rightBrocken;
+            }
         } else {
-            batch.draw(Assets.houseBlockTexture, this.x, this.y);
+            if (top) {
+                if (left) {
+                    region = Assets.leftTopUnbrocken;
+                } else {
+                    region = Assets.rightToppUnbrocken;
+                }
+            } else {
+                if (left) {
+                    region = Assets.leftUnbrocken;
+                } else {
+                    region = Assets.rightUnbrocken;
+                }
+            }
+        }
+        batch.draw(region, this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
+        if (isWithEnemy()) {
+            batch.draw(Assets.mdIdle.getKeyFrame(stateTime), this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
         }
     }
 }

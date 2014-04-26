@@ -4,13 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.catinthedark.Constants;
 import com.catinthedark.entities.HouseBlock;
 
 /**
@@ -27,7 +30,15 @@ public class Assets {
     public static TiledMapRenderer backgroundRenderer;
     public static Texture rocketTexture;
     public static Texture oilFactoryTexture;
-
+    public static TextureRegion[][] frames;
+    public static TextureRegion leftUnbrocken;
+    public static TextureRegion rightUnbrocken;
+    public static TextureRegion leftTopUnbrocken;
+    public static TextureRegion rightToppUnbrocken;
+    public static TextureRegion leftBrocken;
+    public static TextureRegion rightBrocken;
+    public static Animation mdIdle;
+    public static Animation mdShoot;
 
     public static void setupAssets() {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
@@ -74,10 +85,27 @@ public class Assets {
         Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
         enemyBlockPixMap.setColor(0, 0, 1, 1);
         enemyBlockPixMap.fill();
-        enemyBlockTexture = new Texture(enemyBlockPixMap);
+        enemyBlockTexture = new Texture(Gdx.files.internal("texture/houses_shahids.png"));
+
+        frames = TextureRegion.split(Assets.enemyBlockTexture,
+                Assets.enemyBlockTexture.getWidth() / Constants.FRAME_COLS,
+                Assets.enemyBlockTexture.getHeight() / Constants.FRAME_ROWS);
+
+        initAnimation();
     }
 
     public static void loadGameData() {
         setupAssets();
+    }
+
+    private static void initAnimation() {
+        leftUnbrocken = frames[2][0];
+        rightUnbrocken = frames[2][1];
+        leftTopUnbrocken = frames[0][0];
+        rightToppUnbrocken = frames[0][1];
+        leftBrocken = frames[1][0];
+        rightBrocken = frames[1][1];
+        mdIdle = new Animation(0, frames[3][3]);
+        mdShoot = new Animation(Constants.ANIMATION_SPEED, frames[3][3], frames[4][3]);
     }
 }

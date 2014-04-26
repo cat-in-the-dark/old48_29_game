@@ -52,7 +52,11 @@ public class House extends Entity{
             for (int j = 0; j < heightInBlocks; j ++) {
                 float blockX = i * HouseBlock.blockWidth + this.x;
                 float blockY = j * HouseBlock.blockHeight + this.y;
-                houseBlocks.add(new HouseBlock(roomWithEnemy.get(i + j * widthInBlocks), blockX, blockY));
+
+                boolean left = (i == 0);
+                boolean top = (j == heightInBlocks - 1);
+
+                houseBlocks.add(new HouseBlock(roomWithEnemy.get(i + j * widthInBlocks), top, left, blockX, blockY));
                 vacantRoomNumbers.add(i + j);
             }
         }
