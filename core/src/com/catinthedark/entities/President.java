@@ -1,7 +1,9 @@
 package com.catinthedark.entities;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.catinthedark.Constants;
 import com.catinthedark.assets.Assets;
 
 /**
@@ -11,7 +13,7 @@ public class President extends Entity {
     private static final int presidentWidth = 3;
     private static final int presidentHeight = 10;
     private final Vector2 minAcceleration = new Vector2(0f, 0f);
-    private final Vector2 maxAcceleration = new Vector2(0.5f, 0.5f);
+    private final Vector2 maxAcceleration = new Vector2(0.5f, 0f);
     private Vector2 acceleration = new Vector2(minAcceleration.x, minAcceleration.y);
     private State state;
 
@@ -28,7 +30,7 @@ public class President extends Entity {
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
         lastShutTime += delta;
-        this.x += acceleration.x;
+        tryMove();
         batch.draw(Assets.presidentTexture, this.x, this.y);
     }
 
@@ -40,7 +42,7 @@ public class President extends Entity {
         return null;
     }
 
-    public void move(boolean is_moving) {
+    public void move(boolean is_moving, Camera camera) {
         if (!is_moving) {
             acceleration.x = minAcceleration.x;
         } else {
@@ -53,5 +55,18 @@ public class President extends Entity {
                     break;
             }
         }
+
+        if (!canMove(camera)) {
+            acceleration.x = minAcceleration.x;
+        }
+    }
+
+    private void tryMove() {
+        this.x += acceleration.x;
+    }
+
+    public boolean canMove(Camera camera) {
+        float nextX = this.x + acceleration.x;
+        return !(camera.position.x - this.width - Constants.maxPresidentDestinationFromBorder< nextX || nextX < 0);
     }
 }
