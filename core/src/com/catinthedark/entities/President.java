@@ -19,6 +19,8 @@ public class President extends Entity {
 
     private double shutDelay = 1;
     private double lastShutTime = 0;
+    private double lastLayOilFactoryTime = 0;
+    private double layDelay = 1;
 
     public President(float x, float y) {
         super(x, y, presidentWidth, presidentHeight);
@@ -30,6 +32,7 @@ public class President extends Entity {
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
         lastShutTime += delta;
+        lastLayOilFactoryTime += delta;
         tryMove();
         batch.draw(Assets.presidentTexture, this.x, this.y);
     }
@@ -38,6 +41,14 @@ public class President extends Entity {
         if (lastShutTime > shutDelay) {
             lastShutTime = 0;
             return new Rocket(this.x + this.width / 2f, this.y + this.height / 2f, this);
+        }
+        return null;
+    }
+
+    public OilFactory layOilFactory() {
+        if (lastLayOilFactoryTime > layDelay) {
+            lastLayOilFactoryTime = 0;
+            return new OilFactory(this.x);
         }
         return null;
     }

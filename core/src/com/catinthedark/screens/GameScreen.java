@@ -69,6 +69,9 @@ public class GameScreen extends Basic2DScreen {
             level.president.move(false, camera);
             return;
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            level.placeOilFactory();
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             level.president.setDirection(Entity.Direction.RIGHT);
             level.president.move(true, camera);

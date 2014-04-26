@@ -26,12 +26,14 @@ public class Assets {
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
     public static Texture rocketTexture;
+    public static Texture oilFactoryTexture;
 
 
     public static void setupAssets() {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
         Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
         Pixmap bulletPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        Pixmap oilFactoryPixMap = new Pixmap(2, 4, Pixmap.Format.RGBA8888);
 
         presidentPixmap.setColor(1, 0, 0, 1f);
         presidentPixmap.fill();
@@ -44,6 +46,11 @@ public class Assets {
         bulletPixmap.setColor(0,0,1,1.f);
         bulletPixmap.fill();
         bulletTexture = new Texture(bulletPixmap);
+
+        oilFactoryPixMap.setColor(0,0,0,1f);
+        oilFactoryPixMap.fill();
+        oilFactoryTexture = new Texture(oilFactoryPixMap);
+
         
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));
