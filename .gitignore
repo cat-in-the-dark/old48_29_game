@@ -58,3 +58,10 @@ nb-configuration.xml
 
 .gradle
 build/
+
+
+## Windows
+Thumbs.db
+ehthumbs.d
+Desktop.ini
+$RECYCLE.BIN/
