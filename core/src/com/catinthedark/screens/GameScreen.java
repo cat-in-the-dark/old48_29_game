@@ -60,7 +60,6 @@ public class GameScreen extends Basic2DScreen {
 		level.render(delta, batchMap);
 		batchMap.end();
 		hud.render();
-
 	}
 
 	
@@ -74,17 +73,11 @@ public class GameScreen extends Basic2DScreen {
             level.president.setDirection(Entity.Direction.RIGHT);
             level.president.move(true, camera);
 
-            if (needMoveBackCamera()) {
-                float backCamPos = backCamera.position.x;
-                backCamPos += Constants.backCameraSpeed.x;
-                if (backCamPos >= viewPortWidth / 2.0f + 2 * viewPortWidth)
-                    backCamPos = viewPortWidth / 2.0f;
-
-                backCamera.position.set(backCamPos, backCamera.position.y,
-                        backCamera.position.z);
+            if (needMoveCamera()) {
+                moveMainCamera();
+                moveBackCamera();
+                level.president.move(true, camera);
             }
-            backCamera.update();
-
         } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             level.president.setDirection(Entity.Direction.LEFT);
             level.president.move(true, camera);
@@ -93,7 +86,24 @@ public class GameScreen extends Basic2DScreen {
         }
     }
 
-    private boolean needMoveBackCamera() {
+    private void moveBackCamera() {
+        float backCamPos = backCamera.position.x;
+        backCamPos += Constants.backCameraSpeed.x;
+        if (backCamPos >= viewPortWidth / 2.0f + 2 * viewPortWidth)
+            backCamPos = viewPortWidth / 2.0f;
+
+        backCamera.position.set(backCamPos, backCamera.position.y,
+                backCamera.position.z);
+
+        backCamera.update();
+    }
+
+    private void moveMainCamera() {
+        camera.position.set(camera.position.x + Constants.mainCameraSpeed.x, camera.position.y, camera.position.z);
+        camera.update();
+    }
+
+    private boolean needMoveCamera() {
         return camera.position.x - level.president.getWidth() - Constants.maxPresidentDestinationFromBorder <= level.president.getX();
     }
 }

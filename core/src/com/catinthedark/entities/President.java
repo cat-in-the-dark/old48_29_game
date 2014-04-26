@@ -67,6 +67,6 @@ public class President extends Entity {
 
     public boolean canMove(Camera camera) {
         float nextX = this.x + acceleration.x;
-        return !(camera.position.x - this.width - Constants.maxPresidentDestinationFromBorder< nextX || nextX < 0);
+        return !(camera.position.x - this.width - Constants.maxPresidentDestinationFromBorder < nextX || nextX < camera.position.x - camera.viewportWidth / 2f);
     }
 }

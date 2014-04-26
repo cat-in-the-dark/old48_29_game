@@ -16,5 +16,6 @@ public class Constants {
      */
     public static final float BUILDING_DISTANCE_MIN = 5.0f;  // tiles
     public static final Vector2 backCameraSpeed = new Vector2(0.2f, 0f);
-    public static float maxPresidentDestinationFromBorder = 4f;
+    public static final float maxPresidentDestinationFromBorder = 4f;
+    public static final Vector2 mainCameraSpeed = new Vector2(0.5f, 0f);
 }
