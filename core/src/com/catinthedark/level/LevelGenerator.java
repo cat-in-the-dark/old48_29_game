@@ -1,14 +1,12 @@
 package com.catinthedark.level;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
-import com.catinthedark.screens.GameScreen;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +40,7 @@ public class LevelGenerator {
         maxDistance = (3f - ((float)GameScore.getInstance().getDemocracyLevel() /
                 Constants.DEMOCRACY_LEVEL_MAX)) * Constants.BUILDING_DISTANCE_MIN;
 
-        Map<Class, ArrayList<Entity>> entities = level.levelEntities;
+        Map<Class, List<Entity>> entities = level.levelEntities;
         for (Class entityClass : entities.keySet()) {
             if (entityClass == House.class) {
                 float maxHouseX = 0;

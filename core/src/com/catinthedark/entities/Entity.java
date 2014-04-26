@@ -14,6 +14,7 @@ public class Entity {
     protected int height;
     public final Rectangle bounds = new Rectangle();
     protected Direction direction;
+    protected boolean deleted;
 
     public enum Direction {
         RIGHT, LEFT
@@ -49,5 +50,14 @@ public class Entity {
 
     public void render(float delta, SpriteBatch batch) {
 
+    }
+
+    public void markDeleted() {
+        System.out.println("Kill me plz");
+        this.deleted = true;
+    }
+
+    public boolean isMarkedToDelete() {
+        return this.deleted;
     }
 }
