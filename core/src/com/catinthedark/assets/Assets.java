@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.catinthedark.entities.HouseBlock;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -14,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 public class Assets {
     public static Texture presidentTexture;
     public static Texture  democracyTex;
+    public static Texture houseBlockTexture;
     public static BitmapFont font;
 
 	
@@ -35,6 +37,11 @@ public class Assets {
     	font = generator.generateFont(params);
     	font.setColor(Color.RED);
     	generator.dispose(); // don't forget to dispose to avoid memory leaks!
+
+        Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        houseBlockPixMap.setColor(0, 1, 0, 1);
+        houseBlockPixMap.fill();
+        houseBlockTexture = new Texture(houseBlockPixMap);
 
     }
 

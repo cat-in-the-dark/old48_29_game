@@ -1,6 +1,7 @@
 package com.catinthedark.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.catinthedark.assets.Assets;
 
 /**
  * User: Leyfer Kirill kolbasisha@gmail.com
@@ -39,5 +40,6 @@ public class HouseBlock extends Entity {
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
+        batch.draw(Assets.houseBlockTexture, this.x, this.y);
     }
 }
