@@ -2,6 +2,7 @@ package com.catinthedark.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.BSODGame;
 import com.catinthedark.entities.President;
@@ -24,12 +25,18 @@ public class GameScreen extends Basic2DScreen {
         level = new Level(this);
 
 		this.hud = new GameHud();
-		hud.conf().setX(10).setY(570);
+		hud.conf().setX(10).setY(585);
+		hud.setDemocracyLevel(100);
+		hud.setHealth(40);
 
 		camera.position.set(viewPortWidth / 2f, viewPortHeight / 2f, 0);
 		camera.update();
 
         Gdx.input.setInputProcessor(this);
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 
 	@Override
@@ -41,7 +48,7 @@ public class GameScreen extends Basic2DScreen {
         batchMap.begin();
         level.render(delta, batchMap);
         batchMap.end();
-		hud.draw();
+		hud.render();
 	}
 
     public void processKeys() {
