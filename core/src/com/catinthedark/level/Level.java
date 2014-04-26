@@ -3,11 +3,13 @@ package com.catinthedark.level;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
+import com.catinthedark.GameScore;
 import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 import com.catinthedark.entities.President;
 import com.catinthedark.entities.Rocket;
+import com.catinthedark.entities.OilFactory;
 import com.catinthedark.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -30,14 +32,16 @@ public class Level {
         levelEntities.put(House.class, new ArrayList<Entity>());
         levelEntities.put(Rocket.class, new ArrayList<Entity>());
         levelEntities.put(Bullet.class, new ArrayList<Entity>());
+        GameScore.getInstance().setDemocracyLevel(6);
         
       //тут просто создадим пулю маджахета для тестинга
-    	levelEntities.get(Bullet.class).add(new Bullet(16,10, 1, 1));
+        levelEntities.get(Bullet.class).add(new Bullet(16, 10, 1, 1));
+        levelEntities.put(OilFactory.class, new ArrayList<Entity>());
     }
 
     private boolean isInViewPort(Entity entity) {
         Camera camera = gameScreen.getCamera();
-        return (camera.position.x - entity.getX()) < camera.viewportWidth / 2f;
+        return (camera.position.x - (entity.getX() + entity.getWidth())) < camera.viewportWidth / 2f;
     }
 
     private boolean isBulletInViewPort(Entity entity) {
@@ -92,6 +96,13 @@ public class Level {
         Rocket rocket = president.shut();
         if (rocket != null) {
             levelEntities.get(Rocket.class).add(rocket);
+        }
+    }
+
+    public void placeOilFactory() {
+        OilFactory oilFactory = president.layOilFactory();
+        if (oilFactory != null) {
+            levelEntities.get(OilFactory.class).add(oilFactory);
         }
     }
 }

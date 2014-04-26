@@ -15,6 +15,7 @@ public class Constants {
 	public static final float BUILDING_DISTANCE_MIN = 5.0f; // tiles
 	public static final Vector2 backCameraSpeed = new Vector2(0.2f, 0f);
 	public static float maxPresidentDestinationFromBorder = 4f;
+	public static final Vector2 mainCameraSpeed = new Vector2(0.5f, 0f);
 
 	/**
 	 * viewport
@@ -22,4 +23,8 @@ public class Constants {
 	public static final int VIEW_PORT_WIDTH = 32;
 	public static final int VIEW_PORT_HEIGHT = 20;
 	public static final int UNIT_SIZE = 32;
+
+	public static final int FRAME_COLS = 4;
+	public static final int FRAME_ROWS = 7;
+	public static final float ANIMATION_SPEED = 0.1f;
 }

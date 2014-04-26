@@ -53,7 +53,6 @@ public class Entity {
     }
 
     public void markDeleted() {
-        System.out.println("Kill me plz");
         this.deleted = true;
     }
 

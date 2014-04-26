@@ -68,50 +68,59 @@ public class GameScreen extends Basic2DScreen {
 		level.render(delta, batchMap);
 		batchMap.end();
 		hud.render();
-
 	}
+	
+    public void processKeys() {
+        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            level.shut(level.president);
+            level.president.move(false, camera);
+            return;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            level.placeOilFactory();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            level.president.setDirection(Entity.Direction.RIGHT);
+            level.president.move(true, camera);
 
-	public void processKeys() {
-		if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
-				|| Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-			level.shut(level.president);
-			level.president.move(false, camera);
-			return;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.D)
-				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			level.president.setDirection(Entity.Direction.RIGHT);
-			level.president.move(true, camera);
+            if (needMoveCamera()) {
+                moveMainCamera();
+                moveBackCamera();
+                level.president.move(true, camera);
+            }
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            level.president.setDirection(Entity.Direction.LEFT);
+            level.president.move(true, camera);
+        } else {
+            level.president.move(false, camera);
+        }
+        
+      //FIXME: only for debug
+      		if(Gdx.input.isKeyPressed(Input.Keys.G))
+      			next();
+    }
 
-			if (needMoveBackCamera()) {
-				final int vpw = Constants.VIEW_PORT_WIDTH;
+    private void moveBackCamera() {
+    	
+    	final int vpw = Constants.VIEW_PORT_WIDTH;
 
-				float backCamPos = backCamera.position.x;
-				backCamPos += Constants.backCameraSpeed.x;
-				if (backCamPos >= vpw / 2.0f + 2 * vpw)
-					backCamPos = vpw / 2.0f;
+		float backCamPos = backCamera.position.x;
+		backCamPos += Constants.backCameraSpeed.x;
+		if (backCamPos >= vpw / 2.0f + 2 * vpw)
+			backCamPos = vpw / 2.0f;
 
-				backCamera.position.set(backCamPos, backCamera.position.y,
-						backCamera.position.z);
-			}
-			backCamera.update();
+		backCamera.position.set(backCamPos, backCamera.position.y,
+				backCamera.position.z);
 
-		} else if (Gdx.input.isKeyPressed(Input.Keys.A)
-				|| Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			level.president.setDirection(Entity.Direction.LEFT);
-			level.president.move(true, camera);
-		} else {
-			level.president.move(false, camera);
-		}
-		
-		//FIXME: only for debug
-		if(Gdx.input.isKeyPressed(Input.Keys.G))
-			next();
-	}
+        backCamera.update();
+    }
 
-	private boolean needMoveBackCamera() {
-		return camera.position.x - level.president.getWidth()
-				- Constants.maxPresidentDestinationFromBorder <= level.president
-					.getX();
-	}
+    private void moveMainCamera() {
+        camera.position.set(camera.position.x + Constants.mainCameraSpeed.x, camera.position.y, camera.position.z);
+        camera.update();
+    }
+
+    private boolean needMoveCamera() {
+        return camera.position.x - level.president.getWidth() - Constants.maxPresidentDestinationFromBorder <= level.president.getX();
+    }
 }

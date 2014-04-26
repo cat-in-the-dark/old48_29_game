@@ -3,7 +3,6 @@ package com.catinthedark.level;
 import com.badlogic.gdx.math.MathUtils;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
-import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 
@@ -57,7 +56,7 @@ public class LevelGenerator {
                 if (rightEdgePosition - maxHouseX > minDistance) {
                     float newHouseX = rightEdgePosition + MathUtils.random(minDistance, maxDistance);
                     int heightInBlocks = MathUtils.random(2, 4);
-                    int widthInBlocks = MathUtils.random(2, 3);
+                    int widthInBlocks = 2;
                     Entity houseEntity = new House(newHouseX, Constants.GROUND_LEVEL, widthInBlocks, heightInBlocks);
                     level.levelEntities.get(entityClass).add(houseEntity);
                 }
