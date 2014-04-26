@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.catinthedark.entities.Entity;
+import com.catinthedark.entities.House;
 import com.catinthedark.entities.President;
 import com.catinthedark.screens.GameScreen;
 
@@ -22,6 +23,7 @@ public class Level {
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         president = new President(0, 0);
+        levelEntities.put(House.class, new ArrayList<Entity>());
     }
 
     private boolean isInViewPort(Entity entity) {
