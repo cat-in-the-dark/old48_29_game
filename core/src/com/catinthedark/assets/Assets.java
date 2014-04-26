@@ -99,12 +99,12 @@ public class Assets {
     }
 
     private static void initAnimation() {
-        leftUnbrocken = frames[2][0];
-        rightUnbrocken = frames[2][1];
-        leftTopUnbrocken = frames[0][0];
-        rightToppUnbrocken = frames[0][1];
-        leftBrocken = frames[1][0];
-        rightBrocken = frames[1][1];
+        leftUnbrocken = frames[6][0];
+        rightUnbrocken = frames[6][1];
+        leftTopUnbrocken = frames[4][0];
+        rightToppUnbrocken = frames[4][1];
+        leftBrocken = frames[5][0];
+        rightBrocken = frames[5][1];
         mdIdle = new Animation(0, frames[3][3]);
         mdShoot = new Animation(Constants.ANIMATION_SPEED, frames[3][3], frames[4][3]);
     }
