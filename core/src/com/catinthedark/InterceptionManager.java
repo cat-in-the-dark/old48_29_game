@@ -135,6 +135,9 @@ public class InterceptionManager {
 					vehicle.setDestroyed(true);
 					Assets.kamazExpSound.play();
 					GameScore.getInstance().priceAIdVehicle();
+					GameScore.getInstance().setHealth(
+							GameScore.getInstance().getHealth()
+									+ Constants.HEALTH_REGEN);
                     level.bum(vehicle.getX(), vehicle.getY());
 				}
 			}
@@ -153,7 +156,7 @@ public class InterceptionManager {
 		for (TntVehicle vehicle : vehicles) {
 			if (vehicle.isDestroyed())
 				continue;
-			
+
 			for (OilFactory factory : factories) {
 				if (Intersector.intersectRectangles(vehicle.bounds,
 						factory.bounds, tmpRect)) {
@@ -162,9 +165,9 @@ public class InterceptionManager {
                     level.bum((factory.getX() + vehicle.getX()) / 2f, (factory.getY() + vehicle.getY()) / 2f);
 
 					GameScore.getInstance().decDemocracyLevel();
-					
+
 					Assets.kamazExpSound.play();
-					
+
 					break;
 				}
 			}

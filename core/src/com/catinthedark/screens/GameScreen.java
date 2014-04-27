@@ -52,7 +52,7 @@ public class GameScreen extends Basic2DScreen {
 		backCamera.update();
 		
 		GameScore.getInstance().setDemocracyLevel(0);
-		GameScore.getInstance().setHealth(0);
+		GameScore.getInstance().setHealth(100);
 		
 		hud.setDemocracyLevel(0);
 		hud.setHealth(100);
@@ -78,10 +78,10 @@ public class GameScreen extends Basic2DScreen {
 		level.render(delta, batchMap);
 		batchMap.end();
 		
-		if(level.president.getHealth() == 0)
+		if(GameScore.getInstance().getHealth() == 0)
 			next();
 
-		hud.setHealth(level.president.getHealth());
+		hud.setHealth(GameScore.getInstance().getHealth());
 		hud.setDemocracyLevel(100 / Constants.DEMOCRACY_LEVEL_MAX
 				* GameScore.getInstance().getDemocracyLevel());
 

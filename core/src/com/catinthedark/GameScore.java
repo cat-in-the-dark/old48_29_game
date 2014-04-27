@@ -24,7 +24,9 @@ public class GameScore {
 	}
 
 	public void setHealth(int health) {
-		this.health = health;
+		this.health = health < 0 ? 0 : health;
+		if(this.health > 100)
+			this.health = 100;
 	}
 
 	public int getDemocracyLevel() {

@@ -76,6 +76,7 @@ public class Assets {
      */
     public static Texture oilFactoryTexture;
     public static Animation oilFactoryAppearance;
+    public static Animation oilFactoryDisappearance;
     
     /**
      * sounds
@@ -288,6 +289,14 @@ public class Assets {
                 framesOilFactory[0][3]
         });
         oilFactoryAppearance.setPlayMode(Animation.PlayMode.NORMAL);
+
+        oilFactoryDisappearance = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+                framesOilFactory[0][3],
+                framesOilFactory[0][2],
+                framesOilFactory[0][1],
+                framesOilFactory[0][0]
+        });
+        oilFactoryDisappearance.setPlayMode(Animation.PlayMode.NORMAL);
 
         oilFieldAnimation = new Animation(Constants.ANIMATION_SPEED_SLOW, new TextureRegion[]{
                 framesOilField[0][0],
