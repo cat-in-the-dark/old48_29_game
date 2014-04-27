@@ -81,6 +81,7 @@ public class Assets {
     public static Sound smallExpSound;
     public static Sound oh1Sound;
     public static Sound oh2Sound;
+    public static Sound kamazExpSound;
 
     /**
      * Oil field textures and animations
@@ -174,6 +175,7 @@ public class Assets {
     	smallExpSound = Gdx.audio.newSound(Gdx.files.internal("sound/small_explosion.wav"));
     	oh1Sound = Gdx.audio.newSound(Gdx.files.internal("sound/oh1.mp3"));
     	oh2Sound = Gdx.audio.newSound(Gdx.files.internal("sound/oh2.mp3"));
+    	kamazExpSound = Gdx.audio.newSound(Gdx.files.internal("sound/kamaz_destroy.mp3"));
     }
 
     public static void loadGameData() {

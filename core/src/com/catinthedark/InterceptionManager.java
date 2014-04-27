@@ -5,12 +5,14 @@ import java.util.List;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.catinthedark.assets.Assets;
+import com.catinthedark.entities.AidVehicle;
 import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 import com.catinthedark.entities.HouseBlock;
 import com.catinthedark.entities.President;
 import com.catinthedark.entities.Rocket;
+import com.catinthedark.entities.TntVehicle;
 import com.catinthedark.level.Level;
 
 public class InterceptionManager {
@@ -95,10 +97,57 @@ public class InterceptionManager {
 		}
 
 	}
+	
+	private void destroyKamaz(){
+		@SuppressWarnings("unchecked")
+		List<Rocket> rockets = (List<Rocket>) (Object) level.levelEntities
+				.get(Rocket.class);
+		@SuppressWarnings("unchecked")
+		List<TntVehicle> vehicles = (List<TntVehicle>) (Object) level.levelEntities
+				.get(TntVehicle.class);
+		
+		for(Rocket rocket : rockets){
+			for(TntVehicle vehicle : vehicles){
+				if(rocket.isMarkedToDelete() || vehicle.isDestroyed())
+					continue;
+				if(Intersector.intersectRectangles(rocket.bounds,
+							vehicle.bounds, tmpRect)){
+					rocket.markDeleted();
+					vehicle.setDestroyed(true);
+					Assets.kamazExpSound.play();
+				}
+			}
+		}
+	}
+	
+	private void destroyAid(){
+		@SuppressWarnings("unchecked")
+		List<Rocket> rockets = (List<Rocket>) (Object) level.levelEntities
+				.get(Rocket.class);
+		@SuppressWarnings("unchecked")
+		List<AidVehicle> vehicles = (List<AidVehicle>) (Object) level.levelEntities
+				.get(AidVehicle.class);
+		
+		for(Rocket rocket : rockets){
+			for(AidVehicle vehicle : vehicles){
+				if(rocket.isMarkedToDelete() || vehicle.isDestroyed())
+					continue;
+				if(Intersector.intersectRectangles(rocket.bounds,
+							vehicle.bounds, tmpRect)){
+					rocket.markDeleted();
+					vehicle.setDestroyed(true);
+					Assets.kamazExpSound.play();
+				}
+			}
+		}
+		
+	}
 
 	public void manage() {
 		deactivateTerroristBullets();
 		destroyHouseBlock();
 		damagePresident();
+		destroyKamaz();
+		destroyAid();
 	}
 }
