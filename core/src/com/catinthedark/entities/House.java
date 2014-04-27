@@ -78,7 +78,9 @@ public class House extends Entity{
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        shoot();
+        if (!level.isRighterThanViewPort(this)) {
+            shoot();
+        }
         for (HouseBlock block: houseBlocks) {
             block.render(delta, batch);
         }

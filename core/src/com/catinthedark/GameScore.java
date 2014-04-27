@@ -8,6 +8,7 @@ public class GameScore {
 
 	private int democracyLevel;
 	private int health;
+    private int score = 0;
 
 	public static GameScore getInstance() {
 		return ourInstance;
@@ -42,4 +43,24 @@ public class GameScore {
 	public void decDemocracyLevel() {
 		democracyLevel = democracyLevel == 0 ? 0 : democracyLevel - 1;
 	}
+
+    public void priceEnemy() {
+        this.score += Constants.ENEMY_PRICE;
+    }
+
+    public void priceTNTVehicle() {
+        this.score += Constants.TNT_VEHICLE_PRICE;
+    }
+
+    public void priceHouse() {
+        this.score += Constants.HOUSE_PRISE;
+    }
+
+    public void priceAIdVehicle() {
+        this.score += Constants.AID_VEHICLE_PRICE;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
 }

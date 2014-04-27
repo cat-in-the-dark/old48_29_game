@@ -22,17 +22,30 @@ public class Level {
     public final GameScreen gameScreen;
     public Map<Class, List<Entity>> levelEntities = new HashMap<Class, List<Entity>>();
     private final Rectangle tmpRect = new Rectangle();
+    private Class[] renderOrder;
 
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         president = new President(0, Constants.GROUND_LEVEL);
-        levelEntities.put(House.class, new ArrayList<Entity>());
-        levelEntities.put(Rocket.class, new ArrayList<Entity>());
-        levelEntities.put(Bullet.class, new ArrayList<Entity>());
-        levelEntities.put(OilFactory.class, new ArrayList<Entity>());
-        levelEntities.put(OilField.class, new ArrayList<Entity>());
-        levelEntities.put(TntVehicle.class, new ArrayList<Entity>());
-        levelEntities.put(AidVehicle.class, new ArrayList<Entity>());
+
+        renderOrder = new Class[] {
+                House.class,
+                Rocket.class,
+                Bullet.class,
+                OilFactory.class,
+                OilField.class,
+                TntVehicle.class,
+                AidVehicle.class
+        };
+
+        for (Class cls : renderOrder) {
+            levelEntities.put(cls, new ArrayList<Entity>());
+        }
+    }
+
+    public boolean isRighterThanViewPort(Entity entity) {
+        Camera camera = gameScreen.getCamera();
+        return (entity.getX() - camera.position.x) > camera.viewportWidth / 2f;
     }
 
     private boolean isInViewPort(Entity entity) {
@@ -42,16 +55,15 @@ public class Level {
 
     private boolean isBulletInViewPort(Entity entity) {
         Camera camera = gameScreen.getCamera();
-        return ((camera.position.x - entity.getX()) < camera.viewportWidth / 2f) && ((entity.getX() - camera.position.x) < camera.viewportWidth * 2f && entity.getY() < camera.viewportHeight && entity.getY() > Constants.GROUND_LEVEL);
+        return ((camera.position.x - entity.getX()) < camera.viewportWidth / 2f) && ((entity.getX() - camera.position.x) < camera.viewportWidth * 1.1f && entity.getY() < camera.viewportHeight && entity.getY() > Constants.GROUND_LEVEL);
     }
 
     public void render(float delta, SpriteBatch batch) {
         LevelGenerator.getInstance().generateLevel(this);
 
-        for(Map.Entry<Class, List<Entity>> entry : levelEntities.entrySet()){
-            Class cls = entry.getKey();
+        for(Class cls : renderOrder){
             if(cls == Rocket.class) {
-                for (Entity rocket : entry.getValue()) {
+                for (Entity rocket : levelEntities.get(cls)) {
                     if (!isBulletInViewPort(rocket)) {
                         rocket.markDeleted();
                     } else {
@@ -59,10 +71,10 @@ public class Level {
                     }
                 }
             } else if (cls == OilField.class){
-                renderEntities(entry.getValue(), delta, batch);
+                renderEntities(levelEntities.get(cls), delta, batch);
                 president.render(delta, batch);
             } else {
-                renderEntities(entry.getValue(), delta, batch);
+                renderEntities(levelEntities.get(cls), delta, batch);
             }
         }
 
