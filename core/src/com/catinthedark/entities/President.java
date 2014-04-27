@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.catinthedark.Constants;
+import com.catinthedark.GameScore;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Entity.Direction;
 import com.catinthedark.entities.Entity.State;
@@ -35,7 +36,6 @@ public class President {
 	private double shutDelay = 0.5;
 	private double lastShutTime = 0;
 	private float stateTime = 0;
-	private int healt = 100;
 
 	private final Random rand = new Random(System.nanoTime());
 
@@ -145,17 +145,13 @@ public class President {
 				- camera.viewportWidth / 2f);
 	}
 
-	public int getHealth() {
-		return healt;
-	}
-
 	public void doDamage(int amount) {
 		if (rand.nextInt() % 2 == 0)
 			Assets.oh1Sound.play(0.4f);
 		else
 			Assets.oh2Sound.play(0.4f);
 		
-		healt -= amount;
+		GameScore.getInstance().setHealth(GameScore.getInstance().getHealth() - amount);
 
 	}
 

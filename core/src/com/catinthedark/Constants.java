@@ -52,4 +52,6 @@ public class Constants {
     public static final float ANIMATION_SPEED_SLOW = 0.2f;
 	
 	public static final int TERR_DAMAGE = 4;
+	
+	public static final int HEALTH_REGEN = 25;
 }
