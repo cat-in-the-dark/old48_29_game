@@ -154,9 +154,9 @@ public class President {
 
 	public void doDamage(int amount) {
 		if (rand.nextInt() % 2 == 0)
-			Assets.oh1Sound.play(0.4f);
+			Assets.oh1Sound.play(0.7f);
 		else
-			Assets.oh2Sound.play(0.4f);
+			Assets.oh2Sound.play(0.7f);
 		
 		GameScore.getInstance().setHealth(GameScore.getInstance().getHealth() - amount);
 
