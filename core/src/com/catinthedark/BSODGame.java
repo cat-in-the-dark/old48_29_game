@@ -38,13 +38,11 @@ public class BSODGame extends Game {
 
 		GameEndScreen gameOverScreen = new GameEndScreen(screenChain,
 				Assets.gameOverTex, 0);
-		gameOverScreen.bindings.bindPrev(Input.Keys.ENTER).bind(
-				Input.Keys.ESCAPE, 1);
+		gameOverScreen.bindings.bind(Input.Keys.ESCAPE, 1);
 		screenChain.add(gameOverScreen);
 		
 		GameEndScreen winScreen = new GameEndScreen(screenChain,Assets.gameWinTex, 0);
-		winScreen.bindings.bind(Input.Keys.ENTER ,6).bind(
-				Input.Keys.ESCAPE, 1);
+		winScreen.bindings.bind(Input.Keys.ESCAPE, 1);
 		screenChain.add(winScreen);
 		
 		screenChain.gotoFrame(0);
