@@ -68,7 +68,7 @@ public class President extends Entity {
     public OilFactory layOilFactory() {
         if (lastLayOilFactoryTime > layDelay) {
             lastLayOilFactoryTime = 0;
-            return new OilFactory(this.x);
+            return new OilFactory(this.x + this.getWidth());
         }
         return null;
     }

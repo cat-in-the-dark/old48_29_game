@@ -36,6 +36,7 @@ public class Constants {
 	public static final int FRAME_COLS = 4;
 	public static final int FRAME_ROWS = 7;
 	public static final float ANIMATION_SPEED = 0.1f;
+    public static final float ANIMATION_SPEED_SLOW = 0.2f;
 	
 	public static final int TERR_DAMAGE = 4;
 }
