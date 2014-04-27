@@ -15,6 +15,7 @@ public class Entity {
     public final Rectangle bounds;
     protected Direction direction;
     protected boolean deleted;
+    protected float stateTime = 0f;
 
     public enum Direction {
         RIGHT, LEFT
@@ -49,7 +50,7 @@ public class Entity {
     }
 
     public void render(float delta, SpriteBatch batch) {
-
+        stateTime += delta;
     }
 
     public void markDeleted() {

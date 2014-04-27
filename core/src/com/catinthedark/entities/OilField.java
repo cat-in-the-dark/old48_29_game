@@ -23,6 +23,6 @@ public class OilField extends Entity{
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        batch.draw(Assets.oilFieldTexture, this.x, this.y);
+        batch.draw(Assets.oilFieldAnimation.getKeyFrame(stateTime), this.x, this.y, width, height);
     }
 }
