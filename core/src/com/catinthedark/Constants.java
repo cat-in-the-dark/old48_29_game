@@ -18,6 +18,9 @@ public class Constants {
     public static final int TILE_HEIGHT = 32;
     public static float maxPresidentDestinationFromBorder = 4f;
 	public static final Vector2 mainCameraSpeed = new Vector2(0.5f, 0f);
+    public static final int SHOOT_INTERVAL_MIN = 2;  // sec
+    public static final int SHOOT_INTERVAL_MAX = 6;  // sec
+    public static final long SHOT_ANIMATION_DURATION = 500000000L;  //nanosec
 
 	/**
 	 * viewport

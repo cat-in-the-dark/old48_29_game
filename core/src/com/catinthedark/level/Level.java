@@ -50,8 +50,6 @@ public class Level {
     }
 
     public void render(float delta, SpriteBatch batch) {
-        president.render(delta, batch);
-
         LevelGenerator.getInstance().generateLevel(this);
         for(Map.Entry<Class, List<Entity>> entry : levelEntities.entrySet()){
             Class cls = entry.getKey();
@@ -81,6 +79,7 @@ public class Level {
                 temp = clearEntities(entityClass);
             }
         }
+        president.render(delta, batch);
     }
 
     private Entity clearEntities(Class entityClass) {

@@ -57,7 +57,7 @@ public class LevelGenerator {
                     float newHouseX = rightEdgePosition + MathUtils.random(minDistance, maxDistance);
                     int heightInBlocks = MathUtils.random(2, 4);
                     int widthInBlocks = 2;
-                    Entity houseEntity = new House(newHouseX, Constants.GROUND_LEVEL, widthInBlocks, heightInBlocks);
+                    Entity houseEntity = new House(level, newHouseX, Constants.GROUND_LEVEL, widthInBlocks, heightInBlocks);
                     level.levelEntities.get(entityClass).add(houseEntity);
                 }
             }

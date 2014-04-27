@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
+import com.catinthedark.level.Level;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,14 +21,22 @@ public class House extends Entity{
     private int heightInBlocks;
     private int widthInBlocks;
     private ArrayList<HouseBlock> houseBlocks = new ArrayList<HouseBlock>();
+    private Level level;
 
-    public House(float x, float y, int widthInBlocks, int heightInBlocks) {
+    public House(Level level, float x, float y, int widthInBlocks, int heightInBlocks) {
         super(x, y, widthInBlocks * HouseBlock.blockWidth, heightInBlocks * HouseBlock.blockHeight);
         this.x = x;
         this.y = y;
         this.widthInBlocks = widthInBlocks;
         this.heightInBlocks = heightInBlocks;
+        this.level = level;
         buildHouse();
+    }
+
+    public void shoot() {
+        for (HouseBlock block : houseBlocks) {
+            block.shoot();
+        }
     }
 
     private void buildHouse() {
@@ -56,7 +65,7 @@ public class House extends Entity{
                 boolean left = (i == 0);
                 boolean top = (j == heightInBlocks - 1);
 
-                houseBlocks.add(new HouseBlock(roomWithEnemy.get(i + j * widthInBlocks), top, left, blockX, blockY));
+                houseBlocks.add(new HouseBlock(level, roomWithEnemy.get(i + j * widthInBlocks), top, left, blockX, blockY));
                 vacantRoomNumbers.add(i + j);
             }
         }
@@ -65,6 +74,7 @@ public class House extends Entity{
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
+        shoot();
         for (HouseBlock block: houseBlocks) {
             block.render(delta, batch);
         }
