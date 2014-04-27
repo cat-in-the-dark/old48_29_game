@@ -45,6 +45,7 @@ public class Assets {
     public static TiledMapRenderer backgroundRenderer;
     public static Texture rocketTexture;
     public static Texture oilFactoryTexture;
+    public static Texture oilFieldTexture;
 
     /**
      * Enemies(Windows with enemies) Textures and Animations
@@ -76,6 +77,7 @@ public class Assets {
         Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
         Pixmap bulletPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         Pixmap oilFactoryPixMap = new Pixmap(2, 4, Pixmap.Format.RGBA8888);
+        Pixmap oilFieldPixmap = new Pixmap(7, 2, Pixmap.Format.RGBA8888);
 
         presidentPixmap.setColor(1, 0, 0, 1f);
         presidentPixmap.fill();
@@ -92,6 +94,10 @@ public class Assets {
         oilFactoryPixMap.setColor(0,0,0,1f);
         oilFactoryPixMap.fill();
         oilFactoryTexture = new Texture(oilFactoryPixMap);
+
+        oilFieldPixmap.setColor(0, 0, 0, 1f);
+        oilFieldPixmap.fill();
+        oilFieldTexture = new Texture(oilFieldPixmap);
 
         Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
         houseBlockPixMap.setColor(0, 1, 1, 1);

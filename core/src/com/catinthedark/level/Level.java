@@ -4,12 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
-import com.catinthedark.entities.Bullet;
-import com.catinthedark.entities.Entity;
-import com.catinthedark.entities.House;
-import com.catinthedark.entities.President;
-import com.catinthedark.entities.Rocket;
-import com.catinthedark.entities.OilFactory;
+import com.catinthedark.entities.*;
 import com.catinthedark.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -37,6 +32,7 @@ public class Level {
       //тут просто создадим пулю маджахета для тестинга
         levelEntities.get(Bullet.class).add(new Bullet(16, 10, 1, 1));
         levelEntities.put(OilFactory.class, new ArrayList<Entity>());
+        levelEntities.put(OilField.class, new ArrayList<Entity>());
     }
 
     private boolean isInViewPort(Entity entity) {
@@ -51,6 +47,7 @@ public class Level {
 
     public void render(float delta, SpriteBatch batch) {
         LevelGenerator.getInstance().generateLevel(this);
+
         for(Map.Entry<Class, List<Entity>> entry : levelEntities.entrySet()){
             Class cls = entry.getKey();
             if(cls == Rocket.class) {
