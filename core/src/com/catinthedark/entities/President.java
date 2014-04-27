@@ -24,7 +24,7 @@ public class President {
 	private final Vector2 maxAcceleration = new Vector2(0.5f, 0f);
 	private Vector2 acceleration = new Vector2(minAcceleration.x,
 			minAcceleration.y);
-	private State state;
+	public State state;
 	public Direction direction;
 	private List<Rectangle> bounds;
 
@@ -84,16 +84,23 @@ public class President {
 	}
 
 	private TextureRegion playAnimation(float stateTime) {
-		if (state == State.IDLE) {
-			return Assets.presidentIdle.getKeyFrame(stateTime);
-		} else {
-			switch (direction) {
-			case RIGHT:
-				return Assets.presidentRunRight.getKeyFrame(stateTime);
-			case LEFT:
-				return Assets.presidentRunLeft.getKeyFrame(stateTime);
-			}
-		}
+        switch (state) {
+            case IDLE:
+                return Assets.presidentIdle.getKeyFrame(stateTime);
+            case AIM_UP:
+                // TODO
+                return Assets.presidentIdle.getKeyFrame(stateTime);
+            case AIM_DOWN:
+                // TODO
+                return Assets.presidentIdle.getKeyFrame(stateTime);
+            case RUN:
+                switch (direction) {
+                    case RIGHT:
+                        return Assets.presidentRunRight.getKeyFrame(stateTime);
+                    case LEFT:
+                        return Assets.presidentRunLeft.getKeyFrame(stateTime);
+                }
+        }
 
 		return Assets.presidentIdle.getKeyFrame(stateTime);
 	}
@@ -114,12 +121,12 @@ public class President {
         return null;
     }
 
-	public void move(boolean is_moving, Camera camera) {
-		if (!is_moving) {
-			state = State.IDLE;
+	public void move(State state, Camera camera) {
+		if (state != State.RUN) {
+			this.state = state;
 			acceleration.x = minAcceleration.x;
 		} else {
-			state = State.RUN;
+			this.state = State.RUN;
 			switch (direction) {
 			case RIGHT:
 				acceleration.x = maxAcceleration.x;

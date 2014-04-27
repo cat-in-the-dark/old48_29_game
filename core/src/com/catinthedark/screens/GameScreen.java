@@ -85,33 +85,39 @@ public class GameScreen extends Basic2DScreen {
     }
 
     public void processKeys() {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            level.president.move(Entity.State.AIM_DOWN, camera);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            level.president.move(Entity.State.AIM_UP, camera);
+        }
 		if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
 				|| Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
 			level.shut(level.president);
-			level.president.move(false, camera);
+			level.president.move(Entity.State.IDLE, camera);
 			return;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			level.placeOilFactory();
-            level.president.move(false, camera);
+            level.president.move(Entity.State.IDLE, camera);
             return;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D)
 				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			level.president.direction = Entity.Direction.RIGHT;
-			level.president.move(true, camera);
+			level.president.move(Entity.State.RUN, camera);
 
 			if (needMoveCamera()) {
 				moveMainCamera();
 				moveBackCamera();
-				level.president.move(true, camera);
+				level.president.move(Entity.State.RUN, camera);
 			}
 		} else if (Gdx.input.isKeyPressed(Input.Keys.A)
 				|| Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			level.president.direction = Entity.Direction.LEFT;
-			level.president.move(true, camera);
+			level.president.move(Entity.State.RUN, camera);
 		} else {
-			level.president.move(false, camera);
+			level.president.move(Entity.State.IDLE, camera);
 		}
 
 		// FIXME: only for debug

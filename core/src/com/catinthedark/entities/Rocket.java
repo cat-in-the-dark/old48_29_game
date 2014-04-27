@@ -10,19 +10,28 @@ import com.catinthedark.assets.Assets;
 public class Rocket extends Entity {
     private static final int rocketWidth = 2;
     private static final int rocketHeight = 2;
-    private final Vector2 maxAcceleration = new Vector2(0.5f, 0.5f);
+    private final float speedModification = 1f;
+    private final Vector2 maxAccelerationMiddle = new Vector2(0.5f / speedModification, -0.015f / speedModification);
+    private final Vector2 maxAccelerationUp = new Vector2(0.5f * speedModification, 0.08f / speedModification);
+    private final Vector2 maxAccelerationDown = new Vector2(0.5f / speedModification, -0.2f / speedModification);
     private final Vector2 acceleration = new Vector2(0f, 0f);
     private final President creator;
 
     public Rocket(float x, float y, President entity){
         super(x, y, rocketWidth, rocketHeight);
         this.creator = entity;
-        switch (this.creator.direction) {
-            case RIGHT:
-                acceleration.x = maxAcceleration.x;
+        switch (this.creator.state) {
+            case AIM_UP:
+                acceleration.x = maxAccelerationUp.x;
+                acceleration.y = maxAccelerationUp.y;
                 break;
-            case LEFT:
-                acceleration.x = maxAcceleration.x;
+            case AIM_DOWN:
+                acceleration.x = maxAccelerationDown.x;
+                acceleration.y = maxAccelerationDown.y;
+                break;
+            case IDLE:
+                acceleration.x = maxAccelerationMiddle.x;
+                acceleration.y = maxAccelerationMiddle.y;
                 break;
         }
     }

@@ -21,7 +21,7 @@ public class Entity {
         RIGHT, LEFT
     }
     public enum State {
-        IDLE, RUN, JUMP
+        IDLE, RUN, AIM_UP, AIM_DOWN
     }
 
     public Entity(float x, float y, int width, int height) {
