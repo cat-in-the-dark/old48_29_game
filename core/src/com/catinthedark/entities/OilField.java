@@ -11,6 +11,8 @@ import com.catinthedark.assets.Assets;
 public class OilField extends Entity{
     public static final int width = 7;
     public static final int height = 2;
+    
+    private boolean hasFactory = false;
 
     public OilField(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -25,4 +27,13 @@ public class OilField extends Entity{
         super.render(delta, batch);
         batch.draw(Assets.oilFieldAnimation.getKeyFrame(stateTime), this.x, this.y, width, height);
     }
+
+	public boolean isHasFactory() {
+		return hasFactory;
+	}
+
+	public void setHasFactory(boolean hasFactory) {
+		this.hasFactory = hasFactory;
+	}
+    
 }

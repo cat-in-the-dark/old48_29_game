@@ -116,14 +116,6 @@ public class President {
 		return null;
 	}
 
-	public OilFactory layOilFactory() {
-		if (lastLayOilFactoryTime > layDelay) {
-			lastLayOilFactoryTime = 0;
-			return new OilFactory(this.x + WIDTH);
-		}
-		return null;
-	}
-
 	public void move(State state, Camera camera) {
 		if (state != State.RUN) {
 			this.state = state;
