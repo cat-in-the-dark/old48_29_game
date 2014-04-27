@@ -1,9 +1,9 @@
 package com.catinthedark.screens;
 
+import com.badlogic.gdx.Game;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.badlogic.gdx.Game;
 
 public class ScreenChain {
 	private List<Basic2DScreen> screens = new ArrayList<Basic2DScreen>();

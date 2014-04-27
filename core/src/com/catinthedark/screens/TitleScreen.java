@@ -1,13 +1,13 @@
 package com.catinthedark.screens;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class TitleScreen extends Basic2DScreen {
 	private final Texture texture;
@@ -43,8 +43,6 @@ public class TitleScreen extends Basic2DScreen {
 	 * @param chain
 	 * @param texture
 	 * @param timeToLive
-	 *            - ms
-	 * @param fadeTime
 	 *            - ms
 	 */
 	public TitleScreen(ScreenChain chain, Texture texture, int timeToLive) {
@@ -115,8 +113,8 @@ public class TitleScreen extends Basic2DScreen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+        spriteBatch.dispose();
+        texture.dispose();
 	}
 
 }

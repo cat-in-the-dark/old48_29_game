@@ -92,4 +92,9 @@ public class GameHud {
 				* BAR_BORDER_WIDTH, HEIGHT - 2 * BAR_BORDER_WIDTH);
 		shapeRenderer.end();
 	}
+
+    public void dispose() {
+        spriteBatch.dispose();
+        shapeRenderer.dispose();
+    }
 }
