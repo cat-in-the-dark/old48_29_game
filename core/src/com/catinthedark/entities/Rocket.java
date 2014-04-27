@@ -12,9 +12,9 @@ public class Rocket extends Entity {
     private static final int rocketHeight = 2;
     private final Vector2 maxAcceleration = new Vector2(0.5f, 0.5f);
     private final Vector2 acceleration = new Vector2(0f, 0f);
-    private final Entity creator;
+    private final President creator;
 
-    public Rocket(float x, float y, Entity entity){
+    public Rocket(float x, float y, President entity){
         super(x, y, rocketWidth, rocketHeight);
         this.creator = entity;
         switch (this.creator.direction) {

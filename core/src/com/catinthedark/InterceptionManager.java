@@ -81,10 +81,13 @@ public class InterceptionManager {
 			if (bullet.isMarkedToDelete())
 				continue;
 
-			if (Intersector.intersectRectangles(pres.bounds, bullet.bounds,
-					tmpRect)) {
-				pres.doDamage(Constants.TERR_DAMAGE);
-				bullet.markDeleted();
+			for (Rectangle bound : pres.getBounds()) {
+				if (Intersector.intersectRectangles(bound, bullet.bounds,
+						tmpRect)) {
+					pres.doDamage(Constants.TERR_DAMAGE);
+					bullet.markDeleted();
+					break;
+				}
 			}
 		}
 

@@ -1,114 +1,166 @@
 package com.catinthedark.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.catinthedark.Constants;
 import com.catinthedark.assets.Assets;
+import com.catinthedark.entities.Entity.Direction;
+import com.catinthedark.entities.Entity.State;
 
 /**
  * Created by Ilya on 26.04.2014.
  */
-public class President extends Entity {
-    public static final int WIDTH = 6;
-    public static final int HEIGHT = 9;
+public class President {
+	public static final int WIDTH = 6;
+	public static final int HEIGHT = 9;
 
-    private final Vector2 minAcceleration = new Vector2(0f, 0f);
-    private final Vector2 maxAcceleration = new Vector2(0.5f, 0f);
-    private Vector2 acceleration = new Vector2(minAcceleration.x, minAcceleration.y);
-    private State state;
+	private final Vector2 minAcceleration = new Vector2(0f, 0f);
+	private final Vector2 maxAcceleration = new Vector2(0.5f, 0f);
+	private Vector2 acceleration = new Vector2(minAcceleration.x,
+			minAcceleration.y);
+	private State state;
+	public Direction direction;
+	private List<Rectangle> bounds;
 
-    private double shutDelay = 1;
-    private double lastShutTime = 0;
-    private double lastLayOilFactoryTime = 0;
-    private double layDelay = 1;
-    private float stateTime = 0;
-    private int healt = 100;
+	private float x;
+	private float y;
 
-    public President(float x, float y) {
-        super(x, y, WIDTH, HEIGHT);
-        this.direction = Direction.RIGHT;
-        this.state = State.IDLE;
-    }
+	private double shutDelay = 1;
+	private double lastShutTime = 0;
+	private double lastLayOilFactoryTime = 0;
+	private double layDelay = 1;
+	private float stateTime = 0;
+	private int healt = 100;
 
-    @Override
-    public void render(float delta, SpriteBatch batch) {
-        super.render(delta, batch);
-        stateTime += delta;
-        lastShutTime += delta;
-        lastLayOilFactoryTime += delta;
-        tryMove();
-        batch.draw(playAnimation(stateTime), this.x, this.y - 0.5f, width, height);
-    }
+	public President(float x, float y) {
+		this.direction = Direction.RIGHT;
+		this.state = State.IDLE;
 
-    private TextureRegion playAnimation(float stateTime) {
-        if (state == State.IDLE) {
-            return Assets.presidentIdle.getKeyFrame(stateTime);
-        } else {
-            switch (direction) {
-                case RIGHT:
-                    return Assets.presidentRunRight.getKeyFrame(stateTime);
-                case LEFT:
-                    return Assets.presidentRunLeft.getKeyFrame(stateTime);
-            }
-        }
+		this.x = x;
+		this.y = y;
 
-        return Assets.presidentIdle.getKeyFrame(stateTime);
-    }
+		bounds = new ArrayList<Rectangle>(3);
+		bounds.add(new Rectangle(x, y, (float) WIDTH * 3 / 4, HEIGHT * 0.32f));
+		bounds.add(new Rectangle(x, y + HEIGHT * 0.32f, (float) WIDTH * 0.58f,
+				HEIGHT * 0.19f));
+		bounds.add(new Rectangle(x, y + HEIGHT * (0.32f + 0.19f),
+				(float) WIDTH * 0.9f, HEIGHT * 0.22f));
+		bounds.add(new Rectangle(x, y + HEIGHT * (0.32f + 0.19f + 0.22f),
+				(float) WIDTH * 0.54f, HEIGHT * 0.2f));
+	}
 
-    public Rocket shut() {
-        if (lastShutTime > shutDelay) {
-            lastShutTime = 0;
-            return new Rocket(this.x + this.width / 2f, this.y + this.height / 2f, this);
-        }
-        return null;
-    }
+	public float getX() {
+		return x;
+	}
 
-    public OilFactory layOilFactory() {
-        if (lastLayOilFactoryTime > layDelay) {
-            lastLayOilFactoryTime = 0;
-            return new OilFactory(this.x);
-        }
-        return null;
-    }
+	public float getY() {
+		return y;
+	}
 
-    public void move(boolean is_moving, Camera camera) {
-        if (!is_moving) {
-            state = State.IDLE;
-            acceleration.x = minAcceleration.x;
-        } else {
-            state = State.RUN;
-            switch (direction) {
-                case RIGHT:
-                    acceleration.x = maxAcceleration.x;
-                    break;
-                case LEFT:
-                    acceleration.x = -maxAcceleration.x;
-                    break;
-            }
-        }
+	public void render(float delta, SpriteBatch batch) {
+		stateTime += delta;
+		lastShutTime += delta;
+		lastLayOilFactoryTime += delta;
+		tryMove();
+		batch.draw(playAnimation(stateTime), this.x, this.y - 0.5f, WIDTH,
+				HEIGHT);
+//		batch.end();
+//
+//		ShapeRenderer shapeRenderer = new ShapeRenderer();
+//		shapeRenderer.begin(ShapeType.Line);
+//		shapeRenderer.setColor(Color.RED);
+//		for (Rectangle bound : bounds)
+//			shapeRenderer.rect(bound.x * Constants.UNIT_SIZE, bound.y
+//					* Constants.UNIT_SIZE, bound.width * Constants.UNIT_SIZE,
+//					bound.height * Constants.UNIT_SIZE);
+//		shapeRenderer.end();
+//		batch.begin();
+	}
 
-        if (!canMove(camera)) {
-            acceleration.x = minAcceleration.x;
-        }
-    }
+	private TextureRegion playAnimation(float stateTime) {
+		if (state == State.IDLE) {
+			return Assets.presidentIdle.getKeyFrame(stateTime);
+		} else {
+			switch (direction) {
+			case RIGHT:
+				return Assets.presidentRunRight.getKeyFrame(stateTime);
+			case LEFT:
+				return Assets.presidentRunLeft.getKeyFrame(stateTime);
+			}
+		}
 
-    private void tryMove() {
-        this.x += acceleration.x;
-        this.bounds.x = this.x;
-    }
+		return Assets.presidentIdle.getKeyFrame(stateTime);
+	}
 
-    public boolean canMove(Camera camera) {
-        float nextX = this.x + acceleration.x;
-        return !(camera.position.x - this.width - Constants.maxPresidentDestinationFromBorder < nextX || nextX < camera.position.x - camera.viewportWidth / 2f);
-    }
-    
-    public int getHealth(){
-    	return healt;
-    }
-    
-    public void doDamage(int amount){
-    	healt -= amount;
-    }
+	public Rocket shut() {
+		if (lastShutTime > shutDelay) {
+			lastShutTime = 0;
+			return new Rocket(this.x + WIDTH / 2f, this.y + HEIGHT / 2f, this);
+		}
+		return null;
+	}
+
+	public OilFactory layOilFactory() {
+		if (lastLayOilFactoryTime > layDelay) {
+			lastLayOilFactoryTime = 0;
+			return new OilFactory(this.x);
+		}
+		return null;
+	}
+
+	public void move(boolean is_moving, Camera camera) {
+		if (!is_moving) {
+			state = State.IDLE;
+			acceleration.x = minAcceleration.x;
+		} else {
+			state = State.RUN;
+			switch (direction) {
+			case RIGHT:
+				acceleration.x = maxAcceleration.x;
+				break;
+			case LEFT:
+				acceleration.x = -maxAcceleration.x;
+				break;
+			}
+		}
+
+		if (!canMove(camera)) {
+			acceleration.x = minAcceleration.x;
+		}
+	}
+
+	private void tryMove() {
+		this.x += acceleration.x;
+		for (Rectangle bound : bounds)
+			bound.x = x;
+
+	}
+
+	public boolean canMove(Camera camera) {
+		float nextX = this.x + acceleration.x;
+		return !(camera.position.x - WIDTH
+				- Constants.maxPresidentDestinationFromBorder < nextX || nextX < camera.position.x
+				- camera.viewportWidth / 2f);
+	}
+
+	public int getHealth() {
+		return healt;
+	}
+
+	public void doDamage(int amount) {
+		healt -= amount;
+	}
+
+	public List<Rectangle> getBounds() {
+		return bounds;
+	}
 }

@@ -90,7 +90,7 @@ public class GameScreen extends Basic2DScreen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D)
 				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			level.president.setDirection(Entity.Direction.RIGHT);
+			level.president.direction = Entity.Direction.RIGHT;
 			level.president.move(true, camera);
 
 			if (needMoveCamera()) {
@@ -100,7 +100,7 @@ public class GameScreen extends Basic2DScreen {
 			}
 		} else if (Gdx.input.isKeyPressed(Input.Keys.A)
 				|| Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			level.president.setDirection(Entity.Direction.LEFT);
+			level.president.direction = Entity.Direction.LEFT;
 			level.president.move(true, camera);
 		} else {
 			level.president.move(false, camera);
@@ -133,7 +133,7 @@ public class GameScreen extends Basic2DScreen {
 	}
 
 	private boolean needMoveCamera() {
-		return camera.position.x - level.president.getWidth()
+		return camera.position.x - level.president.WIDTH
 				- Constants.maxPresidentDestinationFromBorder <= level.president
 					.getX();
 	}
