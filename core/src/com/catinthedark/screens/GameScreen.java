@@ -98,8 +98,7 @@ public class GameScreen extends Basic2DScreen {
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             lastState = Entity.State.AIM_UP;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
-                || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             level.shut(level.president);
             level.president.move(lastState, camera);
             return;
