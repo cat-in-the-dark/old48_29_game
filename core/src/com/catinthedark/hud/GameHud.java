@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.catinthedark.GameScore;
 import com.catinthedark.assets.Assets;
 
 public class GameHud {
@@ -69,13 +70,9 @@ public class GameHud {
 
 		spriteBatch.begin();
 		Assets.font.draw(spriteBatch, "Democracy:", X_POS, Y_POS + 25);
-		spriteBatch.end();
-		spriteBatch.begin();
 		spriteBatch.draw(Assets.democracyTex, X_POS + 130, Y_POS, WIDTH, HEIGHT);
-		spriteBatch.end();
-
-		spriteBatch.begin();
 		Assets.font.draw(spriteBatch, "Health:", X_POS, Y_POS - 40 + 25);
+        Assets.font.draw(spriteBatch, "Score:  " + String.valueOf(GameScore.getInstance().getScore()), X_POS + 700 , Y_POS - 40 + 25);
 		spriteBatch.end();
 
 		// bar background
