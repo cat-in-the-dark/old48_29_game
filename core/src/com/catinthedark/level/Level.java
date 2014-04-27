@@ -47,7 +47,7 @@ public class Level {
 
     private boolean isBulletInViewPort(Entity entity) {
         Camera camera = gameScreen.getCamera();
-        return ((camera.position.x - entity.getX()) < camera.viewportWidth / 2f) && ((entity.getX() - camera.position.x) < camera.viewportWidth * 2f && entity.getY() < camera.viewportHeight && entity.getY() > Constants.GROUND_LEVEL);
+        return ((camera.position.x - entity.getX()) < camera.viewportWidth / 2f) && ((entity.getX() - camera.position.x) < camera.viewportWidth * 1.1f && entity.getY() < camera.viewportHeight && entity.getY() > Constants.GROUND_LEVEL);
     }
 
     public void render(float delta, SpriteBatch batch) {
