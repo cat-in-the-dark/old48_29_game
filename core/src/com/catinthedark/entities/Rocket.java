@@ -9,7 +9,7 @@ import com.catinthedark.assets.Assets;
  */
 public class Rocket extends Entity {
     private static final int rocketWidth = 2;
-    private static final int rocketHeight = 2;
+    private static final int rocketHeight = 1;
     private final float speedModification = 1.3f;
     private final Vector2 maxAccelerationMiddle = new Vector2(0.5f * speedModification, -0.015f * speedModification);
     private final Vector2 maxAccelerationUp = new Vector2(0.5f * speedModification, 0.08f * speedModification);
@@ -43,6 +43,6 @@ public class Rocket extends Entity {
         y += acceleration.y;
         bounds.x = x;
         bounds.y = y;
-        batch.draw(Assets.rocketTexture, x, y);
+        batch.draw(Assets.rocketTexture, x, y, width, height);
     }
 }

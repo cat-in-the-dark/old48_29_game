@@ -105,7 +105,14 @@ public class President {
 	public Rocket shut() {
 		if (lastShutTime > shutDelay) {
 			lastShutTime = 0;
-			return new Rocket(this.x + 3f * WIDTH / 4f , this.y + HEIGHT / 2f, this);
+            switch (state) {
+                case AIM_DOWN:
+                    return new Rocket(this.x + 3f * WIDTH / 5f , this.y + HEIGHT / 2f + 0.1f, this);
+                case AIM_UP:
+                    return new Rocket(this.x + 3f * WIDTH / 5f , this.y + HEIGHT / 2f + 1.2f, this);
+                default:
+                    return new Rocket(this.x + 3f * WIDTH / 5f , this.y + HEIGHT / 2f + 0.8f, this);
+            }
 		}
 		return null;
 	}

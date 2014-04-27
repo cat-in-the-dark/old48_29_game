@@ -12,7 +12,7 @@ import com.catinthedark.screens.TitleScreen;
 public class BSODGame extends Game {
 
 	private TitleScreen createTutorialScreen(ScreenChain chain, Texture tex) {
-		TitleScreen screen = new TitleScreen(chain, tex, 3000);
+		TitleScreen screen = new TitleScreen(chain, tex, 10000);
 		screen.bindings.bind(Input.Keys.ESCAPE, 6).bindNext(Input.Keys.ENTER);
 
 		return screen;
@@ -38,13 +38,11 @@ public class BSODGame extends Game {
 
 		GameEndScreen gameOverScreen = new GameEndScreen(screenChain,
 				Assets.gameOverTex, 0);
-		gameOverScreen.bindings.bindPrev(Input.Keys.ENTER).bind(
-				Input.Keys.ESCAPE, 1);
+		gameOverScreen.bindings.bind(Input.Keys.ESCAPE, 1);
 		screenChain.add(gameOverScreen);
 		
 		GameEndScreen winScreen = new GameEndScreen(screenChain,Assets.gameWinTex, 0);
-		winScreen.bindings.bind(Input.Keys.ENTER ,6).bind(
-				Input.Keys.ESCAPE, 1);
+		winScreen.bindings.bind(Input.Keys.ESCAPE, 1);
 		screenChain.add(winScreen);
 		
 		Assets.music.play();

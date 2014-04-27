@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,17 +15,17 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.catinthedark.Constants;
-import com.catinthedark.entities.HouseBlock;
 import com.catinthedark.entities.President;
 
 /**
  * Created by Ilya on 26.04.2014.
  */
 public class Assets {
-    /**
-     * Simple test textures
-     */
     public static Texture democracyTex;
+
+    /**
+     * Rocket texture
+     */
     public static Texture rocketTexture;
 
     /**
@@ -118,31 +117,6 @@ public class Assets {
     public static Animation explosionAnimation;
 
     public static void setupAssets() {
-        /**
-         * It's just text textures!!
-         */
-        Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
-
-        rocketPixmap.setColor(0, 1, 0, 1f);
-        rocketPixmap.fill();
-        rocketTexture = new Texture(rocketPixmap);
-
-        Pixmap oilFieldPixmap = new Pixmap(7, 2, Pixmap.Format.RGBA8888);
-        oilFieldPixmap.setColor(0, 0, 0, 1f);
-        oilFieldPixmap.fill();
-        oilFieldTexture = new Texture(oilFieldPixmap);
-
-        Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
-        houseBlockPixMap.setColor(0, 1, 1, 1);
-        houseBlockPixMap.fill();
-        houseBlockTexture = new Texture(houseBlockPixMap);
-
-        Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
-        enemyBlockPixMap.setColor(0, 0, 1, 1);
-        enemyBlockPixMap.fill();
-        //-> End of test textures
-
-
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));
         logoTex = new Texture(
@@ -177,6 +151,7 @@ public class Assets {
                 Gdx.files.internal("texture/kamaz_AID.png"));
         explosionSheet = new Texture(
                 Gdx.files.internal("texture/explosion.png"));
+        rocketTexture = new Texture(Gdx.files.internal("texture/snaryad.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("font/impact.ttf"));
