@@ -20,7 +20,7 @@ public class House extends Entity{
 
     private int heightInBlocks;
     private int widthInBlocks;
-    private ArrayList<HouseBlock> houseBlocks = new ArrayList<HouseBlock>();
+    private List<HouseBlock> houseBlocks = new ArrayList<HouseBlock>();
     private Level level;
 
     public House(Level level, float x, float y, int widthInBlocks, int heightInBlocks) {
@@ -69,6 +69,10 @@ public class House extends Entity{
                 vacantRoomNumbers.add(i + j);
             }
         }
+    }
+    
+    public List<HouseBlock> getHouseBlocks(){
+    	return houseBlocks;
     }
 
     @Override
