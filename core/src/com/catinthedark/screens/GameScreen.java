@@ -19,8 +19,8 @@ import com.catinthedark.level.Level;
 public class GameScreen extends Basic2DScreen {
 
 	final GameHud hud;
-	final Level level;
-	final InterceptionManager interManager;
+	Level level;
+	InterceptionManager interManager;
 	final SpriteBatch batchMap;
 	final OrthographicCamera backCamera;
 	final int[] layers = new int[] { 0 };
@@ -30,24 +30,32 @@ public class GameScreen extends Basic2DScreen {
 
 		backCamera = new OrthographicCamera(Constants.VIEW_PORT_WIDTH,
 				Constants.VIEW_PORT_HEIGHT);
-		backCamera.position.set(new float[] { Constants.VIEW_PORT_WIDTH / 2,
-				Constants.VIEW_PORT_HEIGHT / 2, 0 });
 
 		batchMap = new SpriteBatch();
-		level = new Level(this);
-		interManager = new InterceptionManager(level);
 
 		this.hud = new GameHud();
 		hud.conf().setX(10).setY(585);
-		hud.setDemocracyLevel(70);
-		hud.setHealth(40);
 
+	}
+	
+	@Override
+	public void show() {
+		
+		Gdx.input.setInputProcessor(this);
+		level = new Level(this);
+		interManager = new InterceptionManager(level);
+		backCamera.position.set(new float[] { Constants.VIEW_PORT_WIDTH / 2,
+				Constants.VIEW_PORT_HEIGHT / 2, 0 });
 		camera.position.set(Constants.VIEW_PORT_WIDTH / 2f,
 				Constants.VIEW_PORT_HEIGHT / 2f, 0);
 		camera.update();
 		backCamera.update();
-
-		Gdx.input.setInputProcessor(this);
+		
+		GameScore.getInstance().setDemocracyLevel(0);
+		GameScore.getInstance().setHealth(0);
+		
+		hud.setDemocracyLevel(0);
+		hud.setHealth(100);
 	}
 
 	public Camera getCamera() {
@@ -69,6 +77,9 @@ public class GameScreen extends Basic2DScreen {
 		batchMap.begin();
 		level.render(delta, batchMap);
 		batchMap.end();
+		
+		if(level.president.getHealth() == 0)
+			next();
 
 		hud.setHealth(level.president.getHealth());
 		hud.setDemocracyLevel(100 / Constants.DEMOCRACY_LEVEL_MAX

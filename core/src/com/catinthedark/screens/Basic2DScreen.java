@@ -24,9 +24,11 @@ public abstract class Basic2DScreen extends InputAdapter implements Screen {
 	}
 	
 	protected void next(){
+		System.out.println("called next");
 		chain.next();
 	}
 	protected void prev(){
+		System.out.println("called prev");
 		chain.prev();
 	}
 	protected void gotoFrame(int index){

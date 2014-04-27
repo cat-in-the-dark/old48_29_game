@@ -1,6 +1,7 @@
 package com.catinthedark.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class TitleScreen extends Basic2DScreen {
+public class TitleScreen extends Basic2DScreen implements InputProcessor {
 	private final Texture texture;
 	private final int timeToLive;
 	private final boolean infinite;
@@ -54,6 +55,28 @@ public class TitleScreen extends Basic2DScreen {
 	}
 
 	@Override
+	public boolean keyDown(int keycode) {
+		System.out.println("pressed key:" + keycode);
+		Integer nextFrame = bindingsMap.get(keycode);
+		if (nextFrame != null)
+			gotoFrame(nextFrame);
+
+		if (nextHook != null)
+			if (nextHook.equals(keycode)) {
+				next();
+				return true;
+			}
+
+		if (prevHook != null)
+			if (prevHook.equals(keycode)) {
+				prev();
+				return true;
+			}
+
+		return true;
+	}
+
+	@Override
 	public void render(float delta) {
 		spriteBatch.begin();
 		spriteBatch.enableBlending();
@@ -67,18 +90,6 @@ public class TitleScreen extends Basic2DScreen {
 
 		if (timeLaps * 1000 > timeToLive)
 			next();
-
-		for (Entry<Integer, Integer> bindPair : bindingsMap.entrySet())
-			if (Gdx.input.isKeyPressed(bindPair.getKey()))
-				gotoFrame(bindPair.getValue());
-
-		if (nextHook != null)
-			if (Gdx.input.isKeyPressed(nextHook))
-				next();
-
-		if (prevHook != null)
-			if (Gdx.input.isKeyPressed(prevHook))
-				prev();
 	}
 
 	@Override
@@ -90,6 +101,7 @@ public class TitleScreen extends Basic2DScreen {
 	@Override
 	public void show() {
 		timeLaps = 0.0f;
+		Gdx.input.setInputProcessor(this);
 
 	}
 
@@ -113,8 +125,8 @@ public class TitleScreen extends Basic2DScreen {
 
 	@Override
 	public void dispose() {
-        spriteBatch.dispose();
-        texture.dispose();
+		spriteBatch.dispose();
+		texture.dispose();
 	}
 
 }

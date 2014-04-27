@@ -22,8 +22,9 @@ public class ScreenChain {
 
 	public void next() {
 		try {
-			Thread.sleep(switchDelay);
-			game.setScreen(screens.get(currentFrame++));
+			//Thread.sleep(switchDelay);
+			currentFrame++;
+			game.setScreen(screens.get(currentFrame));
 		} catch (Exception ex) {
 			throw new RuntimeException("next frame does not exists! AZAZA!");
 		}
@@ -33,8 +34,9 @@ public class ScreenChain {
 	public void prev() {
 
 		try {
-			Thread.sleep(switchDelay);
-			game.setScreen(screens.get(--currentFrame));
+			//Thread.sleep(switchDelay)
+			currentFrame--;
+			game.setScreen(screens.get(currentFrame));
 		} catch (Exception ex) {
 			throw new RuntimeException("prev frame does not exists! AZAZA!");
 		}
@@ -43,7 +45,7 @@ public class ScreenChain {
 	public void gotoFrame(int index) {
 		currentFrame = index;
 		try {
-			Thread.sleep(switchDelay);
+			//Thread.sleep(switchDelay);
 			game.setScreen(screens.get(currentFrame));
 		} catch (Exception ex) {
 			throw new RuntimeException("frame with id '" + index

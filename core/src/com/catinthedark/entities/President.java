@@ -34,8 +34,6 @@ public class President {
 
 	private double shutDelay = 0.5;
 	private double lastShutTime = 0;
-	private double lastLayOilFactoryTime = 0;
-	private double layDelay = 1;
 	private float stateTime = 0;
 	private int healt = 100;
 
@@ -69,7 +67,6 @@ public class President {
 	public void render(float delta, SpriteBatch batch) {
 		stateTime += delta;
 		lastShutTime += delta;
-		lastLayOilFactoryTime += delta;
 		tryMove();
 		batch.draw(playAnimation(stateTime), this.x, this.y - 0.5f, WIDTH, HEIGHT);
 		// batch.end();
