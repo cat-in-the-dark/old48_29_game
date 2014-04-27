@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.catinthedark.Constants;
 import com.catinthedark.entities.HouseBlock;
+import com.catinthedark.entities.President;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -58,8 +59,19 @@ public class Assets {
     public static Animation mdIdle;
     public static Animation mdShoot;
 
+    /**
+     * President Textures and Animations
+     */
+    public static Texture presidentSheet;
+    public static Animation presidentRunRight;
+    public static Animation presidentRunLeft;
+    public static Animation presidentIdle;
+
 
     public static void setupAssets() {
+        /**
+         * It's just text textures!!
+         */
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
         Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
         Pixmap bulletPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -81,10 +93,20 @@ public class Assets {
         oilFactoryPixMap.fill();
         oilFactoryTexture = new Texture(oilFactoryPixMap);
 
+        Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        houseBlockPixMap.setColor(0, 1, 1, 1);
+        houseBlockPixMap.fill();
+        houseBlockTexture = new Texture(houseBlockPixMap);
+
+        Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        enemyBlockPixMap.setColor(0, 0, 1, 1);
+        enemyBlockPixMap.fill();
+        //-> End of test textures
+
         
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));
-        
+
         logoTex = new Texture(
     			Gdx.files.internal("texture/logo.png"));
         gameStartTex =  new Texture(
@@ -99,9 +121,16 @@ public class Assets {
     			Gdx.files.internal("texture/tutorial4.png"));
         gameOverTex =  new Texture(
     			Gdx.files.internal("texture/game_over.png"));
+
+        enemyBlockTexture = new Texture(
+                Gdx.files.internal("texture/houses_shahids.png"));
         
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
     			Gdx.files.internal("font/impact.ttf"));
+
+        presidentSheet = new Texture(
+                Gdx.files.internal("texture/president_going.png"));
+
     	FreeTypeFontParameter params = new FreeTypeFontParameter();
     	params.size = 25;
     	font = generator.generateFont(params);
@@ -110,16 +139,6 @@ public class Assets {
     	
     	backgroundMap = new TmxMapLoader().load("area02.tmx");
     	backgroundRenderer = new OrthogonalTiledMapRenderer(backgroundMap, 1/32f);
-
-        Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
-        houseBlockPixMap.setColor(0, 1, 1, 1);
-        houseBlockPixMap.fill();
-        houseBlockTexture = new Texture(houseBlockPixMap);
-
-        Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
-        enemyBlockPixMap.setColor(0, 0, 1, 1);
-        enemyBlockPixMap.fill();
-        enemyBlockTexture = new Texture(Gdx.files.internal("texture/houses_shahids.png"));
     }
 
     public static void loadGameData() {
@@ -128,17 +147,37 @@ public class Assets {
     }
 
     private static void initAnimation() {
-        TextureRegion[][] frames = TextureRegion.split(Assets.enemyBlockTexture,
+        TextureRegion[][] framesEnemy = TextureRegion.split(Assets.enemyBlockTexture,
                 Assets.enemyBlockTexture.getWidth() / Constants.FRAME_COLS,
                 Assets.enemyBlockTexture.getHeight() / Constants.FRAME_ROWS);
 
-        leftUnbrocken = frames[6][0];
-        rightUnbrocken = frames[6][1];
-        leftTopUnbrocken = frames[4][0];
-        rightToppUnbrocken = frames[4][1];
-        leftBrocken = frames[5][0];
-        rightBrocken = frames[5][1];
-        mdIdle = new Animation(0, frames[3][3]);
-        mdShoot = new Animation(Constants.ANIMATION_SPEED, frames[3][3], frames[4][3]);
+        leftUnbrocken = framesEnemy[6][0];
+        rightUnbrocken = framesEnemy[6][1];
+        leftTopUnbrocken = framesEnemy[4][0];
+        rightToppUnbrocken = framesEnemy[4][1];
+        leftBrocken = framesEnemy[5][0];
+        rightBrocken = framesEnemy[5][1];
+        mdIdle = new Animation(0, framesEnemy[3][3]);
+        mdShoot = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+                framesEnemy[3][3], framesEnemy[4][3]
+        });
+        mdShoot.setPlayMode(Animation.PlayMode.LOOP);
+
+        TextureRegion[][] presidentFrames = TextureRegion.split(Assets.presidentSheet, President.WIDTH * Constants.TILE_WIDTH, President.HEIGHT * Constants.TILE_HEIGHT);
+
+        presidentRunRight = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+                presidentFrames[0][0], presidentFrames[0][1], presidentFrames[0][2], presidentFrames[0][3], presidentFrames[0][4], presidentFrames[0][5], presidentFrames[0][6], presidentFrames[0][7]
+        });
+        presidentRunRight.setPlayMode(Animation.PlayMode.LOOP);
+
+        presidentRunLeft = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+                presidentFrames[0][7], presidentFrames[0][6], presidentFrames[0][5], presidentFrames[0][4], presidentFrames[0][3], presidentFrames[0][2], presidentFrames[0][1], presidentFrames[0][0]
+        });
+        presidentRunLeft.setPlayMode(Animation.PlayMode.LOOP);
+
+        presidentIdle =  new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+                presidentFrames[0][0]
+        });
+        presidentIdle.setPlayMode(Animation.PlayMode.NORMAL);
     }
 }
