@@ -1,19 +1,12 @@
 package com.catinthedark;
 
-import java.util.List;
-
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.catinthedark.assets.Assets;
-import com.catinthedark.entities.AidVehicle;
-import com.catinthedark.entities.Bullet;
-import com.catinthedark.entities.Entity;
-import com.catinthedark.entities.House;
-import com.catinthedark.entities.HouseBlock;
-import com.catinthedark.entities.President;
-import com.catinthedark.entities.Rocket;
-import com.catinthedark.entities.TntVehicle;
+import com.catinthedark.entities.*;
 import com.catinthedark.level.Level;
+
+import java.util.List;
 
 public class InterceptionManager {
 
@@ -32,7 +25,6 @@ public class InterceptionManager {
 				if (Intersector.intersectRectangles(entity1.bounds,
 						entity2.bounds, tmpRect)) {
 					Assets.smallExpSound.play();
-					System.out.print("intercept!");
 					entity1.markDeleted();
 					entity2.markDeleted();
 				}
@@ -64,10 +56,12 @@ public class InterceptionManager {
 
 					if (Intersector.intersectRectangles(rocket.bounds,
 							block.bounds, tmpRect)) {
-						System.out.print("intercept block with bazooka!");
-						System.out.print("block rect:" + block.bounds);
 						Assets.explosionSound.play();
-						rocket.markDeleted();
+                        if (block.isWithEnemy()){
+                            GameScore.getInstance().priceEnemy();
+                        }
+                        GameScore.getInstance().priceHouse();
+                        rocket.markDeleted();
 						block.setDestroyed(true);
 					}
 				}
@@ -115,6 +109,7 @@ public class InterceptionManager {
 					rocket.markDeleted();
 					vehicle.setDestroyed(true);
 					Assets.kamazExpSound.play();
+                    GameScore.getInstance().priceTNTVehicle();
 				}
 			}
 		}
@@ -137,6 +132,7 @@ public class InterceptionManager {
 					rocket.markDeleted();
 					vehicle.setDestroyed(true);
 					Assets.kamazExpSound.play();
+                    GameScore.getInstance().priceAIdVehicle();
 				}
 			}
 		}

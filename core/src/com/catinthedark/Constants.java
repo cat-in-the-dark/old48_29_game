@@ -16,6 +16,11 @@ public class Constants {
 	public static final Vector2 backCameraSpeed = new Vector2(0.2f, 0f);
     public static final int TILE_WIDTH = 32;
     public static final int TILE_HEIGHT = 32;
+    public static final int ENEMY_PRICE = 200;
+    public static final int TNT_VEHICLE_PRICE = 500;
+    public static final int HOUSE_PRISE = 50;
+    public static final int AID_VEHICLE_PRICE = 1000;
+
     public static float maxPresidentDestinationFromBorder = 4f;
 	public static final Vector2 mainCameraSpeed = new Vector2(0.5f, 0f);
     public static final int SHOOT_INTERVAL_MIN = 2;  // sec
