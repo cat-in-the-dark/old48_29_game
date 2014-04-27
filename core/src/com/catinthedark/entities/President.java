@@ -23,7 +23,7 @@ public class President {
 	public static final int HEIGHT = 9;
 
 	private final Vector2 minAcceleration = new Vector2(0f, 0f);
-	private final Vector2 maxAcceleration = new Vector2(0.5f, 0f);
+	private final Vector2 maxAcceleration = Constants.PRESIDENT_SPEED;
 	private Vector2 acceleration = new Vector2(minAcceleration.x,
 			minAcceleration.y);
 	public State state;
