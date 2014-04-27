@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class Entity {
     protected float y;
     protected float x;
-    protected int width;
-    protected int height;
+    protected float width;
+    protected float height;
     public final Rectangle bounds;
     protected Direction direction;
     protected boolean deleted;
@@ -24,7 +24,7 @@ public class Entity {
         IDLE, RUN, AIM_UP, AIM_DOWN
     }
 
-    public Entity(float x, float y, int width, int height) {
+    public Entity(float x, float y, float width, float height) {
         this.width = width;
         this.height = height;
         this.x = x;
@@ -41,8 +41,11 @@ public class Entity {
         return x;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
+    }
+    public float getHeight(){
+        return height;
     }
 
     public void setDirection(Direction dir) {
