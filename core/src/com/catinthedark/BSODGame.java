@@ -12,7 +12,7 @@ import com.catinthedark.screens.TitleScreen;
 public class BSODGame extends Game {
 
 	private TitleScreen createTutorialScreen(ScreenChain chain, Texture tex) {
-		TitleScreen screen = new TitleScreen(chain, tex, 6000);
+		TitleScreen screen = new TitleScreen(chain, tex, 10000);
 		screen.bindings.bind(Input.Keys.ESCAPE, 6).bindNext(Input.Keys.ENTER);
 
 		return screen;
