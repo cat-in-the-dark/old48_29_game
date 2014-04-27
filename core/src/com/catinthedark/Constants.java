@@ -13,7 +13,7 @@ public class Constants {
 	 * minimum distance between buildings (at max democracy level)
 	 */
 	public static final float BUILDING_DISTANCE_MIN = 5.0f; // tiles
-	public static final Vector2 backCameraSpeed = new Vector2(0.2f, 0f);
+	public static final Vector2 backCameraSpeed = new Vector2(0.25f, 0f);
     public static final int TILE_WIDTH = 32;
     public static final int TILE_HEIGHT = 32;
     public static final int ENEMY_PRICE = 200;
@@ -22,7 +22,8 @@ public class Constants {
     public static final int AID_VEHICLE_PRICE = 1000;
 
     public static float maxPresidentDestinationFromBorder = 4f;
-	public static final Vector2 mainCameraSpeed = new Vector2(0.5f, 0f);
+    public static final Vector2 PRESIDENT_SPEED = new Vector2(0.25f, 0f);
+	public static final Vector2 mainCameraSpeed = new Vector2(0.25f, 0f);
     public static final int SHOOT_INTERVAL_MIN = 2;  // sec
     public static final int SHOOT_INTERVAL_MAX = 6;  // sec
     public static final long SHOT_ANIMATION_DURATION = 500000000L;  //nanosec

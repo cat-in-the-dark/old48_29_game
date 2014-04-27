@@ -23,7 +23,7 @@ public class President {
 	public static final int HEIGHT = 9;
 
 	private final Vector2 minAcceleration = new Vector2(0f, 0f);
-	private final Vector2 maxAcceleration = new Vector2(0.5f, 0f);
+	private final Vector2 maxAcceleration = Constants.PRESIDENT_SPEED;
 	private Vector2 acceleration = new Vector2(minAcceleration.x,
 			minAcceleration.y);
 	public State state;
@@ -105,7 +105,7 @@ public class President {
 	public Rocket shut() {
 		if (lastShutTime > shutDelay) {
 			lastShutTime = 0;
-			return new Rocket(this.x + WIDTH / 2f, this.y + HEIGHT / 2f, this);
+			return new Rocket(this.x + 3f * WIDTH / 4f , this.y + HEIGHT / 2f, this);
 		}
 		return null;
 	}
