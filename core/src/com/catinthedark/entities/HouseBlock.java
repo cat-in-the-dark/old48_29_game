@@ -49,12 +49,13 @@ public class HouseBlock extends Entity {
 
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
+        setWithEnemy(false);
     }
 
     public HouseBlock(Level level, boolean withEnemy, boolean top, boolean left, float x, float y) {
         super(x, y, blockWidth, blockHeight);
         setWithEnemy(withEnemy);
-        lastShootTime = TimeUtils.nanoTime();
+        lastShootTime = 0;
         this.x = x;
         this.y = y;
         this.top = top;
@@ -77,7 +78,8 @@ public class HouseBlock extends Entity {
             int iWantToShoot = MathUtils.random(0, 1);
             if (iWantToShoot == 1) {
                 shooting = true;
-                level.levelEntities.get(Bullet.class).add(new Bullet(this.x + bulletOffsetX, this.y + bulletOffsetY));
+                level.levelEntities.get(Bullet.class).add(new Bullet(this.x + bulletOffsetX, this.y + bulletOffsetY,
+                        -1 * Constants.BULLET_SPEED_X, 0));
                 lastShootTime = TimeUtils.nanoTime();
                 shootInterval = MathUtils.random(shootIntervalMin, shootIntervalMax) * 1000000000L;
             }
