@@ -53,6 +53,7 @@ public class GameScreen extends Basic2DScreen {
 		
 		GameScore.getInstance().setDemocracyLevel(0);
 		GameScore.getInstance().setHealth(100);
+		GameScore.getInstance().resetScore();
 		
 		hud.setDemocracyLevel(0);
 		hud.setHealth(100);
@@ -80,6 +81,9 @@ public class GameScreen extends Basic2DScreen {
 		
 		if(GameScore.getInstance().getHealth() == 0)
 			next();
+		//win
+		if(GameScore.getInstance().getDemocracyLevel() == Constants.DEMOCRACY_LEVEL_MAX)
+			gotoFrame(8);
 
 		hud.setHealth(GameScore.getInstance().getHealth());
 		hud.setDemocracyLevel(100 / Constants.DEMOCRACY_LEVEL_MAX

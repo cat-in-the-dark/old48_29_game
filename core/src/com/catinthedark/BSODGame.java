@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.catinthedark.assets.Assets;
+import com.catinthedark.screens.GameEndScreen;
 import com.catinthedark.screens.GameScreen;
 import com.catinthedark.screens.ScreenChain;
 import com.catinthedark.screens.TitleScreen;
@@ -35,11 +36,16 @@ public class BSODGame extends Game {
 
 		screenChain.add(new GameScreen(screenChain));
 
-		TitleScreen gameOverScreen = new TitleScreen(screenChain,
+		GameEndScreen gameOverScreen = new GameEndScreen(screenChain,
 				Assets.gameOverTex, 0);
 		gameOverScreen.bindings.bindPrev(Input.Keys.ENTER).bind(
 				Input.Keys.ESCAPE, 1);
 		screenChain.add(gameOverScreen);
+		
+		GameEndScreen winScreen = new GameEndScreen(screenChain,Assets.gameWinTex, 0);
+		winScreen.bindings.bind(Input.Keys.ENTER ,6).bind(
+				Input.Keys.ESCAPE, 1);
+		screenChain.add(winScreen);
 		
 		screenChain.gotoFrame(0);
 	}

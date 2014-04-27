@@ -65,4 +65,8 @@ public class GameScore {
     public int getScore() {
         return this.score;
     }
+    
+    public void resetScore(){
+    	this.score = 0;
+    }
 }
