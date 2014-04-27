@@ -10,17 +10,24 @@ import com.catinthedark.assets.Assets;
 public class OilFactory extends Entity {
     private static final int WIDTH = 4;
     private static final int HEIGHT = 4;
+    private float localStateTime;
     
     private boolean destroyed;
 
     public OilFactory(float x) {
         super(x, Constants.GROUND_LEVEL, WIDTH, HEIGHT);
+        localStateTime = 0.0f;
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        batch.draw(Assets.oilFactoryAppearance.getKeyFrame(stateTime), this.x, this.y, this.width, this.height);
+        if (!isDestroyed()) {
+            batch.draw(Assets.oilFactoryAppearance.getKeyFrame(stateTime), this.x, this.y, this.width, this.height);
+        } else {
+            localStateTime += delta;
+            batch.draw(Assets.oilFactoryDisappearance.getKeyFrame(localStateTime), this.x, this.y, this.width, this.height);
+        }
     }
 
 	public boolean isDestroyed() {
