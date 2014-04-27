@@ -14,6 +14,8 @@ public class TntVehicle extends Entity {
     private float speedX;
     private float speedY;
     private boolean destroyed;
+    private boolean destroyAnimationPlayed = false;
+    private float accelerationY = 0.0f;
 
     public TntVehicle(float x, float y, int width, int height, float speedX, float speedY) {
         super(x, y, width, height);
@@ -32,6 +34,7 @@ public class TntVehicle extends Entity {
     private void move() {
         this.x += speedX;
         this.y += speedY;
+        speedY += accelerationY;
         bounds.x = this.x;
         bounds.y = this.y;
     }
@@ -39,13 +42,23 @@ public class TntVehicle extends Entity {
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
+        move();
         if (!isDestroyed()) {
             stateTime += delta;
-            move();
             batch.draw(Assets.tntVehicleRiding.getKeyFrame(stateTime), x, y, width, height);
         } else {
-            batch.draw(Assets.tntVehicleExploded, x, y, width, height);
+            playDestroyAnimation(batch);
         }
+    }
+
+    private void playDestroyAnimation(SpriteBatch batch) {
+        if (!destroyAnimationPlayed) {
+            destroyAnimationPlayed = true;
+            speedY = 0.1f;
+            speedX = 0.1f;
+            accelerationY = -0.01f;
+        }
+        batch.draw(Assets.tntVehicleExploded, x, y, width, height);
     }
 
     public boolean isDestroyed() {

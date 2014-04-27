@@ -300,6 +300,7 @@ public class Assets {
         });
         tntVehicleRiding.setPlayMode(Animation.PlayMode.LOOP);
         tntVehicleExploded = framesTntVehicle[0][2];
+        tntVehicleExploded.flip(true, true);
 
         framesAidVehicle[0][0].flip(true, false);
         framesAidVehicle[0][1].flip(true, false);
@@ -311,5 +312,6 @@ public class Assets {
         aidVehicleRiding.setPlayMode(Animation.PlayMode.LOOP);
 
         aidVehicleExploded = framesAidVehicle[0][2];
+        aidVehicleExploded.flip(false, true);
     }
 }
