@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.assets.Assets;
 
 public class Bullet extends Entity {
-    public static final int bulletWidth = 1;
-    public static final int bulletHeight = 1;
+    public static final float bulletWidth = 0.5f;
+    public static final float bulletHeight = 0.5f;
     private float speedX;
     private float speedY;
 
@@ -31,7 +31,7 @@ public class Bullet extends Entity {
 	@Override
 	public void render(float delta, SpriteBatch batch) {
         move();
-		batch.draw(Assets.bulletTexture, x, y, width, height);
+		batch.draw(Assets.bulletTexture, x, y + height, width, height);
 	}
 
 }

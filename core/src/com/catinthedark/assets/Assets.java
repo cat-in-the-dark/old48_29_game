@@ -27,7 +27,6 @@ public class Assets {
      * Simple test textures
      */
     public static Texture democracyTex;
-    public static Texture bulletTexture;
     public static Texture rocketTexture;
 
     /**
@@ -61,6 +60,7 @@ public class Assets {
     public static TextureRegion rightBrocken;
     public static Animation mdIdle;
     public static Animation mdShoot;
+    public static Texture bulletTexture;
 
     /**
      * President Textures and Animations
@@ -96,15 +96,10 @@ public class Assets {
          * It's just text textures!!
          */
         Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
-        Pixmap bulletPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 
         rocketPixmap.setColor(0, 1, 0, 1f);
         rocketPixmap.fill();
         rocketTexture = new Texture(rocketPixmap);
-        
-        bulletPixmap.setColor(0, 0, 1, 1.f);
-        bulletPixmap.fill();
-        bulletTexture = new Texture(bulletPixmap);
 
         Pixmap oilFieldPixmap = new Pixmap(7, 2, Pixmap.Format.RGBA8888);
         oilFieldPixmap.setColor(0, 0, 0, 1f);
@@ -151,6 +146,8 @@ public class Assets {
                 Gdx.files.internal("texture/vyshka.png"));
         oilFieldSheet = new Texture(
                 Gdx.files.internal("texture/oil.png"));
+        bulletTexture = new Texture(
+                Gdx.files.internal("texture/bullet.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("font/impact.ttf"));
