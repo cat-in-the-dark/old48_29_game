@@ -58,14 +58,11 @@ public class Level {
                         rocket.render(delta, batch);
                     }
                 }
+            } else if (cls == OilField.class){
+                renderEntities(entry.getValue(), delta, batch);
+                president.render(delta, batch);
             } else {
-                for (Entity entity : entry.getValue()) {
-                    if (!isInViewPort(entity)) {
-                        entity.markDeleted();
-                    } else {
-                        entity.render(delta, batch);
-                    }
-                }
+                renderEntities(entry.getValue(), delta, batch);
             }
         }
 
@@ -76,7 +73,16 @@ public class Level {
                 temp = clearEntities(entityClass);
             }
         }
-        president.render(delta, batch);
+    }
+
+    private void renderEntities(List<Entity> entities, float delta, SpriteBatch batch) {
+        for (Entity entity : entities) {
+            if (!isInViewPort(entity)) {
+                entity.markDeleted();
+            } else {
+                entity.render(delta, batch);
+            }
+        }
     }
 
     private Entity clearEntities(Class entityClass) {

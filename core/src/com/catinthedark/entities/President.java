@@ -86,7 +86,6 @@ public class President {
 	}
 
 	private TextureRegion playAnimation(float stateTime) {
-        System.out.println(state);
         switch (state) {
             case IDLE:
                 return Assets.presidentAimMiddle.getKeyFrame(stateTime);
@@ -109,6 +108,7 @@ public class President {
 	public Rocket shut() {
 		if (lastShutTime > shutDelay) {
 			lastShutTime = 0;
+			return new Rocket(this.x + WIDTH / 2f, this.y + HEIGHT / 2f, this);
 			return new Rocket(this.x + WIDTH / 2f, this.y + HEIGHT / 2f, this);
 		}
 		return null;
