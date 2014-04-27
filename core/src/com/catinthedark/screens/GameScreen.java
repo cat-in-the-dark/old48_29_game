@@ -85,23 +85,27 @@ public class GameScreen extends Basic2DScreen {
     }
 
     public void processKeys() {
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            level.president.move(Entity.State.AIM_DOWN, camera);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            level.president.move(Entity.State.AIM_UP, camera);
-        }
-		if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
-				|| Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-			level.shut(level.president);
-			level.president.move(Entity.State.IDLE, camera);
-			return;
-		}
+        Entity.State lastState = Entity.State.IDLE;
+
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			level.placeOilFactory();
             level.president.move(Entity.State.IDLE, camera);
             return;
 		}
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            lastState = Entity.State.AIM_DOWN;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            lastState = Entity.State.AIM_UP;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
+                || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            level.shut(level.president);
+            level.president.move(lastState, camera);
+            return;
+        }
+        level.president.move(lastState, camera);
+
 		if (Gdx.input.isKeyPressed(Input.Keys.D)
 				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			level.president.direction = Entity.Direction.RIGHT;
@@ -117,8 +121,8 @@ public class GameScreen extends Basic2DScreen {
 			level.president.direction = Entity.Direction.LEFT;
 			level.president.move(Entity.State.RUN, camera);
 		} else {
-			level.president.move(Entity.State.IDLE, camera);
-		}
+
+        }
 
 		// FIXME: only for debug
 		if (Gdx.input.isKeyPressed(Input.Keys.G))

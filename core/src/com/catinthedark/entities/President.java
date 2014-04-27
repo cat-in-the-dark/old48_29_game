@@ -71,8 +71,7 @@ public class President {
 		lastShutTime += delta;
 		lastLayOilFactoryTime += delta;
 		tryMove();
-		batch.draw(playAnimation(stateTime), this.x, this.y - 0.5f, WIDTH,
-				HEIGHT);
+		batch.draw(playAnimation(stateTime), this.x, this.y - 0.5f, WIDTH, HEIGHT);
 		// batch.end();
 		//
 		// ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -87,15 +86,14 @@ public class President {
 	}
 
 	private TextureRegion playAnimation(float stateTime) {
+        System.out.println(state);
         switch (state) {
             case IDLE:
-                return Assets.presidentIdle.getKeyFrame(stateTime);
+                return Assets.presidentAimMiddle.getKeyFrame(stateTime);
             case AIM_UP:
-                // TODO
-                return Assets.presidentIdle.getKeyFrame(stateTime);
+                return Assets.presidentAimUp.getKeyFrame(stateTime);
             case AIM_DOWN:
-                // TODO
-                return Assets.presidentIdle.getKeyFrame(stateTime);
+                return Assets.presidentAimDown.getKeyFrame(stateTime);
             case RUN:
                 switch (direction) {
                     case RIGHT:
@@ -105,7 +103,7 @@ public class President {
                 }
         }
 
-		return Assets.presidentIdle.getKeyFrame(stateTime);
+		return Assets.presidentAimMiddle.getKeyFrame(stateTime);
 	}
 
 	public Rocket shut() {

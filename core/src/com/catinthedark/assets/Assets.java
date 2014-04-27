@@ -67,6 +67,9 @@ public class Assets {
     public static Animation presidentRunRight;
     public static Animation presidentRunLeft;
     public static Animation presidentIdle;
+    public static Animation presidentAimUp;
+    public static Animation presidentAimDown;
+    public static Animation presidentAimMiddle;
 
     /**
      * Oil factory textures and animations
@@ -248,6 +251,21 @@ public class Assets {
                 presidentFrames[0][1]
         });
         presidentIdle.setPlayMode(Animation.PlayMode.NORMAL);
+
+        presidentAimDown = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+                presidentFrames[0][8]
+        });
+        presidentAimDown.setPlayMode(Animation.PlayMode.NORMAL);
+
+        presidentAimMiddle = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+                presidentFrames[0][9]
+        });
+        presidentAimMiddle.setPlayMode(Animation.PlayMode.NORMAL);
+
+        presidentAimUp = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+                presidentFrames[0][10]
+        });
+        presidentAimUp.setPlayMode(Animation.PlayMode.NORMAL);
 
         oilFactoryAppearance = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 framesOilFactory[0][0],
