@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.catinthedark.Constants;
+import com.catinthedark.GameScore;
 import com.catinthedark.InterceptionManager;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Entity;
+import com.catinthedark.entities.President;
 import com.catinthedark.hud.GameHud;
 import com.catinthedark.level.Level;
 
@@ -22,6 +24,7 @@ public class GameScreen extends Basic2DScreen {
 	final InterceptionManager interManager;
 	final SpriteBatch batchMap;
 	final OrthographicCamera backCamera;
+	final int[] layers = new int[] { 0 };
 
 	public GameScreen(ScreenChain chain) {
 		super(chain);
@@ -60,49 +63,57 @@ public class GameScreen extends Basic2DScreen {
 
 		// draw background image
 		Assets.backgroundRenderer.setView(backCamera);
-		Assets.backgroundRenderer.render(new int[] { 0 });
+		Assets.backgroundRenderer.render(layers);
 
 		batchMap.setProjectionMatrix(camera.combined);
 
 		batchMap.begin();
 		level.render(delta, batchMap);
 		batchMap.end();
+
+		hud.setHealth(level.president.getHealth());
+		hud.setDemocracyLevel(100 / Constants.DEMOCRACY_LEVEL_MAX
+				* GameScore.getInstance().getDemocracyLevel());
+
 		hud.render();
 	}
-	
-    public void processKeys() {
-        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
-            level.shut(level.president);
-            level.president.move(false, camera);
-            return;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            level.placeOilFactory();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            level.president.setDirection(Entity.Direction.RIGHT);
-            level.president.move(true, camera);
 
-            if (needMoveCamera()) {
-                moveMainCamera();
-                moveBackCamera();
-                level.president.move(true, camera);
-            }
-        } else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            level.president.setDirection(Entity.Direction.LEFT);
-            level.president.move(true, camera);
-        } else {
-            level.president.move(false, camera);
-        }
-        
-      //FIXME: only for debug
-      		if(Gdx.input.isKeyPressed(Input.Keys.G))
-      			next();
-    }
+	public void processKeys() {
+		if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
+				|| Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+			level.shut(level.president);
+			level.president.move(false, camera);
+			return;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			level.placeOilFactory();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.D)
+				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			level.president.setDirection(Entity.Direction.RIGHT);
+			level.president.move(true, camera);
 
-    private void moveBackCamera() {
-    	
-    	final int vpw = Constants.VIEW_PORT_WIDTH;
+			if (needMoveCamera()) {
+				moveMainCamera();
+				moveBackCamera();
+				level.president.move(true, camera);
+			}
+		} else if (Gdx.input.isKeyPressed(Input.Keys.A)
+				|| Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			level.president.setDirection(Entity.Direction.LEFT);
+			level.president.move(true, camera);
+		} else {
+			level.president.move(false, camera);
+		}
+
+		// FIXME: only for debug
+		if (Gdx.input.isKeyPressed(Input.Keys.G))
+			next();
+	}
+
+	private void moveBackCamera() {
+
+		final int vpw = Constants.VIEW_PORT_WIDTH;
 
 		float backCamPos = backCamera.position.x;
 		backCamPos += Constants.backCameraSpeed.x;
@@ -112,15 +123,18 @@ public class GameScreen extends Basic2DScreen {
 		backCamera.position.set(backCamPos, backCamera.position.y,
 				backCamera.position.z);
 
-        backCamera.update();
-    }
+		backCamera.update();
+	}
 
-    private void moveMainCamera() {
-        camera.position.set(camera.position.x + Constants.mainCameraSpeed.x, camera.position.y, camera.position.z);
-        camera.update();
-    }
+	private void moveMainCamera() {
+		camera.position.set(camera.position.x + Constants.mainCameraSpeed.x,
+				camera.position.y, camera.position.z);
+		camera.update();
+	}
 
-    private boolean needMoveCamera() {
-        return camera.position.x - level.president.getWidth() - Constants.maxPresidentDestinationFromBorder <= level.president.getX();
-    }
+	private boolean needMoveCamera() {
+		return camera.position.x - level.president.getWidth()
+				- Constants.maxPresidentDestinationFromBorder <= level.president
+					.getX();
+	}
 }

@@ -56,7 +56,7 @@ public class GameHud {
 	}
 
 	public void setHealth(int health) {
-		this.health = health;
+		this.health = health <= 0 ? 0 : health;
 	}
 
 	public void render() {
@@ -88,7 +88,7 @@ public class GameHud {
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(Color.RED);
 		shapeRenderer.rect(X_POS + 130 + BAR_BORDER_WIDTH, Y_POS - 40
-				+ BAR_BORDER_WIDTH, (float) democracyLevel / 100 * 200 - 2
+				+ BAR_BORDER_WIDTH, (float) health / 100 * 200 - 2
 				* BAR_BORDER_WIDTH, HEIGHT - 2 * BAR_BORDER_WIDTH);
 		shapeRenderer.end();
 	}

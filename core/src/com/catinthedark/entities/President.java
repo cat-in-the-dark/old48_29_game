@@ -24,6 +24,7 @@ public class President extends Entity {
     private double lastLayOilFactoryTime = 0;
     private double layDelay = 1;
     private float stateTime = 0;
+    private int healt = 100;
 
     public President(float x, float y) {
         super(x, y, WIDTH, HEIGHT);
@@ -95,10 +96,19 @@ public class President extends Entity {
 
     private void tryMove() {
         this.x += acceleration.x;
+        this.bounds.x = this.x;
     }
 
     public boolean canMove(Camera camera) {
         float nextX = this.x + acceleration.x;
         return !(camera.position.x - this.width - Constants.maxPresidentDestinationFromBorder < nextX || nextX < camera.position.x - camera.viewportWidth / 2f);
+    }
+    
+    public int getHealth(){
+    	return healt;
+    }
+    
+    public void doDamage(int amount){
+    	healt -= amount;
     }
 }

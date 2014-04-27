@@ -8,12 +8,14 @@ import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 import com.catinthedark.entities.HouseBlock;
+import com.catinthedark.entities.President;
 import com.catinthedark.entities.Rocket;
 import com.catinthedark.level.Level;
 
 public class InterceptionManager {
 
 	private final Level level;
+	private static final Rectangle tmpRect = new Rectangle();
 
 	public InterceptionManager(Level level) {
 		this.level = level;
@@ -25,7 +27,7 @@ public class InterceptionManager {
 				if (entity1.isMarkedToDelete() || entity2.isMarkedToDelete())
 					continue;
 				if (Intersector.intersectRectangles(entity1.bounds,
-						entity2.bounds, new Rectangle())) {
+						entity2.bounds, tmpRect)) {
 					System.out.print("intercept!");
 					entity1.markDeleted();
 					entity2.markDeleted();
@@ -57,7 +59,7 @@ public class InterceptionManager {
 						continue;
 
 					if (Intersector.intersectRectangles(rocket.bounds,
-							block.bounds, new Rectangle())) {
+							block.bounds, tmpRect)) {
 						System.out.print("intercept block with bazooka!");
 						System.out.print("block rect:" + block.bounds);
 						rocket.markDeleted();
@@ -69,8 +71,28 @@ public class InterceptionManager {
 
 	}
 
+	private void damagePresident() {
+		@SuppressWarnings("unchecked")
+		List<Bullet> bullets = (List<Bullet>) (Object) level.levelEntities
+				.get(Bullet.class);
+		President pres = level.president;
+
+		for (Bullet bullet : bullets) {
+			if (bullet.isMarkedToDelete())
+				continue;
+
+			if (Intersector.intersectRectangles(pres.bounds, bullet.bounds,
+					tmpRect)) {
+				pres.doDamage(Constants.TERR_DAMAGE);
+				bullet.markDeleted();
+			}
+		}
+
+	}
+
 	public void manage() {
 		deactivateTerroristBullets();
 		destroyHouseBlock();
+		damagePresident();
 	}
 }
