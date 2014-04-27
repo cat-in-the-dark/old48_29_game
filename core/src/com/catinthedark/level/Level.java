@@ -35,6 +35,11 @@ public class Level {
         levelEntities.put(AidVehicle.class, new ArrayList<Entity>());
     }
 
+    public boolean isRighterThanViewPort(Entity entity) {
+        Camera camera = gameScreen.getCamera();
+        return (entity.getX() - camera.position.x) > camera.viewportWidth / 2f;
+    }
+
     private boolean isInViewPort(Entity entity) {
         Camera camera = gameScreen.getCamera();
         return (camera.position.x - (entity.getX() + entity.getWidth())) < camera.viewportWidth / 1.5f;
