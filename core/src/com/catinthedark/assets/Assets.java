@@ -131,5 +131,6 @@ public class Assets {
         rightBrocken = frames[5][1];
         mdIdle = new Animation(0, frames[3][3]);
         mdShoot = new Animation(Constants.ANIMATION_SPEED, frames[3][3], frames[4][3]);
+        mdShoot.setPlayMode(Animation.PlayMode.LOOP);
     }
 }

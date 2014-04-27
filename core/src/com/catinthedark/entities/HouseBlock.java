@@ -1,8 +1,14 @@
 package com.catinthedark.entities;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.catinthedark.Constants;
+import com.catinthedark.GameScore;
 import com.catinthedark.assets.Assets;
+import com.catinthedark.level.Level;
 
 /**
  * User: Leyfer Kirill kolbasisha@gmail.com
@@ -16,8 +22,16 @@ public class HouseBlock extends Entity {
     private float y;
     public static final int blockWidth = 2;
     public static final int blockHeight = 2;
+    public static final float bulletOffsetX = 0;
+    public static final float bulletOffsetY = 0;
+    private int shootIntervalMin;
+    private int shootIntervalMax;
     private boolean top;
     private boolean left;
+    private boolean shooting;
+    private long lastShootTime;
+    private long shootInterval;
+    private Level level;
 
     private float stateTime;
 
@@ -37,14 +51,39 @@ public class HouseBlock extends Entity {
         this.destroyed = destroyed;
     }
 
-    public HouseBlock(boolean withEnemy, boolean top, boolean left, float x, float y) {
+    public HouseBlock(Level level, boolean withEnemy, boolean top, boolean left, float x, float y) {
         super(x, y, blockWidth, blockHeight);
         setWithEnemy(withEnemy);
+        lastShootTime = TimeUtils.nanoTime();
         this.x = x;
         this.y = y;
         this.top = top;
         this.left = left;
+        this.level = level;
         stateTime = 0f;
+        shootIntervalMin = Constants.SHOOT_INTERVAL_MIN;
+        shootIntervalMax = Constants.SHOOT_INTERVAL_MAX;
+        shootInterval = MathUtils.random(shootIntervalMin, shootIntervalMax) * 1000000000L;
+        shooting = false;
+    }
+
+    public void shoot() {
+        if (!withEnemy) {
+            return;
+        }
+
+        long fromLastShot = TimeUtils.nanoTime() - lastShootTime;
+        if (fromLastShot > this.shootInterval) {
+            int iWantToShoot = MathUtils.random(0, 1);
+            if (iWantToShoot == 1) {
+                shooting = true;
+                level.levelEntities.get(Bullet.class).add(new Bullet(this.x + bulletOffsetX, this.y + bulletOffsetY));
+                lastShootTime = TimeUtils.nanoTime();
+                shootInterval = MathUtils.random(shootIntervalMin, shootIntervalMax) * 1000000000L;
+            }
+        } else if(fromLastShot > Constants.SHOT_ANIMATION_DURATION) {
+            shooting = false;
+        }
     }
 
     @Override
@@ -75,7 +114,14 @@ public class HouseBlock extends Entity {
         }
         batch.draw(region, this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
         if (isWithEnemy()) {
-            batch.draw(Assets.mdIdle.getKeyFrame(stateTime), this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
+            Animation enemyAnimation;
+            if (shooting) {
+                enemyAnimation = Assets.mdShoot;
+            } else {
+                enemyAnimation = Assets.mdIdle;
+            }
+            batch.draw(enemyAnimation.getKeyFrame(stateTime), this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
+
         }
     }
 }
