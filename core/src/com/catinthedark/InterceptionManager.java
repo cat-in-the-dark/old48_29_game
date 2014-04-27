@@ -158,6 +158,10 @@ public class InterceptionManager {
 				continue;
 
 			for (OilFactory factory : factories) {
+                if (factory.isDestroyed()) {
+                    continue;
+                }
+
 				if (Intersector.intersectRectangles(vehicle.bounds,
 						factory.bounds, tmpRect)) {
 					vehicle.setDestroyed(true);
