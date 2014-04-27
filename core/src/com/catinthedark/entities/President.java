@@ -12,6 +12,7 @@ import com.catinthedark.entities.Entity.State;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -37,6 +38,8 @@ public class President {
 	private double layDelay = 1;
 	private float stateTime = 0;
 	private int healt = 100;
+
+	private final Random rand = new Random(System.nanoTime());
 
 	public President(float x, float y) {
 		this.direction = Direction.RIGHT;
@@ -70,17 +73,17 @@ public class President {
 		tryMove();
 		batch.draw(playAnimation(stateTime), this.x, this.y - 0.5f, WIDTH,
 				HEIGHT);
-//		batch.end();
-//
-//		ShapeRenderer shapeRenderer = new ShapeRenderer();
-//		shapeRenderer.begin(ShapeType.Line);
-//		shapeRenderer.setColor(Color.RED);
-//		for (Rectangle bound : bounds)
-//			shapeRenderer.rect(bound.x * Constants.UNIT_SIZE, bound.y
-//					* Constants.UNIT_SIZE, bound.width * Constants.UNIT_SIZE,
-//					bound.height * Constants.UNIT_SIZE);
-//		shapeRenderer.end();
-//		batch.begin();
+		// batch.end();
+		//
+		// ShapeRenderer shapeRenderer = new ShapeRenderer();
+		// shapeRenderer.begin(ShapeType.Line);
+		// shapeRenderer.setColor(Color.RED);
+		// for (Rectangle bound : bounds)
+		// shapeRenderer.rect(bound.x * Constants.UNIT_SIZE, bound.y
+		// * Constants.UNIT_SIZE, bound.width * Constants.UNIT_SIZE,
+		// bound.height * Constants.UNIT_SIZE);
+		// shapeRenderer.end();
+		// batch.begin();
 	}
 
 	private TextureRegion playAnimation(float stateTime) {
@@ -107,12 +110,12 @@ public class President {
 	}
 
 	public OilFactory layOilFactory() {
-        if (lastLayOilFactoryTime > layDelay) {
-            lastLayOilFactoryTime = 0;
-            return new OilFactory(this.x + WIDTH);
-        }
-        return null;
-    }
+		if (lastLayOilFactoryTime > layDelay) {
+			lastLayOilFactoryTime = 0;
+			return new OilFactory(this.x + WIDTH);
+		}
+		return null;
+	}
 
 	public void move(boolean is_moving, Camera camera) {
 		if (!is_moving) {
@@ -154,7 +157,13 @@ public class President {
 	}
 
 	public void doDamage(int amount) {
+		if (rand.nextInt() % 2 == 0)
+			Assets.oh1Sound.play(0.4f);
+		else
+			Assets.oh2Sound.play(0.4f);
+		
 		healt -= amount;
+
 	}
 
 	public List<Rectangle> getBounds() {
