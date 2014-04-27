@@ -22,6 +22,9 @@ public class Constants {
     public static final int SHOOT_INTERVAL_MAX = 6;  // sec
     public static final long SHOT_ANIMATION_DURATION = 500000000L;  //nanosec
     public static final float BULLET_SPEED_X = 0.2f;
+    public static final float OIL_FIELD_DISTANCE_MIN = 15f;
+    public static final float OIL_FIELD_DISTANCE_MAX = 32f;
+    public static final float OIL_FIELD_Y_POS = 0f;
 
 	/**
 	 * viewport
@@ -33,6 +36,7 @@ public class Constants {
 	public static final int FRAME_COLS = 4;
 	public static final int FRAME_ROWS = 7;
 	public static final float ANIMATION_SPEED = 0.1f;
+    public static final float ANIMATION_SPEED_SLOW = 0.2f;
 	
 	public static final int TERR_DAMAGE = 4;
 }

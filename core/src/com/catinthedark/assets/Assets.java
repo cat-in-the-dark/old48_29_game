@@ -44,7 +44,7 @@ public class Assets {
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
     public static Texture rocketTexture;
-    public static Texture oilFactoryTexture;
+    public static Texture oilFieldTexture;
 
     /**
      * Enemies(Windows with enemies) Textures and Animations
@@ -67,6 +67,11 @@ public class Assets {
     public static Animation presidentRunLeft;
     public static Animation presidentIdle;
 
+    /**
+     * Oil factory textures and animations
+     */
+    public static Texture oilFactoryTexture;
+    public static Animation oilFactoryAppearance;
 
     public static void setupAssets() {
         /**
@@ -75,7 +80,7 @@ public class Assets {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
         Pixmap rocketPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
         Pixmap bulletPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        Pixmap oilFactoryPixMap = new Pixmap(2, 4, Pixmap.Format.RGBA8888);
+        Pixmap oilFieldPixmap = new Pixmap(7, 2, Pixmap.Format.RGBA8888);
 
         presidentPixmap.setColor(1, 0, 0, 1f);
         presidentPixmap.fill();
@@ -89,9 +94,9 @@ public class Assets {
         bulletPixmap.fill();
         bulletTexture = new Texture(bulletPixmap);
 
-        oilFactoryPixMap.setColor(0,0,0,1f);
-        oilFactoryPixMap.fill();
-        oilFactoryTexture = new Texture(oilFactoryPixMap);
+        oilFieldPixmap.setColor(0, 0, 0, 1f);
+        oilFieldPixmap.fill();
+        oilFieldTexture = new Texture(oilFieldPixmap);
 
         Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
         houseBlockPixMap.setColor(0, 1, 1, 1);
@@ -130,6 +135,9 @@ public class Assets {
 
         presidentSheet = new Texture(
                 Gdx.files.internal("texture/president_going.png"));
+
+        oilFactoryTexture = new Texture(
+                Gdx.files.internal("texture/vyshka.png"));
 
     	FreeTypeFontParameter params = new FreeTypeFontParameter();
     	params.size = 25;
@@ -179,5 +187,17 @@ public class Assets {
                 presidentFrames[0][0]
         });
         presidentIdle.setPlayMode(Animation.PlayMode.NORMAL);
+
+        TextureRegion[][] framesOilFactory = TextureRegion.split(Assets.oilFactoryTexture,
+                Assets.oilFactoryTexture.getWidth() / 4,
+                Assets.oilFactoryTexture.getHeight());
+
+        oilFactoryAppearance = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+                framesOilFactory[0][0],
+                framesOilFactory[0][1],
+                framesOilFactory[0][2],
+                framesOilFactory[0][3]
+        });
+        oilFactoryAppearance.setPlayMode(Animation.PlayMode.NORMAL);
     }
 }

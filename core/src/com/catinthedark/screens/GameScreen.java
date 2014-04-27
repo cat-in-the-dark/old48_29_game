@@ -10,7 +10,6 @@ import com.catinthedark.GameScore;
 import com.catinthedark.InterceptionManager;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Entity;
-import com.catinthedark.entities.President;
 import com.catinthedark.hud.GameHud;
 import com.catinthedark.level.Level;
 
@@ -78,7 +77,14 @@ public class GameScreen extends Basic2DScreen {
 		hud.render();
 	}
 
-	public void processKeys() {
+    @Override
+    public void dispose() {
+        super.dispose();
+        hud.dispose();
+        batchMap.dispose();
+    }
+
+    public void processKeys() {
 		if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)
 				|| Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
 			level.shut(level.president);
@@ -87,6 +93,8 @@ public class GameScreen extends Basic2DScreen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			level.placeOilFactory();
+            level.president.move(false, camera);
+            return;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D)
 				|| Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {

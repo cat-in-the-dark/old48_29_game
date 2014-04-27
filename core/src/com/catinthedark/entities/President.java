@@ -110,12 +110,12 @@ public class President {
 	}
 
 	public OilFactory layOilFactory() {
-		if (lastLayOilFactoryTime > layDelay) {
-			lastLayOilFactoryTime = 0;
-			return new OilFactory(this.x);
-		}
-		return null;
-	}
+        if (lastLayOilFactoryTime > layDelay) {
+            lastLayOilFactoryTime = 0;
+            return new OilFactory(this.x + WIDTH);
+        }
+        return null;
+    }
 
 	public void move(boolean is_moving, Camera camera) {
 		if (!is_moving) {
@@ -163,4 +163,5 @@ public class President {
 	public List<Rectangle> getBounds() {
 		return bounds;
 	}
+
 }
