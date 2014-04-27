@@ -27,9 +27,9 @@ public class Level {
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         president = new President(0, Constants.GROUND_LEVEL);
-
         renderOrder = new Class[] {
                 House.class,
+                Explosion.class,
                 Rocket.class,
                 Bullet.class,
                 OilFactory.class,
@@ -133,5 +133,9 @@ public class Level {
                 break;
             }
         }
+    }
+
+    public void bum(float x, float y) {
+        levelEntities.get(Explosion.class).add(new Explosion(x, y));
     }
 }

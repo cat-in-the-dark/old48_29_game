@@ -63,6 +63,7 @@ public class InterceptionManager {
 						GameScore.getInstance().priceHouse();
 						rocket.markDeleted();
 						block.setDestroyed(true);
+                        level.bum(block.getX(), block.getY());
 					}
 				}
 			}

@@ -106,6 +106,12 @@ public class Assets {
     public static Animation aidVehicleRiding;
     public static TextureRegion aidVehicleExploded;
 
+    /**
+     * Explosion textures and animation
+     */
+    public static Texture explosionSheet;
+    public static Animation explosionAnimation;
+
     public static void setupAssets() {
         /**
          * It's just text textures!!
@@ -162,6 +168,8 @@ public class Assets {
                 Gdx.files.internal("texture/kamaz_TERRORISM.png"));
         aidVehicleTexture = new Texture(
                 Gdx.files.internal("texture/kamaz_AID.png"));
+        explosionSheet = new Texture(
+                Gdx.files.internal("texture/explosion.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("font/impact.ttf"));
@@ -208,6 +216,9 @@ public class Assets {
         TextureRegion[][] framesAidVehicle = TextureRegion.split(Assets.aidVehicleTexture,
                 Assets.aidVehicleTexture.getWidth() / 3,
                 Assets.aidVehicleTexture.getHeight());
+        TextureRegion[][] framesExplosion = TextureRegion.split(Assets.explosionSheet,
+                Assets.explosionSheet.getWidth() / 13,
+                Assets.explosionSheet.getHeight());
 
         leftUnbrocken = framesEnemy[6][0];
         rightUnbrocken = framesEnemy[6][1];
@@ -222,6 +233,9 @@ public class Assets {
                 framesEnemy[3][3], framesEnemy[4][3]
         });
         mdShoot.setPlayMode(Animation.PlayMode.LOOP);
+
+        explosionAnimation = new Animation(Constants.ANIMATION_SPEED, framesExplosion[0]);
+        explosionAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
         presidentRunRight = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 presidentFrames[0][0],
