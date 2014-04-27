@@ -57,11 +57,11 @@ public class InterceptionManager {
 					if (Intersector.intersectRectangles(rocket.bounds,
 							block.bounds, tmpRect)) {
 						Assets.explosionSound.play();
-                        if (block.isWithEnemy()){
-                            GameScore.getInstance().priceEnemy();
-                        }
-                        GameScore.getInstance().priceHouse();
-                        rocket.markDeleted();
+						if (block.isWithEnemy()) {
+							GameScore.getInstance().priceEnemy();
+						}
+						GameScore.getInstance().priceHouse();
+						rocket.markDeleted();
 						block.setDestroyed(true);
 					}
 				}
@@ -91,52 +91,81 @@ public class InterceptionManager {
 		}
 
 	}
-	
-	private void destroyKamaz(){
+
+	private void destroyKamaz() {
 		@SuppressWarnings("unchecked")
 		List<Rocket> rockets = (List<Rocket>) (Object) level.levelEntities
 				.get(Rocket.class);
 		@SuppressWarnings("unchecked")
 		List<TntVehicle> vehicles = (List<TntVehicle>) (Object) level.levelEntities
 				.get(TntVehicle.class);
-		
-		for(Rocket rocket : rockets){
-			for(TntVehicle vehicle : vehicles){
-				if(rocket.isMarkedToDelete() || vehicle.isDestroyed())
+
+		for (Rocket rocket : rockets) {
+			for (TntVehicle vehicle : vehicles) {
+				if (rocket.isMarkedToDelete() || vehicle.isDestroyed())
 					continue;
-				if(Intersector.intersectRectangles(rocket.bounds,
-							vehicle.bounds, tmpRect)){
+				if (Intersector.intersectRectangles(rocket.bounds,
+						vehicle.bounds, tmpRect)) {
 					rocket.markDeleted();
 					vehicle.setDestroyed(true);
 					Assets.kamazExpSound.play();
-                    GameScore.getInstance().priceTNTVehicle();
+					GameScore.getInstance().priceTNTVehicle();
 				}
 			}
 		}
 	}
-	
-	private void destroyAid(){
+
+	private void destroyAid() {
 		@SuppressWarnings("unchecked")
 		List<Rocket> rockets = (List<Rocket>) (Object) level.levelEntities
 				.get(Rocket.class);
 		@SuppressWarnings("unchecked")
 		List<AidVehicle> vehicles = (List<AidVehicle>) (Object) level.levelEntities
 				.get(AidVehicle.class);
-		
-		for(Rocket rocket : rockets){
-			for(AidVehicle vehicle : vehicles){
-				if(rocket.isMarkedToDelete() || vehicle.isDestroyed())
+
+		for (Rocket rocket : rockets) {
+			for (AidVehicle vehicle : vehicles) {
+				if (rocket.isMarkedToDelete() || vehicle.isDestroyed())
 					continue;
-				if(Intersector.intersectRectangles(rocket.bounds,
-							vehicle.bounds, tmpRect)){
+				if (Intersector.intersectRectangles(rocket.bounds,
+						vehicle.bounds, tmpRect)) {
 					rocket.markDeleted();
 					vehicle.setDestroyed(true);
 					Assets.kamazExpSound.play();
-                    GameScore.getInstance().priceAIdVehicle();
+					GameScore.getInstance().priceAIdVehicle();
 				}
 			}
 		}
-		
+
+	}
+
+	private void kamazDestroysFactory() {
+		@SuppressWarnings("unchecked")
+		List<TntVehicle> vehicles = (List<TntVehicle>) (Object) level.levelEntities
+				.get(TntVehicle.class);
+		@SuppressWarnings("unchecked")
+		List<OilFactory> factories = (List<OilFactory>) (Object) level.levelEntities
+				.get(OilFactory.class);
+
+		for (TntVehicle vehicle : vehicles) {
+			if (vehicle.isDestroyed())
+				continue;
+			
+			for (OilFactory factory : factories) {
+				if (Intersector.intersectRectangles(vehicle.bounds,
+						factory.bounds, tmpRect)) {
+					vehicle.setDestroyed(true);
+					factory.setDestroyed(true);
+
+					GameScore.getInstance().decDemocracyLevel();
+					
+					Assets.kamazExpSound.play();
+					
+					break;
+				}
+			}
+		}
+
 	}
 
 	public void manage() {
@@ -145,5 +174,6 @@ public class InterceptionManager {
 		damagePresident();
 		destroyKamaz();
 		destroyAid();
+		kamazDestroysFactory();
 	}
 }

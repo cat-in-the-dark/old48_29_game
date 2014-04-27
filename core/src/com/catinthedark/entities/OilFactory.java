@@ -10,6 +10,8 @@ import com.catinthedark.assets.Assets;
 public class OilFactory extends Entity {
     private static final int WIDTH = 4;
     private static final int HEIGHT = 4;
+    
+    private boolean destroyed;
 
     public OilFactory(float x) {
         super(x, Constants.GROUND_LEVEL, WIDTH, HEIGHT);
@@ -20,4 +22,13 @@ public class OilFactory extends Entity {
         super.render(delta, batch);
         batch.draw(Assets.oilFactoryAppearance.getKeyFrame(stateTime), this.x, this.y, this.width, this.height);
     }
+
+	public boolean isDestroyed() {
+		return destroyed;
+	}
+
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
+    
 }
