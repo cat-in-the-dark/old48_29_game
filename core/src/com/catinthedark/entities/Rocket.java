@@ -10,10 +10,10 @@ import com.catinthedark.assets.Assets;
 public class Rocket extends Entity {
     private static final int rocketWidth = 2;
     private static final int rocketHeight = 2;
-    private final float speedModification = 1f;
-    private final Vector2 maxAccelerationMiddle = new Vector2(0.5f / speedModification, -0.015f / speedModification);
-    private final Vector2 maxAccelerationUp = new Vector2(0.5f * speedModification, 0.08f / speedModification);
-    private final Vector2 maxAccelerationDown = new Vector2(0.5f / speedModification, -0.2f / speedModification);
+    private final float speedModification = 1.3f;
+    private final Vector2 maxAccelerationMiddle = new Vector2(0.5f * speedModification, -0.015f * speedModification);
+    private final Vector2 maxAccelerationUp = new Vector2(0.5f * speedModification, 0.08f * speedModification);
+    private final Vector2 maxAccelerationDown = new Vector2(0.5f * speedModification, -0.2f * speedModification);
     private final Vector2 acceleration = new Vector2(maxAccelerationMiddle.x, maxAccelerationMiddle.y);
     private final President creator;
 

@@ -105,7 +105,7 @@ public class President {
 	public Rocket shut() {
 		if (lastShutTime > shutDelay) {
 			lastShutTime = 0;
-			return new Rocket(this.x + WIDTH / 2f, this.y + HEIGHT / 2f, this);
+			return new Rocket(this.x + 3f * WIDTH / 4f , this.y + HEIGHT / 2f, this);
 		}
 		return null;
 	}
