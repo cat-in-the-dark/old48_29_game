@@ -27,7 +27,6 @@ public class Level {
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         president = new President(0, Constants.GROUND_LEVEL);
-
         renderOrder = new Class[] {
                 House.class,
                 Rocket.class,
@@ -35,7 +34,8 @@ public class Level {
                 OilFactory.class,
                 OilField.class,
                 TntVehicle.class,
-                AidVehicle.class
+                AidVehicle.class,
+                Explosion.class
         };
 
         for (Class cls : renderOrder) {
@@ -66,6 +66,7 @@ public class Level {
                 for (Entity rocket : levelEntities.get(cls)) {
                     if (!isBulletInViewPort(rocket)) {
                         rocket.markDeleted();
+                        bum(rocket.getX(), rocket.getY() - 0.2f);
                     } else {
                         rocket.render(delta, batch);
                     }
@@ -133,5 +134,9 @@ public class Level {
                 break;
             }
         }
+    }
+
+    public void bum(float x, float y) {
+        levelEntities.get(Explosion.class).add(new Explosion(x, y));
     }
 }

@@ -63,6 +63,7 @@ public class InterceptionManager {
 						GameScore.getInstance().priceHouse();
 						rocket.markDeleted();
 						block.setDestroyed(true);
+                        level.bum(block.getX(), block.getY());
 					}
 				}
 			}
@@ -110,6 +111,7 @@ public class InterceptionManager {
 					vehicle.setDestroyed(true);
 					Assets.kamazExpSound.play();
 					GameScore.getInstance().priceTNTVehicle();
+                    level.bum(vehicle.getX(), vehicle.getY());
 				}
 			}
 		}
@@ -136,6 +138,7 @@ public class InterceptionManager {
 					GameScore.getInstance().setHealth(
 							GameScore.getInstance().getHealth()
 									+ Constants.HEALTH_REGEN);
+                    level.bum(vehicle.getX(), vehicle.getY());
 				}
 			}
 		}
@@ -159,6 +162,7 @@ public class InterceptionManager {
 						factory.bounds, tmpRect)) {
 					vehicle.setDestroyed(true);
 					factory.setDestroyed(true);
+                    level.bum((factory.getX() + vehicle.getX()) / 2f, (factory.getY() + vehicle.getY()) / 2f);
 
 					GameScore.getInstance().decDemocracyLevel();
 

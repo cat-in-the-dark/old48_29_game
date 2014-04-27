@@ -31,6 +31,7 @@ public class HouseBlock extends Entity {
     private long lastShootTime;
     private long shootInterval;
     private Level level;
+    private boolean blowUp;
 
     public boolean isWithEnemy() {
         return withEnemy;
@@ -52,6 +53,7 @@ public class HouseBlock extends Entity {
     public HouseBlock(Level level, boolean withEnemy, boolean top, boolean left, float x, float y) {
         super(x, y, blockWidth, blockHeight);
         setWithEnemy(withEnemy);
+        blowUp = false;
         lastShootTime = 0;
         this.x = x;
         this.y = y;
@@ -118,7 +120,6 @@ public class HouseBlock extends Entity {
                 enemyAnimation = Assets.mdIdle;
             }
             batch.draw(enemyAnimation.getKeyFrame(stateTime), this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
-
         }
     }
 }
