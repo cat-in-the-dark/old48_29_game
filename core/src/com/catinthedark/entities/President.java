@@ -1,20 +1,17 @@
 package com.catinthedark.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.catinthedark.Constants;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Entity.Direction;
 import com.catinthedark.entities.Entity.State;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ilya on 26.04.2014.

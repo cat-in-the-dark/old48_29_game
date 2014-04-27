@@ -22,7 +22,7 @@ public class Rocket extends Entity {
                 acceleration.x = maxAcceleration.x;
                 break;
             case LEFT:
-                acceleration.x = -maxAcceleration.x;
+                acceleration.x = maxAcceleration.x;
                 break;
         }
     }

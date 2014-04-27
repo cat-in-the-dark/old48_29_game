@@ -184,7 +184,7 @@ public class Assets {
         presidentRunLeft.setPlayMode(Animation.PlayMode.LOOP);
 
         presidentIdle =  new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
-                presidentFrames[0][0]
+                presidentFrames[0][1]
         });
         presidentIdle.setPlayMode(Animation.PlayMode.NORMAL);
 
