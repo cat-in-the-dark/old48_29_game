@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.catinthedark.assets.Assets;
 import com.catinthedark.entities.Bullet;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
@@ -28,6 +29,7 @@ public class InterceptionManager {
 					continue;
 				if (Intersector.intersectRectangles(entity1.bounds,
 						entity2.bounds, tmpRect)) {
+					Assets.smallExpSound.play();
 					System.out.print("intercept!");
 					entity1.markDeleted();
 					entity2.markDeleted();
@@ -62,6 +64,7 @@ public class InterceptionManager {
 							block.bounds, tmpRect)) {
 						System.out.print("intercept block with bazooka!");
 						System.out.print("block rect:" + block.bounds);
+						Assets.explosionSound.play();
 						rocket.markDeleted();
 						block.setDestroyed(true);
 					}

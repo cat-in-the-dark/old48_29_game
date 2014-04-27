@@ -34,7 +34,7 @@ public class President {
 	private float x;
 	private float y;
 
-	private double shutDelay = 1;
+	private double shutDelay = 0.5;
 	private double lastShutTime = 0;
 	private double lastLayOilFactoryTime = 0;
 	private double layDelay = 1;

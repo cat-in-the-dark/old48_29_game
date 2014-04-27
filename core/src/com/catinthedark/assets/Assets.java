@@ -1,6 +1,7 @@
 package com.catinthedark.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -72,6 +73,12 @@ public class Assets {
      */
     public static Texture oilFactoryTexture;
     public static Animation oilFactoryAppearance;
+    
+    /**
+     * sounds
+     */
+    public static Sound explosionSound;
+    public static Sound smallExpSound;
 
     public static void setupAssets() {
         /**
@@ -147,6 +154,9 @@ public class Assets {
     	
     	backgroundMap = new TmxMapLoader().load("area02.tmx");
     	backgroundRenderer = new OrthogonalTiledMapRenderer(backgroundMap, 1/32f);
+    	
+    	explosionSound = Gdx.audio.newSound(Gdx.files.internal("sound/explosion.wav"));
+    	smallExpSound = Gdx.audio.newSound(Gdx.files.internal("sound/small_explosion.wav"));
     }
 
     public static void loadGameData() {
