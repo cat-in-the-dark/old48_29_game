@@ -15,7 +15,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.catinthedark.Constants;
+import com.catinthedark.entities.HouseBlock;
 import com.catinthedark.entities.President;
+import com.catinthedark.entities.TntVehicle;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -42,6 +44,10 @@ public class Assets {
     public static BitmapFont font;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
+
+    public static Texture oilFieldTexture;
+    public static Texture tntVehicleTexture;
+    public static Texture houseBlockTexture;
 
     /**
      * Enemies(Windows with enemies) Textures and Animations
@@ -96,10 +102,28 @@ public class Assets {
         rocketPixmap.fill();
         rocketTexture = new Texture(rocketPixmap);
         
-        bulletPixmap.setColor(0,0,1,1.f);
+        bulletPixmap.setColor(0, 0, 1, 1.f);
         bulletPixmap.fill();
         bulletTexture = new Texture(bulletPixmap);
 
+        Pixmap oilFieldPixmap = new Pixmap(7, 2, Pixmap.Format.RGBA8888);
+        oilFieldPixmap.setColor(0, 0, 0, 1f);
+        oilFieldPixmap.fill();
+        oilFieldTexture = new Texture(oilFieldPixmap);
+
+        Pixmap houseBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        houseBlockPixMap.setColor(0, 1, 1, 1);
+        houseBlockPixMap.fill();
+        houseBlockTexture = new Texture(houseBlockPixMap);
+
+        Pixmap tntVehiclePixmap = new Pixmap(TntVehicle.width, TntVehicle.height, Pixmap.Format.RGBA8888);
+        tntVehiclePixmap.setColor(0, 0.5f, 0, 1.f);
+        tntVehiclePixmap.fill();
+        tntVehicleTexture = new Texture(tntVehiclePixmap);
+
+        Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
+        enemyBlockPixMap.setColor(0, 0, 1, 1);
+        enemyBlockPixMap.fill();
         //-> End of test textures
 
 

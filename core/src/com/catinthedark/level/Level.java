@@ -33,6 +33,7 @@ public class Level {
         levelEntities.get(Bullet.class).add(new Bullet(16, 10, 1, 1));
         levelEntities.put(OilFactory.class, new ArrayList<Entity>());
         levelEntities.put(OilField.class, new ArrayList<Entity>());
+        levelEntities.put(TntVehicle.class, new ArrayList<Entity>());
     }
 
     private boolean isInViewPort(Entity entity) {
@@ -42,7 +43,7 @@ public class Level {
 
     private boolean isBulletInViewPort(Entity entity) {
         Camera camera = gameScreen.getCamera();
-        return ((camera.position.x - entity.getX()) < camera.viewportWidth / 2f) && ((entity.getX() - camera.position.x) < camera.viewportWidth * 2f);
+        return ((camera.position.x - entity.getX()) < camera.viewportWidth / 2f) && ((entity.getX() - camera.position.x) < camera.viewportWidth * 2f && entity.getY() < camera.viewportHeight && entity.getY() > Constants.GROUND_LEVEL);
     }
 
     public void render(float delta, SpriteBatch batch) {
