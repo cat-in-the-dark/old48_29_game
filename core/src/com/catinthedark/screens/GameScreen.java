@@ -24,6 +24,7 @@ public class GameScreen extends Basic2DScreen {
 	final SpriteBatch batchMap;
 	final OrthographicCamera backCamera;
 	final int[] layers = new int[] { 0 };
+	long soundId;
 
 	public GameScreen(ScreenChain chain) {
 		super(chain);
@@ -41,6 +42,9 @@ public class GameScreen extends Basic2DScreen {
 	@Override
 	public void show() {
 		
+//		Assets.music.play();
+//		Assets.music.setLooping(true);
+				
 		Gdx.input.setInputProcessor(this);
 		level = new Level(this);
 		interManager = new InterceptionManager(level);
@@ -79,11 +83,15 @@ public class GameScreen extends Basic2DScreen {
 		level.render(delta, batchMap);
 		batchMap.end();
 		
-		if(GameScore.getInstance().getHealth() == 0)
+		if(GameScore.getInstance().getHealth() == 0){
+			//Assets.music.stop();
 			next();
+		}
 		//win
-		if(GameScore.getInstance().getDemocracyLevel() == Constants.DEMOCRACY_LEVEL_MAX)
+		if(GameScore.getInstance().getDemocracyLevel() == Constants.DEMOCRACY_LEVEL_MAX){
+			//Assets.music.stop();
 			gotoFrame(8);
+		}
 
 		hud.setHealth(GameScore.getInstance().getHealth());
 		hud.setDemocracyLevel(100 / Constants.DEMOCRACY_LEVEL_MAX

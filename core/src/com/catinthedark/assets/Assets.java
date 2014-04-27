@@ -1,6 +1,7 @@
 package com.catinthedark.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -17,7 +18,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.catinthedark.Constants;
 import com.catinthedark.entities.HouseBlock;
 import com.catinthedark.entities.President;
-import com.catinthedark.screens.GameEndScreen;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -89,6 +89,7 @@ public class Assets {
     public static Sound oh1Sound;
     public static Sound oh2Sound;
     public static Sound kamazExpSound;
+    public static Music music;
 
     /**
      * Oil field textures and animations
@@ -198,6 +199,7 @@ public class Assets {
     	oh1Sound = Gdx.audio.newSound(Gdx.files.internal("sound/oh1.mp3"));
     	oh2Sound = Gdx.audio.newSound(Gdx.files.internal("sound/oh2.mp3"));
     	kamazExpSound = Gdx.audio.newSound(Gdx.files.internal("sound/kamaz_destroy.mp3"));
+    	music = Gdx.audio.newMusic(Gdx.files.internal("sound/bgm.mp3"));
     }
 
     public static void loadGameData() {

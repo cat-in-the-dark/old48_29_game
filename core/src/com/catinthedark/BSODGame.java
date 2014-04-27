@@ -47,6 +47,9 @@ public class BSODGame extends Game {
 				Input.Keys.ESCAPE, 1);
 		screenChain.add(winScreen);
 		
+		Assets.music.play();
+		Assets.music.setLooping(true);
+		
 		screenChain.gotoFrame(0);
 	}
 
