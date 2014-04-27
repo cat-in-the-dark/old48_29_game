@@ -1,11 +1,13 @@
 package com.catinthedark.level;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
 import com.catinthedark.entities.Entity;
 import com.catinthedark.entities.House;
 import com.catinthedark.entities.OilField;
+import com.catinthedark.entities.TntVehicle;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,10 @@ public class LevelGenerator {
     private float maxHouseDistance;
     private float minOilFieldDistance;
     private float maxOilFieldDistance;
+    private long lastTntVehicle = TimeUtils.nanoTime();
+    private int tntVehicleIntervalMax;
+    private int tntVehicleIntervalMin = Constants.TNT_VEHICLE_INTERVAL_MIN;
+    private long tntVehicleInterval = Constants.TNT_VEHICLE_INTERVAL_MIN;
 
     public static LevelGenerator getInstance() {
         return ourInstance;
@@ -54,7 +60,30 @@ public class LevelGenerator {
             } else if (entityClass == OilField.class) {
                 List<Entity> oilFields = entities.get(entityClass);
                 generateOilField(level, oilFields);
+            } else if (entityClass == TntVehicle.class) {
+                generateTntVehicle(level);
             }
+        }
+    }
+
+    private void generateTntVehicle(Level level) {
+
+        tntVehicleIntervalMax = Constants.TNT_VEHICLE_INTERVAL_MAX +
+                ((Constants.DEMOCRACY_LEVEL_MAX - GameScore.getInstance().getDemocracyLevel()) / 2);
+
+        tntVehicleIntervalMin = Constants.TNT_VEHICLE_INTERVAL_MIN +
+                ((Constants.DEMOCRACY_LEVEL_MAX - GameScore.getInstance().getDemocracyLevel()) / 2);
+
+        float cameraPosition = level.gameScreen.getCamera().position.x;
+        float rightEdgePosition = cameraPosition + level.gameScreen.getCamera().viewportWidth / 2f;
+
+
+        if (TimeUtils.nanoTime() - tntVehicleInterval > lastTntVehicle) {
+            Entity tntVehicle = new TntVehicle(rightEdgePosition, Constants.GROUND_LEVEL,
+                    -1 * Constants.TNT_VEHICLE_SPEED_X, 0);
+            level.levelEntities.get(TntVehicle.class).add(tntVehicle);
+            lastTntVehicle = TimeUtils.nanoTime();
+            tntVehicleInterval = MathUtils.random(tntVehicleIntervalMin, tntVehicleIntervalMax) * 1000000000L;
         }
     }
 

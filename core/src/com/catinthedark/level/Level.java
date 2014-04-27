@@ -33,6 +33,7 @@ public class Level {
         levelEntities.get(Bullet.class).add(new Bullet(16, 10, 1, 1));
         levelEntities.put(OilFactory.class, new ArrayList<Entity>());
         levelEntities.put(OilField.class, new ArrayList<Entity>());
+        levelEntities.put(TntVehicle.class, new ArrayList<Entity>());
     }
 
     private boolean isInViewPort(Entity entity) {
