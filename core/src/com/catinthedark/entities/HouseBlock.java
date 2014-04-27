@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.catinthedark.Constants;
-import com.catinthedark.GameScore;
 import com.catinthedark.assets.Assets;
 import com.catinthedark.level.Level;
 
@@ -32,8 +31,6 @@ public class HouseBlock extends Entity {
     private long lastShootTime;
     private long shootInterval;
     private Level level;
-
-    private float stateTime;
 
     public boolean isWithEnemy() {
         return withEnemy;
@@ -61,7 +58,6 @@ public class HouseBlock extends Entity {
         this.top = top;
         this.left = left;
         this.level = level;
-        stateTime = 0f;
         shootIntervalMin = Constants.SHOOT_INTERVAL_MIN;
         shootIntervalMax = Constants.SHOOT_INTERVAL_MAX;
         shootInterval = MathUtils.random(shootIntervalMin, shootIntervalMax) * 1000000000L;
@@ -91,7 +87,6 @@ public class HouseBlock extends Entity {
     @Override
     public void render(float delta, SpriteBatch batch) {
         super.render(delta, batch);
-        stateTime += delta;
         TextureRegion region;
         if (destroyed) {
             if (left) {
