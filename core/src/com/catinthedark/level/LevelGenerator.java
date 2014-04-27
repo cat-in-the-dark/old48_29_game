@@ -4,10 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.catinthedark.Constants;
 import com.catinthedark.GameScore;
-import com.catinthedark.entities.Entity;
-import com.catinthedark.entities.House;
-import com.catinthedark.entities.OilField;
-import com.catinthedark.entities.TntVehicle;
+import com.catinthedark.entities.*;
 
 import java.util.List;
 import java.util.Map;
@@ -23,16 +20,23 @@ public class LevelGenerator {
     private float maxHouseDistance;
     private float minOilFieldDistance;
     private float maxOilFieldDistance;
-    private long lastTntVehicle = TimeUtils.nanoTime();
+
+    private long lastTntVehicle;
     private int tntVehicleIntervalMax;
     private int tntVehicleIntervalMin = Constants.TNT_VEHICLE_INTERVAL_MIN;
-    private long tntVehicleInterval = Constants.TNT_VEHICLE_INTERVAL_MIN;
+    private long tntVehicleInterval = Constants.TNT_VEHICLE_INTERVAL_MAX * 1000000000L;
+
+    private long lastAidVehicle;
+    private int aidVehicleIntervalMax;
+    private int aidVehicleIntervalMin = Constants.AID_VEHICLE_INTERVAL_MIN;
+    private long aidVehicleInterval = Constants.AID_VEHICLE_INTERVAL_MAX * 1000000000L;
 
     public static LevelGenerator getInstance() {
         return ourInstance;
     }
 
     private LevelGenerator() {
+        lastTntVehicle = lastAidVehicle = TimeUtils.nanoTime();
     }
 
     public void generateLevel(Level level) {
@@ -62,7 +66,28 @@ public class LevelGenerator {
                 generateOilField(level, oilFields);
             } else if (entityClass == TntVehicle.class) {
                 generateTntVehicle(level);
+            } else if (entityClass == AidVehicle.class) {
+                generateAidVehicle(level);
             }
+        }
+    }
+
+    private void generateAidVehicle(Level level) {
+        aidVehicleIntervalMax = Constants.AID_VEHICLE_INTERVAL_MAX +
+                ((Constants.DEMOCRACY_LEVEL_MAX - GameScore.getInstance().getDemocracyLevel()) / 2);
+
+        aidVehicleIntervalMin = Constants.AID_VEHICLE_INTERVAL_MIN +
+                ((Constants.DEMOCRACY_LEVEL_MAX - GameScore.getInstance().getDemocracyLevel()) / 2);
+
+        float cameraPosition = level.gameScreen.getCamera().position.x;
+        float leftEdgePosition = cameraPosition - level.gameScreen.getCamera().viewportWidth / 2f;
+
+        if (TimeUtils.nanoTime() - aidVehicleInterval > lastAidVehicle) {
+            Entity aidVehicle = new AidVehicle(leftEdgePosition - AidVehicle.width, Constants.GROUND_LEVEL,
+                    1 * Constants.AID_VEHICLE_SPEED_X, 0);
+            level.levelEntities.get(AidVehicle.class).add(aidVehicle);
+            lastAidVehicle = TimeUtils.nanoTime();
+            aidVehicleInterval = MathUtils.random(aidVehicleIntervalMin, aidVehicleIntervalMax) * 1000000000L;
         }
     }
 

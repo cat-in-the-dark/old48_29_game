@@ -17,7 +17,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.catinthedark.Constants;
 import com.catinthedark.entities.HouseBlock;
 import com.catinthedark.entities.President;
-import com.catinthedark.entities.TntVehicle;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -45,7 +44,6 @@ public class Assets {
     public static TiledMapRenderer backgroundRenderer;
 
     public static Texture oilFieldTexture;
-    public static Texture tntVehicleTexture;
     public static Texture houseBlockTexture;
 
     /**
@@ -90,6 +88,19 @@ public class Assets {
     public static Texture oilFieldSheet;
     public static Animation oilFieldAnimation;
 
+    /**
+     * Tnt vehicle textures and animation
+     */
+    public static Texture tntVehicleTexture;
+    public static Animation tntVehicleRiding;
+    public static TextureRegion tntVehicleExploded;
+
+    /**
+     * Aid vehicle textures and animation
+     */
+    public static Texture aidVehicleTexture;
+    public static Animation aidVehicleRiding;
+    public static TextureRegion aidVehicleExploded;
 
     public static void setupAssets() {
         /**
@@ -110,11 +121,6 @@ public class Assets {
         houseBlockPixMap.setColor(0, 1, 1, 1);
         houseBlockPixMap.fill();
         houseBlockTexture = new Texture(houseBlockPixMap);
-
-        Pixmap tntVehiclePixmap = new Pixmap(TntVehicle.width, TntVehicle.height, Pixmap.Format.RGBA8888);
-        tntVehiclePixmap.setColor(0, 0.5f, 0, 1.f);
-        tntVehiclePixmap.fill();
-        tntVehicleTexture = new Texture(tntVehiclePixmap);
 
         Pixmap enemyBlockPixMap = new Pixmap(HouseBlock.blockWidth, HouseBlock.blockHeight, Pixmap.Format.RGBA8888);
         enemyBlockPixMap.setColor(0, 0, 1, 1);
@@ -148,6 +154,10 @@ public class Assets {
                 Gdx.files.internal("texture/oil.png"));
         bulletTexture = new Texture(
                 Gdx.files.internal("texture/bullet.png"));
+        tntVehicleTexture = new Texture(
+                Gdx.files.internal("texture/kamaz_TERRORISM.png"));
+        aidVehicleTexture = new Texture(
+                Gdx.files.internal("texture/kamaz_AID.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("font/impact.ttf"));
@@ -187,6 +197,12 @@ public class Assets {
         TextureRegion[][] framesOilField = TextureRegion.split(Assets.oilFieldSheet,
                 Assets.oilFieldSheet.getWidth() / 2,
                 Assets.oilFieldSheet.getHeight());
+        TextureRegion[][] framesTntVehicle = TextureRegion.split(Assets.tntVehicleTexture,
+                Assets.tntVehicleTexture.getWidth() / 3,
+                Assets.tntVehicleTexture.getHeight());
+        TextureRegion[][] framesAidVehicle = TextureRegion.split(Assets.aidVehicleTexture,
+                Assets.aidVehicleTexture.getWidth() / 3,
+                Assets.aidVehicleTexture.getHeight());
 
         leftUnbrocken = framesEnemy[6][0];
         rightUnbrocken = framesEnemy[6][1];
@@ -244,5 +260,22 @@ public class Assets {
                 framesOilField[0][1]
         });
         oilFieldAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        tntVehicleRiding = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+                framesTntVehicle[0][0], framesTntVehicle[0][1]
+        });
+        tntVehicleRiding.setPlayMode(Animation.PlayMode.LOOP);
+        tntVehicleExploded = framesTntVehicle[0][2];
+
+        framesAidVehicle[0][0].flip(true, false);
+        framesAidVehicle[0][1].flip(true, false);
+        framesAidVehicle[0][2].flip(true, false);
+
+        aidVehicleRiding = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+                framesAidVehicle[0][0], framesAidVehicle[0][1]
+        });
+        aidVehicleRiding.setPlayMode(Animation.PlayMode.LOOP);
+
+        aidVehicleExploded = framesAidVehicle[0][2];
     }
 }

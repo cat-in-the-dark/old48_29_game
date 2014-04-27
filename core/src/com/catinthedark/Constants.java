@@ -30,6 +30,10 @@ public class Constants {
     public static final int TNT_VEHICLE_INTERVAL_MAX = 5;  // sec
     public static final float TNT_VEHICLE_SPEED_X = 0.1f;
 
+    public static final int AID_VEHICLE_INTERVAL_MIN = 8;  // sec
+    public static final int AID_VEHICLE_INTERVAL_MAX = 12;  // sec
+    public static final float AID_VEHICLE_SPEED_X = 0.5f;
+
 	/**
 	 * viewport
 	 */
