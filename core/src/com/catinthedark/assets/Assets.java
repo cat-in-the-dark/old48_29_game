@@ -20,11 +20,17 @@ import com.catinthedark.entities.HouseBlock;
  * Created by Ilya on 26.04.2014.
  */
 public class Assets {
+    /**
+     * Simple test textures
+     */
     public static Texture presidentTexture;
-    public static Texture  democracyTex;
+    public static Texture democracyTex;
     public static Texture houseBlockTexture;
     public static Texture bulletTexture;
-    
+
+    /**
+     * Screens' textures
+     */
     public static Texture logoTex;
     public static Texture gameStartTex;
     public static Texture tutorial1Tex;
@@ -32,14 +38,17 @@ public class Assets {
     public static Texture tutorial3Tex;
     public static Texture tutorial4Tex;
     public static Texture gameOverTex;
-    
-    public static Texture enemyBlockTexture;
+
     public static BitmapFont font;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
     public static Texture rocketTexture;
     public static Texture oilFactoryTexture;
-    public static TextureRegion[][] frames;
+
+    /**
+     * Enemies(Windows with enemies) Textures and Animations
+     */
+    public static Texture enemyBlockTexture;
     public static TextureRegion leftUnbrocken;
     public static TextureRegion rightUnbrocken;
     public static TextureRegion leftTopUnbrocken;
@@ -48,6 +57,7 @@ public class Assets {
     public static TextureRegion rightBrocken;
     public static Animation mdIdle;
     public static Animation mdShoot;
+
 
     public static void setupAssets() {
         Pixmap presidentPixmap = new Pixmap(5, 10, Pixmap.Format.RGBA8888);
@@ -110,19 +120,18 @@ public class Assets {
         enemyBlockPixMap.setColor(0, 0, 1, 1);
         enemyBlockPixMap.fill();
         enemyBlockTexture = new Texture(Gdx.files.internal("texture/houses_shahids.png"));
-
-        frames = TextureRegion.split(Assets.enemyBlockTexture,
-                Assets.enemyBlockTexture.getWidth() / Constants.FRAME_COLS,
-                Assets.enemyBlockTexture.getHeight() / Constants.FRAME_ROWS);
-
-        initAnimation();
     }
 
     public static void loadGameData() {
         setupAssets();
+        initAnimation();
     }
 
     private static void initAnimation() {
+        TextureRegion[][] frames = TextureRegion.split(Assets.enemyBlockTexture,
+                Assets.enemyBlockTexture.getWidth() / Constants.FRAME_COLS,
+                Assets.enemyBlockTexture.getHeight() / Constants.FRAME_ROWS);
+
         leftUnbrocken = frames[6][0];
         rightUnbrocken = frames[6][1];
         leftTopUnbrocken = frames[4][0];
