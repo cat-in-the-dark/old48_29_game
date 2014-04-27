@@ -17,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.catinthedark.Constants;
 import com.catinthedark.entities.HouseBlock;
 import com.catinthedark.entities.President;
+import com.catinthedark.screens.GameEndScreen;
 
 /**
  * Created by Ilya on 26.04.2014.
@@ -38,8 +39,10 @@ public class Assets {
     public static Texture tutorial3Tex;
     public static Texture tutorial4Tex;
     public static Texture gameOverTex;
+    public static Texture gameWinTex;
 
     public static BitmapFont font;
+    public static BitmapFont fontEnd;
     public static TiledMap backgroundMap;
     public static TiledMapRenderer backgroundRenderer;
 
@@ -154,6 +157,8 @@ public class Assets {
     			Gdx.files.internal("texture/tutorial4.png"));
         gameOverTex =  new Texture(
     			Gdx.files.internal("texture/game_over.png"));
+        gameWinTex =  new Texture(
+    			Gdx.files.internal("texture/win_screen.png"));
         enemyBlockTexture = new Texture(
                 Gdx.files.internal("texture/houses_shahids.png"));
         presidentSheet = new Texture(
@@ -177,6 +182,11 @@ public class Assets {
         params.size = 25;
         font = generator.generateFont(params);
     	font.setColor(Color.RED);
+    	
+    	params.size = 50;
+    	
+    	fontEnd = generator.generateFont(params);
+    	fontEnd.setColor(Color.WHITE);
     	generator.dispose(); // don't forget to dispose to avoid memory leaks!
     	
     	backgroundMap = new TmxMapLoader().load("area02.tmx");
