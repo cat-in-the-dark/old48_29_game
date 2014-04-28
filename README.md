@@ -14,6 +14,14 @@ class Game {
   
   public final TeamMater[] teamMaters;
   
+  public final String description = """
+    In modern world democracy and human rights violated regulary. 
+    You have unique chance to bring freedom and democracy to unknown east country. 
+    All characters and events depicted are fictional, 
+    and any resemblance to persons living, dead, or fictional or situations past, present, 
+    or fictional is purely and completely coincidental
+    """
+  
   public Game() {
     teamMaters = new TeamMater[] {
       new TeamMater("Blan4", TeamMater.Role.PROGRAMMER),
