@@ -146,9 +146,8 @@ public class GameScreen extends Basic2DScreen {
 
         }
 
-		// FIXME: only for debug
-		if (Gdx.input.isKeyPressed(Input.Keys.G))
-			next();
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+            next();
 	}
 
 	private void moveBackCamera() {
