@@ -10,6 +10,10 @@ public class Constants {
 	public static final int DEMOCRACY_LEVEL_MAX = 10;
 	public static final float GROUND_LEVEL = 4.0f; // tiles
     public static final float HINT_LEVEL = 12.0f;
+    public static enum Language {
+        EN, RU
+    }
+    public static final Language DEFAULT_LANG = Language.EN;
 	/**
 	 * minimum distance between buildings (at max democracy level)
 	 */

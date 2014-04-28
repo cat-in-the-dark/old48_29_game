@@ -129,14 +129,32 @@ public class Assets {
     			Gdx.files.internal("texture/logo.png"));
         gameStartTex =  new Texture(
     			Gdx.files.internal("texture/game_start_page.png"));
-        tutorial1Tex =  new Texture(
-    			Gdx.files.internal("texture/tutorial1.png"));
-        tutorial2Tex =  new Texture(
-    			Gdx.files.internal("texture/tutorial2.png"));
-        tutorial3Tex =  new Texture(
-    			Gdx.files.internal("texture/tutorial3.png"));
-        tutorial4Tex =  new Texture(
-    			Gdx.files.internal("texture/tutorial4.png"));
+        switch (Constants.DEFAULT_LANG) {
+            case EN:
+                tutorial1Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial1_en.png"));
+                tutorial2Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial2_en.png"));
+                tutorial3Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial3_en.png"));
+                tutorial4Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial4_en.png"));
+                oilHintTexture = new Texture(
+                        Gdx.files.internal("texture/oil_hint_en.png"));
+                break;
+            case RU:
+                tutorial1Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial1.png"));
+                tutorial2Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial2.png"));
+                tutorial3Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial3.png"));
+                tutorial4Tex =  new Texture(
+                        Gdx.files.internal("texture/tutorial4.png"));
+                oilHintTexture = new Texture(
+                        Gdx.files.internal("texture/oil_hint.png"));
+                break;
+        }
         gameOverTex =  new Texture(
     			Gdx.files.internal("texture/game_over.png"));
         gameWinTex =  new Texture(
@@ -159,8 +177,6 @@ public class Assets {
                 Gdx.files.internal("texture/explosion.png"));
         rocketTexture = new Texture(
                 Gdx.files.internal("texture/snaryad.png"));
-        oilHintTexture = new Texture(
-                Gdx.files.internal("texture/oil_hint.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("font/impact.ttf"));
