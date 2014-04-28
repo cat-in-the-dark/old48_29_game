@@ -127,7 +127,7 @@ public class Level {
             if (Intersector.intersectRectangles(field.bounds, factoryRect,
                     tmpRect)) {
                 levelEntities.get(OilFactory.class).add(
-                        new OilFactory(president.getX() + President.WIDTH));
+                        new OilFactory(field.getX() + field.getWidth()/2f - OilFactory.WIDTH / 2f));
                 field.setHasFactory(true);
                 GameScore.getInstance().incDemocracyLevel();
 

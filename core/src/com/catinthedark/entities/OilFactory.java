@@ -8,8 +8,8 @@ import com.catinthedark.assets.Assets;
  * Created by Ilya on 26.04.2014.
  */
 public class OilFactory extends Entity {
-    private static final int WIDTH = 4;
-    private static final int HEIGHT = 4;
+    public static final int WIDTH = 4;
+    public static final int HEIGHT = 4;
     private float localStateTime;
     
     private boolean destroyed;
