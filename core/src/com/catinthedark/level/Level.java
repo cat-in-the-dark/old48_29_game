@@ -28,6 +28,7 @@ public class Level {
         this.gameScreen = gameScreen;
         president = new President(0, Constants.GROUND_LEVEL);
         renderOrder = new Class[] {
+                Hint.class,
                 House.class,
                 Rocket.class,
                 Bullet.class,

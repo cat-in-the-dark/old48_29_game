@@ -128,6 +128,9 @@ public class LevelGenerator {
             float oilFieldY = Constants.OIL_FIELD_Y_POS;
             Entity oilFieldEntity = new OilField(newOilFieldX, oilFieldY);
             level.levelEntities.get(OilField.class).add(oilFieldEntity);
+            if (GameScore.getInstance().getDemocracyLevel() == 0) {
+                level.levelEntities.get(Hint.class).add(new Hint(newOilFieldX - Hint.WIDTH / 2f, Constants.HINT_LEVEL, Hint.Tip.OIL_HINT));
+            }
         }
     }
 

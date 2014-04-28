@@ -9,6 +9,7 @@ public class Constants {
 	public static final int HEALTH_MAX = 100;
 	public static final int DEMOCRACY_LEVEL_MAX = 10;
 	public static final float GROUND_LEVEL = 4.0f; // tiles
+    public static final float HINT_LEVEL = 12.0f;
 	/**
 	 * minimum distance between buildings (at max democracy level)
 	 */

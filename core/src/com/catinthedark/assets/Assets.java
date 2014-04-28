@@ -116,6 +116,12 @@ public class Assets {
     public static Texture explosionSheet;
     public static Animation explosionAnimation;
 
+    /**
+     * Hint textures
+     */
+    public static Texture oilHintTexture;
+    //public static Texture aidHintTexture;
+
     public static void setupAssets() {
         democracyTex = new Texture(
     			Gdx.files.internal("texture/democracy_bar.png"));
@@ -151,7 +157,10 @@ public class Assets {
                 Gdx.files.internal("texture/kamaz_AID.png"));
         explosionSheet = new Texture(
                 Gdx.files.internal("texture/explosion.png"));
-        rocketTexture = new Texture(Gdx.files.internal("texture/snaryad.png"));
+        rocketTexture = new Texture(
+                Gdx.files.internal("texture/snaryad.png"));
+        oilHintTexture = new Texture(
+                Gdx.files.internal("texture/oil_hint.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("font/impact.ttf"));
