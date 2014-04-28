@@ -115,8 +115,9 @@ public class Level {
     }
 
     public void placeOilFactory() {
+        float oilRectWidth = 2f;
         Rectangle factoryRect = new Rectangle(president.getX()
-                + President.WIDTH, president.getY() - 4, 1, 1);
+                + President.WIDTH / 2f - oilRectWidth / 2f, president.getY() - 4, oilRectWidth, 1);
 
         for (Entity ent : levelEntities.get(OilField.class)) {
             final OilField field = (OilField) ent;
