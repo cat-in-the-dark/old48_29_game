@@ -58,27 +58,27 @@ public class Assets {
     public static TextureRegion rightToppUnbrocken;
     public static TextureRegion leftBrocken;
     public static TextureRegion rightBrocken;
-    public static Animation mdIdle;
-    public static Animation mdShoot;
+    public static Animation<TextureRegion> mdIdle;
+    public static Animation<TextureRegion> mdShoot;
     public static Texture bulletTexture;
 
     /**
      * President Textures and Animations
      */
     public static Texture presidentSheet;
-    public static Animation presidentRunRight;
-    public static Animation presidentRunLeft;
-    public static Animation presidentIdle;
-    public static Animation presidentAimUp;
-    public static Animation presidentAimDown;
-    public static Animation presidentAimMiddle;
+    public static Animation<TextureRegion> presidentRunRight;
+    public static Animation<TextureRegion> presidentRunLeft;
+    public static Animation<TextureRegion> presidentIdle;
+    public static Animation<TextureRegion> presidentAimUp;
+    public static Animation<TextureRegion> presidentAimDown;
+    public static Animation<TextureRegion> presidentAimMiddle;
 
     /**
      * Oil factory textures and animations
      */
     public static Texture oilFactoryTexture;
-    public static Animation oilFactoryAppearance;
-    public static Animation oilFactoryDisappearance;
+    public static Animation<TextureRegion> oilFactoryAppearance;
+    public static Animation<TextureRegion> oilFactoryDisappearance;
     
     /**
      * sounds
@@ -94,27 +94,27 @@ public class Assets {
      * Oil field textures and animations
      */
     public static Texture oilFieldSheet;
-    public static Animation oilFieldAnimation;
+    public static Animation<TextureRegion> oilFieldAnimation;
 
     /**
      * Tnt vehicle textures and animation
      */
     public static Texture tntVehicleTexture;
-    public static Animation tntVehicleRiding;
+    public static Animation<TextureRegion> tntVehicleRiding;
     public static TextureRegion tntVehicleExploded;
 
     /**
      * Aid vehicle textures and animation
      */
     public static Texture aidVehicleTexture;
-    public static Animation aidVehicleRiding;
+    public static Animation<TextureRegion> aidVehicleRiding;
     public static TextureRegion aidVehicleExploded;
 
     /**
      * Explosion textures and animation
      */
     public static Texture explosionSheet;
-    public static Animation explosionAnimation;
+    public static Animation<TextureRegion> explosionAnimation;
 
     /**
      * Hint textures
@@ -240,17 +240,17 @@ public class Assets {
         leftBrocken = framesEnemy[5][0];
         rightBrocken = framesEnemy[5][1];
 
-        mdIdle = new Animation(0, framesEnemy[3][3]);
+        mdIdle = new Animation<>(0, framesEnemy[3][3]);
 
-        mdShoot = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+        mdShoot = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[]{
                 framesEnemy[3][3], framesEnemy[4][3]
         });
         mdShoot.setPlayMode(Animation.PlayMode.LOOP);
 
-        explosionAnimation = new Animation(Constants.ANIMATION_SPEED, framesExplosion[0]);
+        explosionAnimation = new Animation<>(Constants.ANIMATION_SPEED, framesExplosion[0]);
         explosionAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-        presidentRunRight = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+        presidentRunRight = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 presidentFrames[0][0],
                 presidentFrames[0][1],
                 presidentFrames[0][2],
@@ -262,7 +262,7 @@ public class Assets {
         });
         presidentRunRight.setPlayMode(Animation.PlayMode.LOOP);
 
-        presidentRunLeft = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+        presidentRunLeft = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 presidentFrames[0][7],
                 presidentFrames[0][6],
                 presidentFrames[0][5],
@@ -274,27 +274,27 @@ public class Assets {
         });
         presidentRunLeft.setPlayMode(Animation.PlayMode.LOOP);
 
-        presidentIdle =  new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+        presidentIdle =  new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[]{
                 presidentFrames[0][1]
         });
         presidentIdle.setPlayMode(Animation.PlayMode.NORMAL);
 
-        presidentAimDown = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+        presidentAimDown = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[]{
                 presidentFrames[0][8]
         });
         presidentAimDown.setPlayMode(Animation.PlayMode.NORMAL);
 
-        presidentAimMiddle = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+        presidentAimMiddle = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[]{
                 presidentFrames[0][9]
         });
         presidentAimMiddle.setPlayMode(Animation.PlayMode.NORMAL);
 
-        presidentAimUp = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[]{
+        presidentAimUp = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[]{
                 presidentFrames[0][10]
         });
         presidentAimUp.setPlayMode(Animation.PlayMode.NORMAL);
 
-        oilFactoryAppearance = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+        oilFactoryAppearance = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 framesOilFactory[0][0],
                 framesOilFactory[0][1],
                 framesOilFactory[0][2],
@@ -302,7 +302,7 @@ public class Assets {
         });
         oilFactoryAppearance.setPlayMode(Animation.PlayMode.NORMAL);
 
-        oilFactoryDisappearance = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+        oilFactoryDisappearance = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 framesOilFactory[0][3],
                 framesOilFactory[0][2],
                 framesOilFactory[0][1],
@@ -310,13 +310,13 @@ public class Assets {
         });
         oilFactoryDisappearance.setPlayMode(Animation.PlayMode.NORMAL);
 
-        oilFieldAnimation = new Animation(Constants.ANIMATION_SPEED_SLOW, new TextureRegion[]{
+        oilFieldAnimation = new Animation<>(Constants.ANIMATION_SPEED_SLOW, new TextureRegion[]{
                 framesOilField[0][0],
                 framesOilField[0][1]
         });
         oilFieldAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-        tntVehicleRiding = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+        tntVehicleRiding = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 framesTntVehicle[0][0], framesTntVehicle[0][1]
         });
         tntVehicleRiding.setPlayMode(Animation.PlayMode.LOOP);
@@ -327,7 +327,7 @@ public class Assets {
         framesAidVehicle[0][1].flip(true, false);
         framesAidVehicle[0][2].flip(true, false);
 
-        aidVehicleRiding = new Animation(Constants.ANIMATION_SPEED, new TextureRegion[] {
+        aidVehicleRiding = new Animation<>(Constants.ANIMATION_SPEED, new TextureRegion[] {
                 framesAidVehicle[0][0], framesAidVehicle[0][1]
         });
         aidVehicleRiding.setPlayMode(Animation.PlayMode.LOOP);

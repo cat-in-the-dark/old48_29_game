@@ -113,7 +113,7 @@ public class HouseBlock extends Entity {
         }
         batch.draw(region, this.x, this.y, HouseBlock.blockWidth, HouseBlock.blockHeight);
         if (isWithEnemy()) {
-            Animation enemyAnimation;
+            Animation<TextureRegion> enemyAnimation;
             if (shooting) {
                 enemyAnimation = Assets.mdShoot;
             } else {
