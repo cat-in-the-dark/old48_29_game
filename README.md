@@ -50,3 +50,14 @@ of spawn order; leaving gameplay destroys the level without destroying shared te
 - HUD text positions are approximated (libgdx baseline coords → Pixi top-left coords).
 - `Enemy.java` was dead code in the original and is not ported.
 - Audio uses Web Audio (overlapping SFX + looping BGM) instead of libgdx Sound/Music.
+
+## itch.io export
+
+Run `npm run build` and upload a ZIP containing the **contents** of `dist/`:
+`index.html` must be at the archive root alongside `assets/`.
+
+Vite uses `base: './'`, so generated scripts and chunks load relative to the game
+directory. Texture, sound and TMX URLs are already relative.
+
+On itch.io, select HTML Game, mark the ZIP as playable in the browser, and use an
+embedded viewport of **1024 × 640**.
