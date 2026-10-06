@@ -5,7 +5,7 @@ const SOUND_FILES = {
   oh1: 'assets/sound/oh1.mp3',
   oh2: 'assets/sound/oh2.mp3',
   kamazExplosion: 'assets/sound/kamaz_destroy.mp3',
-  music: 'assets/sound/bgm.mp3',
+  music: 'assets/sound/bgm.opus',
 };
 
 export class AudioEngine {
