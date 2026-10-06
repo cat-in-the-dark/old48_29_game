@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Beneath the surface of the democracy</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: #111; }
+    canvas { display: block; }
+    #fatal { color: #fff; font-family: sans-serif; padding: 20px; line-height: 1.5; }
+    #fatal code { background: #222; padding: 2px 6px; border-radius: 4px; }
+  </style>
+  <script type="module" crossorigin src="./assets/index-BLgMaFay.js"></script>
+</head>
+<body>
+  <script>
+    // ES modules cannot be loaded from file:// — show instructions instead of a black screen.
+    if (location.protocol === 'file:') {
+      document.body.innerHTML = '<div id="fatal">' +
+        'This page must be served by a local server (ES modules + asset fetch do not work over file://).<br>' +
+        'Run <code>npm install</code> and <code>npm run dev</code> in the <code>port/</code> folder, ' +
+        'then open <code>http://localhost:5173</code>.</div>';
+    }
+  </script>
+</body>
+</html>
