@@ -3,7 +3,6 @@ import { score } from './gameScore.js';
 import { audio } from './audio.js';
 import { intersectRectangles } from './entity.js';
 
-// Port of com.catinthedark.InterceptionManager
 export class InterceptionManager {
   constructor(level) {
     this.level = level;

@@ -6,21 +6,18 @@ import { OilField } from './entities/oilField.js';
 import { TntVehicle } from './entities/tntVehicle.js';
 import { AidVehicle } from './entities/aidVehicle.js';
 
-// Port of com.catinthedark.level.LevelGenerator
 function randInt(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
-// MathUtils.random(float, float) in the original
 function randFloat(min, max) {
   return min + Math.random() * (max - min);
 }
 
 export class LevelGenerator {
   constructor() {
-    const now = performance.now() / 1000;
-    this.lastTntVehicle = now;
-    this.lastAidVehicle = now;
+    this.lastTntVehicle = 0;
+    this.lastAidVehicle = 0;
     this.tntVehicleInterval = C.TNT_VEHICLE_INTERVAL_MAX;
     this.aidVehicleInterval = C.AID_VEHICLE_INTERVAL_MAX;
   }
@@ -42,7 +39,7 @@ export class LevelGenerator {
 
     const cam = level.gameScreen.camera;
     const leftEdge = cam.x - C.VIEW_PORT_WIDTH / 2;
-    const now = performance.now() / 1000;
+    const now = level.time;
 
     if (now - this.aidVehicleInterval > this.lastAidVehicle) {
       level.levelEntities.AidVehicle.push(
@@ -58,7 +55,7 @@ export class LevelGenerator {
 
     const cam = level.gameScreen.camera;
     const rightEdge = cam.x + C.VIEW_PORT_WIDTH / 2;
-    const now = performance.now() / 1000;
+    const now = level.time;
 
     if (now - this.tntVehicleInterval > this.lastTntVehicle) {
       level.levelEntities.TntVehicle.push(

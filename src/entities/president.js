@@ -4,8 +4,8 @@ import { A } from '../assets.js';
 import { score } from '../gameScore.js';
 import { audio } from '../audio.js';
 import { Rocket } from './rocket.js';
+import { LAYERS } from '../entity.js';
 
-// Port of com.catinthedark.entities.President
 export const STATE = { IDLE: 'IDLE', RUN: 'RUN', AIM_UP: 'AIM_UP', AIM_DOWN: 'AIM_DOWN' };
 export const DIR = { RIGHT: 'RIGHT', LEFT: 'LEFT' };
 
@@ -20,11 +20,8 @@ export class President {
     this.x = x;
     this.y = y;
 
-    this.minAcceleration = { x: 0, y: 0 };
-    this.maxAcceleration = { x: C.PRESIDENT_SPEED, y: 0 };
     this.acceleration = { x: 0, y: 0 };
 
-    // four body hitboxes (as in the original)
     const W = President.WIDTH, H = President.HEIGHT;
     this.bounds = [
       { x, y, width: W * 3 / 4, height: H * 0.32 },
@@ -37,7 +34,7 @@ export class President {
     this.lastShutTime = 0;
     this.stateTime = 0;
 
-    this.sprite = new Sprite();
+    this.sprite = new Sprite({ visible: false, zIndex: LAYERS.President });
     world.addChild(this.sprite);
   }
 
@@ -48,7 +45,7 @@ export class President {
 
     let anim;
     switch (this.state) {
-      case STATE.IDLE: anim = A.presidentIdle; break;
+      case STATE.IDLE: anim = A.presidentAimMiddle; break;
       case STATE.AIM_UP: anim = A.presidentAimUp; break;
       case STATE.AIM_DOWN: anim = A.presidentAimDown; break;
       case STATE.RUN:
@@ -56,9 +53,9 @@ export class President {
         break;
       default: anim = A.presidentAimMiddle;
     }
-    // original draws at (x, y - 0.5) with size WIDTH x HEIGHT
     const f = anim.getKeyFrame(this.stateTime);
     this.sprite.texture = f.tex;
+    this.sprite.visible = true;
     this.sprite.width = President.WIDTH;
     this.sprite.height = President.HEIGHT;
     this.sprite.position.set(this.x, -(this.y - 0.5 + President.HEIGHT));
@@ -82,13 +79,13 @@ export class President {
   move(state, camera) {
     if (state !== STATE.RUN) {
       this.state = state;
-      this.acceleration.x = this.minAcceleration.x;
+      this.acceleration.x = 0;
     } else {
       this.state = STATE.RUN;
       this.acceleration.x = this.direction === DIR.RIGHT
-        ? this.maxAcceleration.x : -this.maxAcceleration.x;
+        ? C.PRESIDENT_SPEED : -C.PRESIDENT_SPEED;
     }
-    if (!this.canMove(camera)) this.acceleration.x = this.minAcceleration.x;
+    if (!this.canMove(camera)) this.acceleration.x = 0;
   }
 
   tryMove() {
@@ -103,7 +100,7 @@ export class President {
   }
 
   doDamage(amount) {
-    audio.play(Math.random() % 2 === 0 ? 'oh1' : 'oh2', 0.7);
+    audio.play(Math.random() < 0.5 ? 'oh1' : 'oh2', 0.7);
     score.setHealth(score.getHealth() - amount);
   }
 

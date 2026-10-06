@@ -1,8 +1,8 @@
 import { A } from '../assets.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 
-// Port of com.catinthedark.entities.Explosion
 export class Explosion extends Entity {
+  static layer = LAYERS.Explosion;
   static HEIGHT = 2;
   static WIDTH = 2;
 

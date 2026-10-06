@@ -1,4 +1,3 @@
-// Port of com.catinthedark.Constants — logical units are tiles (1 tile = 32 px).
 export const HEALTH_MAX = 100;
 export const DEMOCRACY_LEVEL_MAX = 10;
 export const GROUND_LEVEL = 4.0;

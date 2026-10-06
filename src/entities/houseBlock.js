@@ -1,13 +1,11 @@
 import { Sprite } from 'pixi.js';
 import * as C from '../constants.js';
 import { A } from '../assets.js';
-import { score } from '../gameScore.js';
-import { audio } from '../audio.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 import { Bullet } from './bullet.js';
 
-// Port of com.catinthedark.entities.HouseBlock
 export class HouseBlock extends Entity {
+  static layer = LAYERS.HouseBlock;
   static blockWidth = 2;
   static blockHeight = 2;
 
@@ -19,10 +17,10 @@ export class HouseBlock extends Entity {
     this.top = top;
     this.left = left;
     this.shooting = false;
-    this.lastShootTime = 0;
+    this.lastShootTime = -Infinity;
     this.shootInterval = randInterval(C.SHOOT_INTERVAL_MIN, C.SHOOT_INTERVAL_MAX);
 
-    this.enemySprite = new Sprite();
+    this.enemySprite = new Sprite({ visible: false, zIndex: this.sprite.zIndex });
     this.world.addChild(this.enemySprite);
   }
 
@@ -36,7 +34,7 @@ export class HouseBlock extends Entity {
 
   shoot() {
     if (!this.withEnemy) return;
-    const now = performance.now() / 1000;
+    const now = this.level.time;
     const fromLastShot = now - this.lastShootTime;
     if (fromLastShot > this.shootInterval) {
       if (Math.random() < 0.5) {

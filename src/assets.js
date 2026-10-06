@@ -1,7 +1,6 @@
 import { Assets, Texture } from 'pixi.js';
 import * as C from './constants.js';
 
-// Port of com.catinthedark.Assets
 export const A = {};
 
 // A "frame" is { tex, flipX, flipY } — flips are applied at render time via
@@ -106,7 +105,6 @@ export async function loadAssets() {
   }));
   A.presidentRunRight = new Anim([0,1,2,3,4,5,6,7].map(pf), C.ANIMATION_SPEED, 'loop');
   A.presidentRunLeft = new Anim([7,6,5,4,3,2,1,0].map(pf), C.ANIMATION_SPEED, 'loop');
-  A.presidentIdle = new Anim([pf(1)], C.ANIMATION_SPEED, 'once');
   A.presidentAimDown = new Anim([pf(8)], C.ANIMATION_SPEED, 'once');
   A.presidentAimMiddle = new Anim([pf(9)], C.ANIMATION_SPEED, 'once');
   A.presidentAimUp = new Anim([pf(10)], C.ANIMATION_SPEED, 'once');

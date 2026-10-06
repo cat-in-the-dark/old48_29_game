@@ -10,7 +10,6 @@ import { GameScreen } from './screens/gameScreen.js';
 async function init() {
   const app = new Application();
   await app.init({ width: 1024, height: 640, background: 0x000000 });
-  // Pixi v8 does not attach the canvas to the DOM automatically
   document.body.appendChild(app.canvas);
 
   await loadAssets();
@@ -19,8 +18,6 @@ async function init() {
   const keys = new Set();
   const chain = new ScreenChain(app.stage);
 
-  // Screen chain, exactly as in BSODGame.create()
-  // Original: new TitleScreen(screenChain, Assets.logoTex, 1000) — 1 second
   chain.add(new TitleScreen(chain, A.logo, 1000));
 
   const startGame = new TitleScreen(chain, A.gameStart, 0);
@@ -33,7 +30,8 @@ async function init() {
     chain.add(screen);
   }
 
-  chain.add(new GameScreen(chain, keys));
+  const gameScreen = new GameScreen(chain, keys);
+  chain.add(gameScreen);
 
   const gameOverScreen = new GameEndScreen(chain, A.gameOver, 0);
   gameOverScreen.bind('Escape', 1);
@@ -43,21 +41,45 @@ async function init() {
   winScreen.bind('Escape', 1);
   chain.add(winScreen);
 
+  const controls = new Set([
+    'KeyA', 'KeyD', 'KeyW', 'KeyS', 'ArrowLeft', 'ArrowRight',
+    'ArrowUp', 'ArrowDown', 'Enter', 'Space', 'Escape',
+  ]);
+  let paused = false;
+  const setPaused = (value) => {
+    paused = value;
+    if (paused) {
+      keys.clear();
+      gameScreen.clock.reset();
+      app.ticker.stop();
+    } else {
+      app.ticker.start();
+    }
+  };
+  window.addEventListener('blur', () => setPaused(true));
+  window.addEventListener('focus', () => setPaused(document.hidden));
+  document.addEventListener('visibilitychange', () => {
+    setPaused(document.hidden || !document.hasFocus());
+  });
+
   window.addEventListener('keydown', (e) => {
+    if (!controls.has(e.code)) return;
+    e.preventDefault();
+    if (paused) return;
     keys.add(e.code);
     audio.resume();
-    chain.current().keyDown(e.code);
+    if (!e.repeat) chain.current().keyDown(e.code);
   });
   window.addEventListener('keyup', (e) => keys.delete(e.code));
 
   app.ticker.add((ticker) => {
-    chain.current().render(ticker.deltaTime / 60);
+    chain.current().render(ticker.deltaMS / 1000);
   });
 
   chain.gotoFrame(0);
+  setPaused(document.hidden);
 
-  // debug/test hook
-  window.BSOD = { chain, gameScreen: chain.screens[6], score, keys };
+  window.BSOD = { chain, gameScreen, score, keys };
 }
 
 init().catch((err) => {

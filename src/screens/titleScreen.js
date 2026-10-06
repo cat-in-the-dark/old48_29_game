@@ -1,7 +1,6 @@
 import { Container, Sprite } from 'pixi.js';
 import * as C from '../constants.js';
 
-// Port of com.catinthedark.screens.TitleScreen
 export class TitleScreen {
   constructor(chain, texture, timeToLive) {
     this.chain = chain;
@@ -45,7 +44,8 @@ export class TitleScreen {
   }
 
   render(delta) {
-    if (!this.infinite) this.timeLaps += delta;
+    if (this.infinite) return;
+    this.timeLaps += delta;
     if (this.timeLaps * 1000 > this.timeToLive) this.chain.next();
   }
 }

@@ -1,8 +1,8 @@
 import { A } from '../assets.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 
-// Port of com.catinthedark.entities.Hint
 export class Hint extends Entity {
+  static layer = LAYERS.Hint;
   static WIDTH = 10;
   static HEIGHT = 4;
 

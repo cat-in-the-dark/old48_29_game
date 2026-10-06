@@ -1,4 +1,3 @@
-// Port of com.catinthedark.screens.ScreenChain
 export class ScreenChain {
   constructor(stage) {
     this.screens = [];
@@ -13,8 +12,9 @@ export class ScreenChain {
 
   gotoFrame(index) {
     if (index < 0 || index >= this.screens.length) {
-      throw new Error(`frame with id '${index}' does not exists! AZAZA!`);
+      throw new Error(`Screen index ${index} is out of range`);
     }
+    this.current().hide?.();
     this.currentFrame = index;
     const screen = this.screens[index];
     this.stage.removeChildren();

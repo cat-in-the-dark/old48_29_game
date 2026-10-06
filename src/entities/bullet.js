@@ -1,9 +1,8 @@
-import * as C from '../constants.js';
 import { A } from '../assets.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 
-// Port of com.catinthedark.entities.Bullet
 export class Bullet extends Entity {
+  static layer = LAYERS.Bullet;
   static bulletWidth = 0.5;
   static bulletHeight = 0.5;
 
@@ -22,7 +21,6 @@ export class Bullet extends Entity {
 
   render(delta) {
     this.move();
-    // original draws at (x, y + height)
     this.drawAt(A.bullet, this.x, this.y + this.height);
   }
 }

@@ -1,9 +1,9 @@
 import { A } from '../assets.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 import { STATE } from './president.js';
 
-// Port of com.catinthedark.entities.Rocket
 export class Rocket extends Entity {
+  static layer = LAYERS.Rocket;
   static rocketWidth = 2;
   static rocketHeight = 1;
 
@@ -14,7 +14,6 @@ export class Rocket extends Entity {
     const maxUp = { x: 0.5 * m, y: 0.08 * m };
     const maxDown = { x: 0.5 * m, y: -0.2 * m };
     this.acceleration = { ...maxMiddle };
-    this.creator = creator;
     switch (creator.state) {
       case STATE.AIM_UP: this.acceleration = { ...maxUp }; break;
       case STATE.AIM_DOWN: this.acceleration = { ...maxDown }; break;

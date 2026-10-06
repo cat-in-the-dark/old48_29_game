@@ -2,7 +2,6 @@ import { Container, Graphics, Sprite, Text } from 'pixi.js';
 import { A } from './assets.js';
 import { score } from './gameScore.js';
 
-// Port of com.catinthedark.hud.GameHud (screen-space, 1024x640)
 const RED = 0xff0000;
 const BLACK = 0x000000;
 const GREEN = 0x0ab53d; // Color(0.04, 0.71, 0.24)

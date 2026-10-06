@@ -6,16 +6,17 @@ import { Level } from '../level.js';
 import { InterceptionManager } from '../interceptionManager.js';
 import { GameHud } from '../hud.js';
 import { audio } from '../audio.js';
+import { FixedStep } from '../fixedStep.js';
 
-// Port of com.catinthedark.screens.GameScreen
 export class GameScreen {
   constructor(chain, keys) {
     this.chain = chain;
     this.keys = keys;
+    this.clock = new FixedStep();
 
     this.container = new Container();
     this.bg = new Container();
-    this.world = new Container();
+    this.world = new Container({ sortableChildren: true });
     this.bg.scale = C.UNIT_SIZE;
     this.world.scale = C.UNIT_SIZE;
     this.hud = new GameHud();
@@ -34,10 +35,11 @@ export class GameScreen {
   }
 
   show() {
-    // BGM starts when the game itself begins (not on the logo screen).
-    // playMusic() is guarded, so re-entering the game screen is safe.
     audio.playMusic(0.7);
 
+    this.level?.destroy();
+    this.keys.clear();
+    this.clock.reset();
     this.level = new Level(this);
     this.interManager = new InterceptionManager(this.level);
 
@@ -53,24 +55,42 @@ export class GameScreen {
     this.hud.setHealth(100);
   }
 
+  hide() {
+    this.keys.clear();
+    this.clock.reset();
+    this.level?.destroy();
+    this.level = null;
+  }
+
   render(delta) {
+    this.clock.advance(delta, (step) => {
+      this.update(step);
+      return this.chain.current() === this;
+    });
+  }
+
+  update(delta) {
     this.processKeys();
     this.interManager.manage();
 
-    // background layer (back camera)
     this.bg.position.set(
       (C.VIEW_PORT_WIDTH / 2 - this.backCamera.x) * C.UNIT_SIZE,
       (this.backCamera.y + C.VIEW_PORT_HEIGHT / 2) * C.UNIT_SIZE);
 
-    // entities layer (main camera)
     this.world.position.set(
       (C.VIEW_PORT_WIDTH / 2 - this.camera.x) * C.UNIT_SIZE,
       (this.camera.y + C.VIEW_PORT_HEIGHT / 2) * C.UNIT_SIZE);
 
     this.level.render(delta);
 
-    if (score.getHealth() === 0) this.chain.next();
-    if (score.getDemocracyLevel() === C.DEMOCRACY_LEVEL_MAX) this.chain.gotoFrame(8);
+    if (score.getDemocracyLevel() === C.DEMOCRACY_LEVEL_MAX) {
+      this.chain.gotoFrame(8);
+      return;
+    }
+    if (score.getHealth() === 0) {
+      this.chain.gotoFrame(7);
+      return;
+    }
 
     this.hud.setHealth(score.getHealth());
     this.hud.setDemocracyLevel(100 / C.DEMOCRACY_LEVEL_MAX * score.getDemocracyLevel());
@@ -96,8 +116,8 @@ export class GameScreen {
     if (k.has('KeyW') || k.has('ArrowUp')) lastState = 'AIM_UP';
 
     if (k.has('Enter')) {
-      this.level.shut();
       this.level.president.move(lastState, this.camera);
+      this.level.shut();
       return;
     }
 

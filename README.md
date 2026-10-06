@@ -25,18 +25,23 @@ Assets (textures, sounds, font, area02.tmx) are copied from `legacy/assets` into
 ## Tests
 
 ```bash
+npm test
 npm run build
-npx vite preview --port 4173 &
-node test/e2e.mjs
+npm run preview -- --host 127.0.0.1 --port 4173
+# In another terminal:
+npm run test:e2e
+node test/regression.mjs
 ```
 
-`test/e2e.mjs` drives the game headlessly via Playwright: screen chain flow, procedural
-generation (houses/oil fields/vehicles), shooting, factory placement, bullet damage,
-win (democracy 10) and game-over (health 0) transitions. `main.js` exposes a `window.BSOD`
-debug hook (`chain`, `gameScreen`, `score`, `keys`) used only by the tests.
+Set `GAME_URL` to test a different server. The logic tests cover FPS independence,
+legacy enemy counts, aiming, collisions, healing, factories, end states and cleanup.
+The browser tests exercise keyboard controls, focus pause and repeated sessions.
+Win/death tests use real entities placed by fixtures; they do not constitute a
+complete unassisted playthrough. `window.BSOD` exposes the game state for these checks.
 
-`test/regression.mjs` covers two previously reported bugs: stable flip scale on destroyed
-vehicles (no flicker) and enemy sprites being hidden when their house block is destroyed.
+Gameplay uses a fixed 60 Hz simulation and a level-local clock. Losing focus pauses
+simulation and clears held keys. Pixi `zIndex` controls entity layers independently
+of spawn order; leaving gameplay destroys the level without destroying shared textures.
 
 ## Known deviations from the original
 

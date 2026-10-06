@@ -1,8 +1,8 @@
 import { A } from '../assets.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 
-// Port of com.catinthedark.entities.OilField
 export class OilField extends Entity {
+  static layer = LAYERS.OilField;
   static width = 7;
   static height = 2;
 

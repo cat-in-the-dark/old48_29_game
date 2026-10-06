@@ -1,6 +1,5 @@
 import * as C from './constants.js';
 
-// Port of com.catinthedark.GameScore
 export class GameScore {
   constructor() {
     this.democracyLevel = 0;
@@ -31,5 +30,4 @@ export class GameScore {
   resetScore() { this.score = 0; }
 }
 
-// Singleton, as in the original GameScore.getInstance()
 export const score = new GameScore();

@@ -3,7 +3,6 @@ import * as C from '../constants.js';
 import { score } from '../gameScore.js';
 import { TitleScreen } from './titleScreen.js';
 
-// Port of com.catinthedark.screens.GameEndScreen
 export class GameEndScreen extends TitleScreen {
   constructor(chain, texture, timeToLive) {
     super(chain, texture, timeToLive);
@@ -19,8 +18,8 @@ export class GameEndScreen extends TitleScreen {
     this.container.addChild(this.scoreText);
   }
 
-  render(delta) {
-    super.render(delta);
+  show() {
+    super.show();
     this.scoreText.text = 'Score:' + score.getScore();
   }
 }

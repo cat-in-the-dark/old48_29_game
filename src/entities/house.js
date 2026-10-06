@@ -1,10 +1,10 @@
 import * as C from '../constants.js';
 import { score } from '../gameScore.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 import { HouseBlock } from './houseBlock.js';
 
-// Port of com.catinthedark.entities.House
 export class House extends Entity {
+  static layer = LAYERS.House;
   constructor(level, x, y, widthInBlocks, heightInBlocks) {
     super(level.world, x, y, widthInBlocks * HouseBlock.blockWidth, heightInBlocks * HouseBlock.blockHeight);
     this.sprite.visible = false; // house itself is drawn via its blocks
@@ -17,7 +17,7 @@ export class House extends Entity {
 
   buildHouse() {
     const blocksCount = this.widthInBlocks * this.heightInBlocks;
-    const enemiesInHouseMax = score.getDemocracyLevel() * blocksCount / C.DEMOCRACY_LEVEL_MAX;
+    const enemiesInHouseMax = Math.floor(score.getDemocracyLevel() * blocksCount / C.DEMOCRACY_LEVEL_MAX);
     const enemiesInHouse = Math.floor(Math.random() * (enemiesInHouseMax + 1));
 
     const vacant = [];

@@ -1,9 +1,9 @@
 import * as C from '../constants.js';
 import { A } from '../assets.js';
-import { Entity } from '../entity.js';
+import { Entity, LAYERS } from '../entity.js';
 
-// Port of com.catinthedark.entities.OilFactory
 export class OilFactory extends Entity {
+  static layer = LAYERS.OilFactory;
   static WIDTH = 4;
   static HEIGHT = 4;
 

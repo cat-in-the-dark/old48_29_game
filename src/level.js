@@ -2,22 +2,15 @@ import * as C from './constants.js';
 import { score } from './gameScore.js';
 import { intersectRectangles } from './entity.js';
 import { President } from './entities/president.js';
-import { Hint } from './entities/hint.js';
-import { House } from './entities/house.js';
-import { Rocket } from './entities/rocket.js';
-import { Bullet } from './entities/bullet.js';
 import { OilFactory } from './entities/oilFactory.js';
-import { OilField } from './entities/oilField.js';
-import { TntVehicle } from './entities/tntVehicle.js';
-import { AidVehicle } from './entities/aidVehicle.js';
 import { Explosion } from './entities/explosion.js';
 import { LevelGenerator } from './levelGenerator.js';
 
-// Port of com.catinthedark.level.Level
 export class Level {
   constructor(gameScreen) {
     this.gameScreen = gameScreen;
     this.world = gameScreen.world;
+    this.time = 0;
     this.president = new President(this.world, 0, C.GROUND_LEVEL);
     this.generator = new LevelGenerator();
 
@@ -25,10 +18,6 @@ export class Level {
       Hint: [], House: [], Rocket: [], Bullet: [],
       OilFactory: [], OilField: [], TntVehicle: [], AidVehicle: [], Explosion: [],
     };
-    this.renderOrder = [
-      'Hint', 'House', 'Rocket', 'Bullet', 'OilFactory', 'OilField',
-      'TntVehicle', 'AidVehicle', 'Explosion',
-    ];
   }
 
   isRighterThanViewPort(entity) {
@@ -49,11 +38,12 @@ export class Level {
   }
 
   render(delta) {
+    this.time += delta;
     this.generator.generateLevel(this);
 
-    for (const cls of this.renderOrder) {
+    for (const [cls, entities] of Object.entries(this.levelEntities)) {
       if (cls === 'Rocket') {
-        for (const rocket of this.levelEntities.Rocket) {
+        for (const rocket of entities) {
           if (!this.isBulletInViewPort(rocket)) {
             rocket.markDeleted();
             this.bum(rocket.x, rocket.y - 0.2);
@@ -62,15 +52,14 @@ export class Level {
           }
         }
       } else if (cls === 'OilField') {
-        this.renderEntities(this.levelEntities.OilField, delta);
+        this.renderEntities(entities, delta);
         this.president.render(delta);
       } else {
-        this.renderEntities(this.levelEntities[cls], delta);
+        this.renderEntities(entities, delta);
       }
     }
 
-    for (const cls in this.levelEntities) {
-      const list = this.levelEntities[cls];
+    for (const list of Object.values(this.levelEntities)) {
       for (let i = list.length - 1; i >= 0; i--) {
         if (list[i].isMarkedToDelete()) {
           list[i].destroy();
@@ -88,6 +77,14 @@ export class Level {
         entity.render(delta);
       }
     }
+  }
+
+  destroy() {
+    for (const entities of Object.values(this.levelEntities)) {
+      for (const entity of entities) entity.destroy();
+      entities.length = 0;
+    }
+    this.president.destroy();
   }
 
   shut() {
